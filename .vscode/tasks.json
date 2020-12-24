@@ -9,7 +9,7 @@
 			"options": {
 				"cwd": "M:\\SteamLibraryM\\steamapps\\common\\Arma 3"
 			},
-			"command": "arma3diag_x64",
+			"command": "arma3_x64",
 			"args": [
 				"${workspaceFolder}\\mission.sqm",
 				"-skipIntro",
