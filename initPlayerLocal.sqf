@@ -1,0 +1,1 @@
+[] spawn AAS_fnc_mapZoomMarker;

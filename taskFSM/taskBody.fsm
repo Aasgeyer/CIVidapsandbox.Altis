@@ -1,0 +1,180 @@
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskCargo">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"update_task__loc",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"update task " \n "location"};
+item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
+item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
+item4[] = {"bag_near_base",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"bag" \n "near base"};
+item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
+item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
+item7[] = {"bodybag_in_car",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"bodybag in" \n "car"};
+item8[] = {"success",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
+item9[] = {"no_player_near_",4,218,-100.000000,550.000000,0.000000,600.000000,0.000000,"no player near" \n "(objNull)"};
+item10[] = {"end",1,4346,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
+link0[] = {0,2};
+link1[] = {0,5};
+link2[] = {1,4};
+link3[] = {2,3};
+link4[] = {4,8};
+link5[] = {5,6};
+link6[] = {6,7};
+link7[] = {7,1};
+link8[] = {8,9};
+link9[] = {9,10};
+globals[] = {0.000000,0,0,0,0,640,480,1,16,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
+window[] = {2,-1,-1,-32000,-32000,785,26,1466,26,3,1258};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "TaskCargo";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_deadBody"",""_BodyID""];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "__IsServer">*/
+                                class __IsServer
+                                {
+                                        itemno = 2;
+                                        priority = 2.000000;
+                                        to="terminate";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!IsServer"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="__";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "update_task__loc">*/
+                class update_task__loc
+                {
+                        name = "update_task__loc";
+                        itemno = 1;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""marker_idapbase""] call BIS_fnc_TaskSetDestination;" \n
+                         "_baseMarkerPos = markerpos ""marker_idapbase"";"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "bag_near_base">*/
+                                class bag_near_base
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="success";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_nearobjects = _baseMarkerPos nearObjects [""Land_Bodybag_01_white_F"",50];" \n
+                                         "_nearObjects findIf {" \n
+                                         "    _x getVariable [""AAS_bodyID"",-1] isEqualTo _bodyID" \n
+                                         "    && isnull isVehicleCargo _x" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "terminate">*/
+                class terminate
+                {
+                        name = "terminate";
+                        itemno = 3;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "__">*/
+                class __
+                {
+                        name = "__";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "bodybag_in_car">*/
+                                class bodybag_in_car
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="update_task__loc";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"isNull _deadBody"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "success">*/
+                class success
+                {
+                        name = "success";
+                        itemno = 8;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near_">*/
+                                class no_player_near_
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance ObjNull < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "end">*/
+                class end
+                {
+                        name = "end";
+                        itemno = 10;
+                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;" \n
+                         "_nearobjects = _baseMarkerPos nearObjects [""Land_Bodybag_01_white_F"",50];" \n
+                         "_bodyBag = _nearObjects select (_nearObjects findIf {" \n
+                         "    _x getVariable [""AAS_bodyID"",-1] isEqualTo _bodyID" \n
+                         "    && isnull isVehicleCargo _x" \n
+                         "});" \n
+                         "deleteVehicle _bodyBag;" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+                "terminate",
+                "end",
+        };
+};
+/*%FSM</COMPILE>*/
