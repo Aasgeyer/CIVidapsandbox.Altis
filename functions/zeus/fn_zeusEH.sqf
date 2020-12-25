@@ -8,13 +8,19 @@ switch (_mode) do {
     case -1: {
         
     };
+
     case 0: {
         //init [zeuslogic,ObjNull,0] call AAS_fnc_zeusEH;
         _curator addEventHandler ["CuratorObjectPlaced", {
             _this = _this + [1];
             _this call AAS_fnc_zeusEH;
         }];
+        _curator addEventHandler ["CuratorObjectDeleted", {
+            _this = _this + [2];
+            _this call AAS_fnc_zeusEH;
+        }];
     };
+
     case 1: {
         //object created
         //cargo loadable objects get the hold action
@@ -86,8 +92,22 @@ switch (_mode) do {
                 };
             } forEach _doornames;
         };
+        
+        If (typeOf _entity in AAS_TentObjects) then {
+            AAS_TentsPlaced = AAS_TentsPlaced + 1;
+            publicVariable "AAS_TentsPlaced";
+        };
     };
+
     case 2: {
+        // on Entity deleted
+        If (typeOf _entity in AAS_TentObjects) then {
+            AAS_TentsPlaced = AAS_TentsPlaced - 1;
+            publicVariable "AAS_TentsPlaced";
+        };
+    };
+
+    case 3: {
         //finding selection posis (for debugging)
         {
             _modelPos = _curator selectionPosition _x;
