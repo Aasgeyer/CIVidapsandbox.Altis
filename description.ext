@@ -1,9 +1,8 @@
-allowFunctionsLog = 2;
-allowFunctionRecompile = 1;
+allowFunctionsLog = 1;
+allowFunctionsRecompile = 1;
 
 class CfgFunctions
 {
-	file = "fnc";
 	class AAS
 	{
         class objects {
@@ -27,6 +26,16 @@ class CfgFunctions
             class TaskParents;
         };
 	};
+    class TER
+    {
+        class UI
+        {
+            file = "ui\scripts";
+            class initDisplay {preInit = 1;};
+        };
+    };
 };
 
 #include "cfg\cfgRadio.inc"
+
+#include "ui\cfg.hpp"
