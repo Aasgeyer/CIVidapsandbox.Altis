@@ -29,7 +29,8 @@ switch (_mode) do {
         };
         //if it is a UAV, create crew, so that terminal can be connected
         If (getnumber (configfile >> "CfgVehicles" >> typeOf _entity >> "isUav") isEqualTo 1) then {
-            createVehicleCrew _entity;
+            private _crew = createVehicleCrew _entity;
+            _curator addCuratorEditableObjects [units _crew, true];
         };
         //If vehcile is the leaflet drone class, defined in initServer.sqf, add leaflet weapon
         If (tolower typeOf _entity isEqualTo toLower MIS_leafletdroneclass) then {
