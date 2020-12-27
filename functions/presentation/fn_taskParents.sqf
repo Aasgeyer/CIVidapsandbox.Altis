@@ -64,3 +64,11 @@ Once you have found them put them in a body bag and  bring them back to base so 
 Requirement: %1.
 ",_cargoVanDisplayName];
 [true, "TaskBody", [_TaskDescription,"Body Retrieval",""], objNull, "CREATED", -1, false, "search"] call BIS_fnc_taskCreate;
+
+_TaskDescription = format ["
+We keep an eye on the actions of the conflict parties. There have been reports
+ of unlawful executions, but of course the claim is always that the victim posed
+ an immediate threat. Make sure to be there before anything bad can happen!<br/>
+Requirement: %1.
+","None"];
+[true, "TaskDetainedCiv", [_TaskDescription,"Detained Civilian",""], objNull, "CREATED", -1, false, "defend"] call BIS_fnc_taskCreate;

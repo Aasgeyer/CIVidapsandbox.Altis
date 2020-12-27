@@ -71,4 +71,32 @@ class CfgRadio
 		sound[]	= { "", db - 100, 1.0 };
 		title	= "I'll bring you somewhere safe. Stay close!";
 	};
+
+	class IDAP_DetainedTalk_1
+	{
+		name	= "";
+		sound[]	= { "", db - 100, 1.0 };
+		//title	= "I inquire thee; what foul demises is 'tis you bring upon thy brother? Stop at once or face thy judgment in the face of god and men!";
+		title = "Hello there, we are from the International Development and Aid Project and I must ask what you are doing here.";
+	};
+	class I_DetainedRespond_1
+	{
+		name	= "";
+		sound[]	= { "", db - 100, 1.0 };
+		//title	= "'tis but a detention of the ordinary kind. Your eyes must deceive you, for no harm is done, or does it not be so? But to thy hands I commit this soul, for but a burden he would be to us.";
+		title = "This is a usual detention. We suspect that sack of shit to cooperate with the enemy but he won't talk. So do whatever you want with him. He's all yours. Come on men, continue on patrol.";
+	};
+	class IDAP_DetainedFree_1
+	{
+		name	= "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Let me help you with this. Have you been harmed?";
+	};
+	class C_DetainedFreed_1
+	{
+		name	= "";
+		sound[]	= { "", db - 100, 1.0 };
+		//title	= "I thank thee good sir! Forevermore I am in thy debt, which not gold nor gem can repay! Thank thee, O savior of mine!";
+		title = "No, I think I can handle. I am glad you came. I'll be on my way and thank you!";
+	};
 };
