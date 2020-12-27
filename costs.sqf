@@ -16,6 +16,10 @@ TER_zeusCost = [];
 	private _cost = getNumber(_x >> "costZeus");
 	TER_zeusCost append [_name, _cost];
 };
+[] spawn {
+	waitUntil {time > 1};
+	[] call TER_fnc_loadCuratorCosts;
+};
 
 /* TER_zeusCost = [
 	//--- Vehicles

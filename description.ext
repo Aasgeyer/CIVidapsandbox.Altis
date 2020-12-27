@@ -41,6 +41,14 @@ class CfgFunctions
             class hint;
             class hintQueue;
         };
+        class Economy
+        {
+            class getCost;
+        };
+        class Zeus
+        {
+            class loadCuratorCosts;
+        };
     };
 };
 

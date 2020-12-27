@@ -16,6 +16,5 @@
 	Example(s):
 		__PARAMETER__ __EXECUTIONMETHOD__ __FUNCTION___; //-> __RETURN__
 */
-params [["_curator", getAssignedCuratorLogic player]];
-if (isNull _curator) exitWith {};
-[_curator, TER_zeusCost] call BIS_fnc_curatorObjectRegisteredTable;
+params ["_class"];
+getNumber(missionConfigFile >> "CfgAssets" >> _class >> "cost")

@@ -24,7 +24,6 @@ switch _mode do {
 		//--- Activity
 		_ctrlGrpActivity = _display getVariable "GroupActivity";
 		_ctrlActivityList = _ctrlGrpActivity getVariable "List";
-		diag_log [_display, _ctrlActivityList];
 		TER_hints apply {
 			_x params ["_title", "_body"];
 			ctAddRow _ctrlActivityList params ["_ind", "_row"];
@@ -54,7 +53,6 @@ switch _mode do {
 		_cfgCtrl = _cfgDisplay >> "controls" >> "NavbarLeft" >> "controls" >> ctrlClassName _ctrl;
 		private _ctrlGroup = getText(_cfgCtrl >> "group");
 		_ctrlGroup = _display getVariable _ctrlGroup;
-		diag_log [_ctrlGroup];
 		private _allGroups = "isText(_x >> 'textTitle')" configClasses (_cfgDisplay >> "controls");
 		_allGroups = _allGroups apply {
 			private _xG = _display getVariable configName _x;
@@ -77,7 +75,6 @@ switch _mode do {
 		_list = _list apply {
 			if (_ind == 2) then {
 				//--- Sort by price
-				diag_log [getNumber(_x >> "cost"), _x];
 				[getNumber(_x >> "cost"), _x]
 			} else {
 				//--- Sort by name
@@ -101,7 +98,7 @@ switch _mode do {
 		};
 		ctClear _ctrlList;
 		_list apply {
-			private _cost = getNumber(missionConfigFile >> "CfgAssets" >> _x >> "cost");
+			private _cost = [_x] call TER_fnc_getCost;
 			private _cfg = configFile >> "CfgVehicles" >> _x;
 			private _image = getText(_cfg >> "editorPreview");
 			ctAddRow _ctrlList params ["_ind", "_row"];
