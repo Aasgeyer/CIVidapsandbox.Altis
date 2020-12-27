@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskCargo">*/
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskWater">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
@@ -11,7 +11,7 @@ item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"watertruck_near",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"watertruck near"};
 item8[] = {"success",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
 item9[] = {"no_player_near",4,218,-100.000000,550.000000,0.000000,600.000000,0.000000,"no player near"};
-item10[] = {"end",1,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
+item10[] = {"end",1,4346,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
 item11[] = {"_",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,""};
 item12[] = {"sleep_30s",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"sleep 30s"};
 item13[] = {"watertruck_away",4,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"watertruck" \n "away"};
@@ -31,11 +31,11 @@ link12[] = {11,13};
 link13[] = {12,8};
 link14[] = {13,6};
 globals[] = {0.000000,0,0,0,0,640,480,1,17,6316128,1,-724.557922,648.189636,825.090210,-153.545807,1240,884,1};
-window[] = {2,-1,-1,-1,-1,811,-1868,-428,52,3,1258};
+window[] = {2,-1,-1,-32000,-32000,837,78,1518,78,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
-        fsmName = "TaskCargo";
+        fsmName = "TaskWater";
         class States
         {
                 /*%FSM<STATE "Start">*/
@@ -43,7 +43,8 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_destination"",""_loseTime""];"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_destination"",""_loseTime""];" \n
+                         "_ObjArray = _destination getvariable ""AAS_IDAPOutpostObjectArray"";"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -169,7 +170,16 @@ class FSM
                 {
                         name = "end";
                         itemno = 10;
-                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"deletearray call CBA_fnc_deleteEntity;" \n
+                         "{" \n
+                         "    _x hideObjectGlobal true;" \n
+                         "    _x enableSimulationGlobal false;" \n
+                         "} foreach _ObjArray;" \n
+                         "_destination setVariable [""AAS_IDAPOutPostActive"",false];" \n
+                         "_markerArray = _destination getVariable ""AAS_IDAPOutpostMarkerArray"";" \n
+                         "{" \n
+                         "    _x setMarkerAlpha 0;" \n
+                         "} foreach _markerArray;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

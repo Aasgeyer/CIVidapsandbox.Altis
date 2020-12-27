@@ -4,7 +4,26 @@ _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random destination
-_destination = selectRandom MIS_idapoutposts;
+_nonActiveOutposts = MIS_idapoutposts select {
+    !(_x getVariable ["AAS_IDAPOutPostActive",false])
+};
+If (count _nonActiveOutposts == 0) exitWith {
+    If (_debug) then {
+        systemChat "Cargo script exited, since no available outposts found...";
+    };
+};
+_destination = selectRandom _nonActiveOutposts;
+_destination setVariable ["AAS_IDAPOutPostActive",true];
+_ObjArray = _destination getVariable "AAS_IDAPOutpostObjectArray";
+{
+    _x hideObjectGlobal false;
+    _x enableSimulationGlobal true;
+} foreach _ObjArray;
+_markerArray = _destination getVariable "AAS_IDAPOutpostMarkerArray";
+{
+    _x setMarkerAlpha 1;
+} foreach _markerArray;
+
 //random supply
 _supplyneeded = selectRandom MIS_VanCargoObjectClasses;
 
@@ -31,7 +50,7 @@ _trg setTriggerStatements [_condtrg,_acttrg,_deacttrg];
 _todeletearray pushBack _trg;
 
 //determine time
-_dist2d = _destination distance2D markerpos "marker_AO_1";
+_dist2d = _destination distance2D markerpos "marker_idapbase";
 //assuming 50 km/h and some leeway
 _speed = 50/3.6; //transform to m/s
 _leeway = sqrt(_dist2d)*2+37;
@@ -45,14 +64,15 @@ _parentTask = "TaskCargo";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
 _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _mapgrid = mapGridPosition _destination;
+_destinationname = _destination getVariable "AAS_LogicLocationName";
 _displayname = [configFile >> "CfgVehicles" >> _supplyneeded] call BIS_fnc_displayName;
 _displayPicture = gettext (configfile >> "CfgVehicles" >> _supplyneeded >> "editorPreview");
 _TaskTitle = format ["Deliver Cargo (%1)",_curNrTasks];
 _TaskDescription = format ["
-Deliver %1 to the IDAP workers at mapgrid %2. You have time until %3 (%4)!<br/>
+Deliver %1 to the IDAP workers at %2. You have time until %3 (%4)!<br/>
 <img image='%5' width='114' height='59'/>
 ",
-    _displayname, _mapgrid, _daytimestr, _timestr, _displayPicture
+    _displayname, _destinationname, _daytimestr, _timestr, _displayPicture
 ];
 _TaskMarker = "";
 [
@@ -67,4 +87,4 @@ _TaskMarker = "";
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_trg,_loseTime] execFSM "taskFSM\taskCargo.fsm";
+[_TaskID,_todeletearray,_trg,_loseTime,_destination,_supplyneeded] execFSM "taskFSM\taskCargo.fsm";

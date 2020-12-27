@@ -4,7 +4,25 @@ _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random destination
-_destination = selectRandom MIS_idapoutposts;
+_nonActiveOutposts = MIS_idapoutposts select {
+    !(_x getVariable ["AAS_IDAPOutPostActive",false])
+};
+If (count _nonActiveOutposts == 0) exitWith {
+    If (_debug) then {
+        systemChat "Water script exited, since no available outposts found...";
+    };
+};
+_destination = selectRandom _nonActiveOutposts;
+_destination setVariable ["AAS_IDAPOutPostActive",true];
+_ObjArray = _destination getVariable "AAS_IDAPOutpostObjectArray";
+{
+    _x hideObjectGlobal false;
+    _x enableSimulationGlobal true;
+} foreach _ObjArray;
+_markerArray = _destination getVariable "AAS_IDAPOutpostMarkerArray";
+{
+    _x setMarkerAlpha 1;
+} foreach _markerArray;
 
 //determine time
 _dist2d = _destination distance2D markerpos "marker_idapbase";
