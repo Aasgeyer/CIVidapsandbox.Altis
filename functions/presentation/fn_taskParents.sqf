@@ -72,3 +72,12 @@ We keep an eye on the actions of the conflict parties. There have been reports
 Requirement: %1.
 ","None"];
 [true, "TaskDetainedCiv", [_TaskDescription,"Detained Civilian",""], objNull, "CREATED", -1, false, "defend"] call BIS_fnc_taskCreate;
+
+_TaskDescription = format ["
+Guerilla emmploy a number of tactics such as Improvise Explosive Devices. 
+They are sometimes unreliable and cause casualties among the civilian populace. 
+When there is an explosion we'll do our best to get a picture of the situation 
+and help where we can.<br/>
+Requirement: %1.
+","First Aid Kits " + _cargoVanDisplayName];
+[true, "TaskIEDExplosion", [_TaskDescription,"IED Explosion",""], objNull, "CREATED", -1, false, "destroy"] call BIS_fnc_taskCreate;

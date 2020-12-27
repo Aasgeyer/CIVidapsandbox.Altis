@@ -1,0 +1,411 @@
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskIEDExplosion">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"_",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,""};
+item2[] = {"__IsServer",4,218,-250.000000,-150.000000,-150.000000,-100.000000,2.000000,"!IsServer"};
+item3[] = {"terminate",1,250,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"terminate"};
+item4[] = {"civ_treated",4,218,50.000000,150.000000,150.000000,200.000000,1.000000,"civ treated"};
+item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
+item6[] = {"update_wounded_a",2,250,200.000000,150.000000,300.000000,200.000000,0.000000,"update wounded" \n "array"};
+item7[] = {"_",8,218,50.000000,50.000000,150.000000,100.000000,0.000000,""};
+item8[] = {"dead_in_body_bag",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"dead in body bag" \n "and" \n "no wounded"};
+item9[] = {"no_player_near_",4,218,-100.000000,550.000000,0.000000,600.000000,0.000000,"no player near" \n "(objNull)"};
+item10[] = {"end",1,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
+item11[] = {"get_body_bags",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"get body bags"};
+item12[] = {"near_med_tent",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"near med tent"};
+item13[] = {"success",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
+item14[] = {"civ_died",4,218,-250.000000,-50.000000,-150.000000,0.000000,3.000000,"civ died"};
+item15[] = {"update_dead_list",2,250,-400.000000,50.000000,-300.000000,100.000000,0.000000,"update dead list"};
+item16[] = {"_",8,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,""};
+item17[] = {"civ_wounded",4,4314,50.000000,-50.000000,150.000000,0.000000,2.000000,"civ wounded"};
+item18[] = {"set_wounded_civ",2,250,200.000000,-50.000000,300.000000,0.000000,0.000000,"set wounded" \n "civ"};
+link0[] = {0,2};
+link1[] = {0,5};
+link2[] = {1,4};
+link3[] = {1,8};
+link4[] = {1,14};
+link5[] = {1,17};
+link6[] = {2,3};
+link7[] = {4,6};
+link8[] = {5,1};
+link9[] = {6,7};
+link10[] = {7,1};
+link11[] = {8,11};
+link12[] = {9,10};
+link13[] = {11,12};
+link14[] = {12,13};
+link15[] = {13,9};
+link16[] = {14,15};
+link17[] = {15,16};
+link18[] = {16,1};
+link19[] = {17,18};
+link20[] = {18,7};
+globals[] = {0.000000,0,0,0,0,640,480,1,36,6316128,1,-855.200745,805.823792,694.623779,-489.525940,1240,884,1};
+window[] = {2,-1,-1,-1,-1,967,208,1648,208,3,1258};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "TaskIEDExplosion";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_civArray"",""_woundedCivArray"",""_roadPos""];" \n
+                         "_deadCivArray = [];" \n
+                         "_updateCivArray = +_civArray;" \n
+                         "_debug = missionNamespace getVariable [""MIS_debugMode"",false];" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "__IsServer">*/
+                                class __IsServer
+                                {
+                                        itemno = 2;
+                                        priority = 2.000000;
+                                        to="terminate";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!IsServer"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 1;
+                        init = /*%FSM<STATEINIT""">*/"If (_debug) then {" \n
+                         "	diag_log format [""ID19 - dead: %1 - wounded: %2"",count _deadCivArray,count _woundedCivArray];" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "civ_died">*/
+                                class civ_died
+                                {
+                                        itemno = 14;
+                                        priority = 3.000000;
+                                        to="update_dead_list";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_updateCivArray findIf {" \n
+                                         "    !alive _x" \n
+                                         "	 && !(_x in _deadCivArray)" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "civ_wounded">*/
+                                class civ_wounded
+                                {
+                                        itemno = 17;
+                                        priority = 2.000000;
+                                        to="set_wounded_civ";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_updateCivArray findIf {" \n
+                                         "    damage _x > 0.25" \n
+                                         "	&& alive _x" \n
+                                         "	&& !(_x in _woundedCivArray)" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "civ_treated">*/
+                                class civ_treated
+                                {
+                                        itemno = 4;
+                                        priority = 1.000000;
+                                        to="update_wounded_a";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_woundedCivArray findIf {" \n
+                                         "    damage _x <= 0.25" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "dead_in_body_bag">*/
+                                class dead_in_body_bag
+                                {
+                                        itemno = 8;
+                                        priority = 0.000000;
+                                        to="get_body_bags";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_deadCivArray findIf {" \n
+                                         "    IsNull (_x getVariable [""AAS_CorpseBodyBag"",ObjNull])" \n
+                                         "} == -1" \n
+                                         "&&" \n
+                                         "count _woundedCivArray == 0"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "terminate">*/
+                class terminate
+                {
+                        name = "terminate";
+                        itemno = 3;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "update_wounded_a">*/
+                class update_wounded_a
+                {
+                        name = "update_wounded_a";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/"_treatedCiv = _woundedCivArray select (_woundedCivArray findIf {" \n
+                         "    _initialdamage = _x getVariable [""AAS_initialDamage"",0.99];" \n
+                         "    damage _x < _initialDamage" \n
+                         "});" \n
+                         "" \n
+                         "_treatedCiv playAction ""agonyStop"";" \n
+                         "_treatedCiv enableAI ""ALL"";" \n
+                         "_treatedCiv move (_treatedCiv getpos [random [199,200,250],random 360]);" \n
+                         "" \n
+                         "_woundedCivArray deleteAt (_woundedCivArray find _treatedCiv);" \n
+                         "" \n
+                         "If (_debug) then {" \n
+                         "	diag_log format [""ID21 - %1 treated"",_treatedCiv];" \n
+                         "	systemchat ""Healed Civ"";" \n
+                         "};" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "end">*/
+                class end
+                {
+                        name = "end";
+                        itemno = 10;
+                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "get_body_bags">*/
+                class get_body_bags
+                {
+                        name = "get_body_bags";
+                        itemno = 11;
+                        init = /*%FSM<STATEINIT""">*/"_bodyBagArray = [];" \n
+                         "{" \n
+                         "    _bodybag = _x getVariable ""AAS_CorpseBodyBag"";" \n
+                         "    _bodyBagArray pushBack _bodyBag;" \n
+                         "	 _todeleteArray pushBack _x;" \n
+                         "} foreach _deadCivArray;" \n
+                         "" \n
+                         "If (_debug) then {" \n
+                         "	diag_log format [""ID27 - bodyBags: %1"", _bodyBagArray];" \n
+                         "};" \n
+                         "" \n
+                         "[_taskID, ""marker_idapbase""] call BIS_fnc_TaskSetDestination;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "near_med_tent">*/
+                                class near_med_tent
+                                {
+                                        itemno = 12;
+                                        priority = 0.000000;
+                                        to="success";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_bodyBagArray findIf {" \n
+                                         "	_nearMedTents = (_x nearObjects [""Land_MedicalTent_01_white_IDAP_med_closed_F"",25]);" \n
+                                         "	count _nearMedTents == 0" \n
+                                         "	OR !isNull isVehicleCargo _x" \n
+                                         "} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "success">*/
+                class success
+                {
+                        name = "success";
+                        itemno = 13;
+                        init = /*%FSM<STATEINIT""">*/"[_TaskID, ""SUCCEEDED""] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near_">*/
+                                class no_player_near_
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance2d _roadPos < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "update_dead_list">*/
+                class update_dead_list
+                {
+                        name = "update_dead_list";
+                        itemno = 15;
+                        init = /*%FSM<STATEINIT""">*/"_deadindex = (_updateCivArray findIf {" \n
+                         "    !alive _x" \n
+                         "});" \n
+                         "_deadCiv = _updateCivArray select _deadIndex;" \n
+                         "" \n
+                         "If _debug then {" \n
+                         "	systemChat ""Dead Civ"";" \n
+                         "};" \n
+                         "" \n
+                         "[" \n
+                         "    _deadCiv,											// Object the action is attached to" \n
+                         "    ""Put in body bag"",										// Title of the action" \n
+                         "    ""\a3\data_f_destroyer\data\UI\IGUI\Cfg\holdactions\holdAction_loadVehicle_ca.paa"",	// Idle icon shown on screen" \n
+                         "    ""\a3\data_f_destroyer\data\UI\IGUI\Cfg\holdactions\holdAction_loadVehicle_ca.paa"",	// Progress icon shown on screen" \n
+                         "    ""_this distance _target < 3 && !alive _target"",						// Condition for the action to be shown" \n
+                         "    ""_caller distance _target < 3 && !alive _target"",						// Condition for the action to progress" \n
+                         "    { // Code executed when action starts" \n
+                         "        params [""_target"", ""_caller"", ""_actionId"", ""_arguments""];" \n
+                         "        _caller playAction ""medicStartUp"";" \n
+                         "        _bodybagtemp = createVehicle [""Land_Bodybag_01_empty_white_F"",getpos _target,[],0,""CAN_COLLIDE""];" \n
+                         "        _bodybagtemp enableSimulationGlobal false;" \n
+                         "        _bodybagtemp setdir getdir _target;" \n
+                         "        _bodybagtemp setVectorUp surfaceNormal position _bodybagtemp;" \n
+                         "        _target setVariable [""AAS_bodyBagTemp"",_bodybagtemp];" \n
+                         "    },													" \n
+                         "    {},													// Code executed on every progress tick" \n
+                         "    { // Code executed on completion" \n
+                         "        params [""_target"", ""_caller"", ""_actionId"", ""_arguments""];" \n
+                         "        _arguments params [""_bodyID""];" \n
+                         "        deleteVehicle (_target getVariable [""AAS_bodyBagTemp"",objNull]);" \n
+                         "        _bodybag = createVehicle [""Land_Bodybag_01_white_F"",getpos _target,[],0,""CAN_COLLIDE""];" \n
+                         "        _bodybag enableSimulationGlobal false;" \n
+                         "        _bodybag setdir getdir _target;" \n
+                         "        _bodybag setVectorUp surfaceNormal position _bodybag;" \n
+                         "        [_bodyBag,nil,nil,[0]] call AAS_fnc_cargoload;" \n
+                         "        _target setpos [0,0,0];" \n
+                         "        _target setVariable [""AAS_BodyInBag"",true,true];" \n
+                         "        _target setVariable [""AAS_CorpseBodyBag"", _bodyBag, true];" \n
+                         "        " \n
+                         "    }," \n
+                         "    { // Code executed on interrupted" \n
+                         "        params [""_target"", ""_caller"", ""_actionId"", ""_arguments""];" \n
+                         "        deleteVehicle (_target getVariable [""AAS_bodyBagTemp"",objNull]);" \n
+                         "    }," \n
+                         "    [],													// Arguments passed to the scripts as _this select 3" \n
+                         "    4,													// Action duration [s]" \n
+                         "    0,													// Priority" \n
+                         "    true,												// Remove on completion" \n
+                         "    false												// Show in unconscious state" \n
+                         "] remoteExec [""BIS_fnc_holdActionAdd"", 0, _deadCiv];	// MP compatible implementation" \n
+                         "" \n
+                         "_woundedIndex = _woundedCivArray find _deadCiv;" \n
+                         "If (_woundedIndex != -1) then {" \n
+                         "    _woundedCivArray deleteAt _woundedIndex;" \n
+                         "};" \n
+                         "_updateCivArray deleteAt _deadIndex;" \n
+                         "" \n
+                         "_deadCivArray pushBack _deadCiv;" \n
+                         "removeFromRemainsCollector [_deadCiv];" \n
+                         "" \n
+                         "If (_debug) then {" \n
+                         "	diag_log format [""ID31 - %1 died"",_deadCiv];" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 16;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "set_wounded_civ">*/
+                class set_wounded_civ
+                {
+                        name = "set_wounded_civ";
+                        itemno = 18;
+                        init = /*%FSM<STATEINIT""">*/"_woundedCivIndex = _updateCivArray findIf {" \n
+                         "    damage _x > 0.25" \n
+                         "};" \n
+                         "_woundedCiv = _updateCivArray select _woundedCivIndex;" \n
+                         "If _debug then {" \n
+                         "	systemChat ""Wounded Civ"";" \n
+                         "};" \n
+                         "_woundedCivArray pushBack _woundedCiv;" \n
+                         "_woundedCiv switchAction ""agonyStart"";" \n
+                         "_woundedCiv disableAI ""ALL"";" \n
+                         "_woundedCiv enableAI ""ANIM"";"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+                "terminate",
+                "end",
+        };
+};
+/*%FSM</COMPILE>*/
