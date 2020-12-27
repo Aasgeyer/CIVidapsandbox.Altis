@@ -33,9 +33,15 @@ class CfgFunctions
             file = "ui\scripts";
             class initDisplay {preInit = 1;};
         };
+        class Hints
+        {
+            class hint;
+            class hintQueue;
+        };
     };
 };
 
 #include "cfg\cfgRadio.inc"
+#include "cfg\CfgAssets.hpp"
 
 #include "ui\cfg.hpp"

@@ -17,11 +17,12 @@
 		["onLoad", _this, "RscDisplayFinancialReport"] call TER_fnc_initDisplay;
 */
 params ["_mode", "_params", "_class"];
-private _fnc = format ["%1_script", _class];
 
 if (_mode == "preInit") exitWith {
 	//--- Compile UI scripts
 	"isText(_x >> 'scriptName')" configClasses missionConfigFile apply {
+		_fnc = format ["%1_script", configName _x];
+		diag_log parseText format ["Compiling %1 for display %2", _fnc, configName _x];
 		missionNamespace setVariable [
 			_fnc,
 			compile preprocessFileLineNumbers format["ui\scripts\%1.sqf", configName _x]
@@ -29,8 +30,18 @@ if (_mode == "preInit") exitWith {
 	};
 };
 
+private _fnc = format ["%1_script", _class];
+
 if (_mode == "onLoad") then {
 	_params params ["_display"];
+	//--- Save controls with their classname to the display
+	allControls _display apply {
+		private _varHolder = [
+			ctrlParentControlsGroup _x, 
+			_display
+		] select (isNull ctrlParentControlsGroup _x);
+		_varHolder setVariable [ctrlClassName _x, _x];
+	};
 	//--- Register Display
 	//--- Call display function
 	private _fncCode = [
@@ -41,10 +52,6 @@ if (_mode == "onLoad") then {
 		["onLoad", _params, _class] call _fncCode;
 	};
 
-	//--- Save controls with their classname to the display
-	allControls _display apply {
-		_display setVariable [ctrlClassName _x, _x];
-	};
 } else {
 	//--- Unload
 	_params params ["_display", "_exitCode"];

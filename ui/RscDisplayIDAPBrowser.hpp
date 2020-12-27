@@ -1,4 +1,4 @@
-#define COLOR_IDAP {RGBA255to1(200,73,0,255)}
+#define COLOR_IDAP {0.784314,0.286275,0,1}
 class RscDisplayIDAPBrowser
 {
 	idd = -1;
@@ -26,6 +26,14 @@ class RscDisplayIDAPBrowser
 	};
 	class controls
 	{
+		class _LNBCATCHER: TER_RscText
+		{
+			idc = -1;
+			x = 0;
+			y = 0;
+			w = 0;
+			h = 0;
+		};
 		class Headbar: TER_RscControlsGroupNoScrollbars
 		{
 			text = "IDAP Organizer - v1.0";
@@ -42,11 +50,11 @@ class RscDisplayIDAPBrowser
 					y = 0;
 					w = safeZoneW;
 					h = 1 * GUI_GRID_H;
-					colorBackground[] = {RGBA255to1(200,73,0,255)};
+					colorBackground[] = GUI_BCG_COLOR;
 				};
 				class HeadbarTitle: TER_RscStructuredText
 				{
-					text = "IDAP Organizer - v1.0";
+					text = "<t color='#FB5B00'><img image='\a3\ui_f_orange\Data\Displays\RscDisplayOrangeChoice\faction_idap_ca.paa'/></t>IDAP Organizer - v1.0";
 					x = 0;
 					y = 0;
 					w = safeZoneW;
@@ -63,7 +71,7 @@ class RscDisplayIDAPBrowser
 				};
 				class HeadbarMaximize: HeadbarMinimize
 				{
-					text = "ui\data\RscDisplayIDAPBrowser\maximize2_ca.paa";
+					text = "ui\data\RscDisplayIDAPBrowser\maximize_ca.paa";
 					x = safeZoneW - 2.1 * GUI_GRID_W;
 				};
 				class HeadbarClose: TER_RscActivePicture
@@ -88,7 +96,7 @@ class RscDisplayIDAPBrowser
 			h = safeZoneH - 1 * GUI_GRID_H;
 			class controls
 			{
-				class NavbarLeftBackground: TER_RscText
+				class Background: TER_RscText
 				{
 					x = 0;
 					y = 0;
@@ -96,7 +104,7 @@ class RscDisplayIDAPBrowser
 					h = safeZoneH - 1 * GUI_GRID_H;
 					colorBackground[] = {0,0,0,0.8};
 				};
-				class NavbarLeftTitle: TER_RscStructuredText
+				class Title: TER_RscStructuredText
 				{
 					x = 0;
 					y = 0;
@@ -110,37 +118,44 @@ class RscDisplayIDAPBrowser
 						align = "center";
 					};
 				};
-				class NavbarLeftActivity: TER_RscButton
+				class Activity: TER_RscButton
 				{
 					text = "Activity";
+					group = "GroupActivity";
 					x = 0;
 					y = 6 * GUI_GRID_H;
 					w = 10 * GUI_GRID_W;
 					h = 1 * GUI_GRID_H;
-					colorText[] = {0,0,0,1};
+					colorText[] = {1,1,1,1};
 					shadow = 0;
-					colorBackground[] = {1,1,1,1};
+					colorBackground[] = {0.3,0.3,0.3,1};
 					colorBackgroundActive[] = COLOR_IDAP;
-					colorFocused[] = {1,1,1,1};
+					colorFocused[] = COLOR_IDAP;
 				};
-				class NavbarLeftFinances: NavbarLeftActivity
+				class Finances: Activity
 				{
 					text = "Finances";
 					y = 7.5 * GUI_GRID_H;
 				};
-				class NavbarLeftReports: NavbarLeftActivity
+				class Reports: Activity
 				{
 					text = "Reports";
 					y = 9 * GUI_GRID_H;
 				};
+				class Prices: Activity
+				{
+					text = "Prices";
+					group = "GroupPrices";
+					y = 10.5 * GUI_GRID_H;
+				};
 
-				class NavbarLeftCredits: NavbarLeftActivity
+				class Credits: Activity
 				{
 					text = "Credits";
 					y = safeZoneH - 3.6 * GUI_GRID_H;
 				};
 				
-				class NavbarLeftClose: NavbarLeftActivity
+				class Close: Activity
 				{
 					idc = 2;
 					text = "Close";
@@ -149,37 +164,211 @@ class RscDisplayIDAPBrowser
 			};
 		};
 		#define W_GROUP (safeZoneW - 10 * GUI_GRID_W)
-		#define H_GROUP (safeZoneH - 1 * GUI_GRID_H)
-		class GroupActivity: TER_RscControlsGroupNoScrollbars
+		#define H_GROUP (safeZoneH - 4 * GUI_GRID_H)
+		class ContentHeaderBackground: TER_RscText
 		{
 			x = safeZoneX + 10 * GUI_GRID_W;
-			y = safeZoneY + 1 * GUI_GRID_H;
+			y = SafeZoneY + 1 * GUI_GRID_H;
+			w = W_GROUP;
+			h = 3 * GUI_GRID_H;
+			colorBackground[] = {0,0,0,0.8};
+		};
+		class ContentTitle: TER_RscStructuredText
+		{
+			text = "";
+			x = safeZoneX + 10 * GUI_GRID_W;
+			y = SafeZoneY + 1 * GUI_GRID_H;
+			w = W_GROUP;
+			h = 2 * GUI_GRID_H;
+			class Attributes: Attributes
+			{
+				size = 2;
+				align = "center";
+			};
+		};
+		class ContentDescription: TER_RscStructuredText
+		{
+			text = "";
+			x = safeZoneX + 10 * GUI_GRID_W;
+			y = SafeZoneY + 3 * GUI_GRID_H;
+			w = W_GROUP;
+			h = 1 * GUI_GRID_H;
+		};
+		groups[] = {"GroupActivity", "GroupPrices"};
+		class GroupActivity: TER_RscControlsGroupNoScrollbars
+		{
+			show = 0;
+			textTitle = "IDAPAS";
+			textDescription = "The following events have been reported to the IDAP Acitivity System (IDAPAS):";
+			x = safeZoneX + 10 * GUI_GRID_W;
+			y = safeZoneY + 4 * GUI_GRID_H;
 			w = W_GROUP;
 			h = H_GROUP;
 			class controls
 			{
-				class GroupActivityTitle: TER_RscStructuredText
+				#define W_CT 0.5 * W_GROUP - 1 * GUI_GRID_W
+				class List: TER_RscControlsTable
 				{
-					text = "IDAPAS";
+					x = 0.5 * GUI_GRID_W;
+					y = 3.5 * GUI_GRID_H;
+					w = W_CT;
+					h = H_GROUP - 3.5 * GUI_GRID_H;
+					lineSpacing = 0.5 * GUI_GRID_CENTER_H;
+					rowHeight = 5 * GUI_GRID_CENTER_H;
+
+					class RowTemplate
+					{
+						class Background
+						{
+							controlBaseClassPath[] = {"RscText"};
+							columnX = 0;
+							controlOffsetY = 0;
+							columnW = W_CT;
+							controlH = 5 * GUI_GRID_CENTER_H;
+						};
+						class Title: Background
+						{
+							controlBaseClassPath[] = {"RscStructuredText"};
+							controlH = 1 * GUI_GRID_CENTER_H;
+						};
+						class Content: Title
+						{
+							controlOffsetY = 1 * GUI_GRID_CENTER_H;
+							controlH = 4 * GUI_GRID_CENTER_H;
+						};
+						class More: Title
+						{
+							controlBaseClassPath[] = {"RscButtonMenu"};
+							columnX = W_CT - 10 * GUI_GRID_CENTER_W;
+							//controlOffsetY = 4 * GUI_GRID_CENTER_H;
+							columnW = 10 * GUI_GRID_CENTER_W;
+						};
+					};
+				};
+			};
+		};
+		class GroupPrices: GroupActivity
+		{
+			show = 0;
+			textTitle = "Price List";
+			textDescription = "Prices of the different assets that are available for purchase.";
+			class controls
+			{
+				class Background: TER_RscText
+				{
 					x = 0;
 					y = 0;
 					w = W_GROUP;
-					h = 2 * GUI_GRID_H;
-					colorBackground[] = {0,0,0,0.8};
-					class Attributes: Attributes
+					h = H_GROUP;
+					colorBackground[] = {0.48,0.52,0.51,1};
+				};
+				class Sort: TER_RscCombo
+				{
+					x = 0.5 * GUI_GRID_W;
+					y = 0.5 * GUI_GRID_H;
+					w = 10 * GUI_GRID_W;
+					h = 1 * GUI_GRID_H;
+					class Items
 					{
-						size = 2;
-						align = "center";
+						class Default
+						{
+							text = "Sort by...";
+							value = 0;
+							default = 1;
+						};
+						class Name
+						{
+							text = "Name";
+							value = 1;
+						};
+						class Price
+						{
+							text = "Price";
+							value = 2;
+						};
 					};
 				};
-				class GroupActivityDescription: TER_RscStructuredText
+				class Order: Sort
 				{
-					text = "Below is a list of events that have been reported to the IDAP Activity System (IDAPAS):";
+					x = 11 * GUI_GRID_W;
+					class Items
+					{
+						class Default
+						{
+							text = "Order...";
+							value = 0;
+							default = 1;
+						};
+						class Ascending
+						{
+							text = "Ascending";
+							value = 1;
+						};
+						class Descending
+						{
+							text = "Descending";
+							value = 2;
+						};
+					};
+				};
+				#define _HROW 7.5
+				class List: TER_RscControlsTable
+				{
 					x = 0;
 					y = 2 * GUI_GRID_H;
 					w = W_GROUP;
-					h = 1 * GUI_GRID_H;
+					h = H_GROUP - 2.5 * GUI_GRID_H;
+					rowHeight = _HROW * GUI_GRID_H;
+					selectedRowColorFrom[] = {0,0,0,0};
+					selectedRowColorTo[] = {0,0,0,0};
+					class RowTemplate
+					{
+						#define _WIMAGE (16/9 * 4)
+						class Frame
+						{
+							controlBaseClassPath[] = {"RscFrame"};
+							columnX = 0.5 * GUI_GRID_W;
+							controlOffsetY = pixelH;
+							columnW = W_GROUP - 1 * GUI_GRID_W - 0.021;
+							controlH = _HROW * GUI_GRID_H;
+						};
+						class Image
+						{
+							controlBaseClassPath[] = {"RscPicture"};
+							columnX = 1 * GUI_GRID_W;
+							controlOffsetY = 1.5 * GUI_GRID_H;
+							columnW = _WIMAGE * GUI_GRID_W;
+							controlH = 4 * GUI_GRID_H;
+						};
+						class Name: Image
+						{
+							controlBaseClassPath[]= {"RscStructuredText"};
+							columnX = 1 * GUI_GRID_W;
+							controlOffsetY = 0.5 * GUI_GRID_H;
+							controlH = 1 * GUI_GRID_H;
+							columnW = W_GROUP - 2.5 * GUI_GRID_W;
+						};
+						class Description: Name
+						{
+							columnX = (1 + _WIMAGE) * GUI_GRID_W;
+							controlOffsetY = 1.5 * GUI_GRID_H;
+							columnW = W_GROUP - (2 + _WIMAGE) * GUI_GRID_W;
+							controlH = _HROW * GUI_GRID_H;
+						};
+						class Price: Name
+						{
+							controlOffsetY = 5.5 * GUI_GRID_H;
+							columnW = _WIMAGE * GUI_GRID_W;
+							controlH = 1.5 * GUI_GRID_H;
+						};
+						#undef _WIMAGE
+					};
+					class VScrollBar: VScrollBar
+					{
+						width = 0.7 * GUI_GRID_W;
+					};
 				};
+				#undef _HROW
 			};
 		};
 	};

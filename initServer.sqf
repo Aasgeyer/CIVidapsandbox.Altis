@@ -46,3 +46,4 @@ AAS_GuerillaSoldierPool = AAS_GuerillaSoldierPool apply {configName _x};
 [] call AAS_fnc_TaskParents;
 
 TER_reportLog = [];
+TER_hints = [];

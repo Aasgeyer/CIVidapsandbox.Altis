@@ -1,6 +1,6 @@
 #define M *10^6
 #define K *10^3
-TER_maxFunds = 10M;
+TER_maxFunds = parsingNamespace getVariable "TER_maxFunds";
 if (isServer) then {
 	TER_money = 0;
 	TER_funds = 0;
@@ -10,7 +10,14 @@ if (isServer) then {
 	};
 };
 
-TER_zeusCost = [
+TER_zeusCost = [];
+"true" configClasses (missionConfigFile >> "CfgAssets") apply {
+	private _name = configName _x;
+	private _cost = getNumber(_x >> "costZeus");
+	TER_zeusCost append [_name, _cost];
+};
+
+/* TER_zeusCost = [
 	//--- Vehicles
 	"C_IDAP_UAV_01_F",3.3K,
 	'C_IDAP_Truck_02_F',6K,
@@ -58,7 +65,7 @@ TER_zeusCost = [
 	} else {
 		_x
 	};
-}
+} */
 /*
 TER_price_ambulance / MAX_FUNDS = cost
 TER_price_ambulance = cost * MAX_FUNDS

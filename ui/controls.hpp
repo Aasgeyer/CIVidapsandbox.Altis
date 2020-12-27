@@ -402,6 +402,7 @@ class TER_RscEdit
 };
 class TER_RscCombo
 {
+	idc = -1;
 	deletable = 0;
 	fade = 0;
 	access = 0;
@@ -517,6 +518,7 @@ class TER_RscListBox
 };
 class TER_RscListNBox
 {
+	idc = -1;
 	deletable = 0;
 	fade = 0;
 	access = 0;
@@ -1736,6 +1738,16 @@ class TER_RscControlsTable
 	// Template for selectable rows
 	class RowTemplate
 	{
+		/*
+		class NAME
+		{
+			controlBaseClassPath[] = {"RSCNAME"};
+			columnX = 0;
+			controlOffsetY = 0;
+			columnW = 1;
+			controlH = 1;
+		};
+		*/
 	};
 	 
 	// Template for headers (unlike rows, cannot be selected)
