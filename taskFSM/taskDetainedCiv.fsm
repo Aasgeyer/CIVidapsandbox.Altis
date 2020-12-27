@@ -1,0 +1,276 @@
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskDetainedCiv">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"player_or_uav__c",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"player or uav" \n " close"};
+item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
+item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
+item4[] = {"time_s_up",4,218,50.000000,50.000000,150.000000,100.000000,0.000000,"time's" \n "up"};
+item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
+item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
+item7[] = {"kill_civ",2,250,50.000000,250.000000,150.000000,300.000000,0.000000,"kill civ"};
+item8[] = {"_",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,""};
+item9[] = {"no_player_or_uav",4,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"no player or" \n "uav near"};
+item10[] = {"leader_talked_to",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"leader talked" \n "to"};
+item11[] = {"team_move_away_civ",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"team move away" \n "civ ready to free"};
+item12[] = {"Civ_Freed",4,218,-100.000000,550.000000,0.000000,600.000000,0.000000,"Civ Freed"};
+item13[] = {"__1",2,250,-100.000000,650.000000,0.000000,700.000000,0.000000,""};
+item14[] = {"no_player_near",4,218,-100.000000,750.000000,0.000000,800.000000,0.000000,"no player near"};
+item15[] = {"end",1,250,-100.000000,850.000000,0.000000,900.000000,0.000000,"end"};
+item16[] = {"execution_done",4,218,50.000000,550.000000,150.000000,600.000000,0.000000,"execution done"};
+link0[] = {0,2};
+link1[] = {0,5};
+link2[] = {1,8};
+link3[] = {2,3};
+link4[] = {4,7};
+link5[] = {5,6};
+link6[] = {6,1};
+link7[] = {6,4};
+link8[] = {7,16};
+link9[] = {8,9};
+link10[] = {8,10};
+link11[] = {9,6};
+link12[] = {10,11};
+link13[] = {11,12};
+link14[] = {12,13};
+link15[] = {13,14};
+link16[] = {14,15};
+link17[] = {16,13};
+globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-472.178680,650.599365,599.331421,-320.534760,1079,884,1};
+window[] = {2,-1,-1,-1,-1,811,52,1492,52,3,1097};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "TaskDetainedCiv";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_losetime"",""_executioner"",""_civ"",""_regularteam""];" \n
+                         "//systemchat str _this;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "__IsServer">*/
+                                class __IsServer
+                                {
+                                        itemno = 2;
+                                        priority = 2.000000;
+                                        to="terminate";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!IsServer"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="__";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "terminate">*/
+                class terminate
+                {
+                        name = "terminate";
+                        itemno = 3;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "__">*/
+                class __
+                {
+                        name = "__";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "time_s_up">*/
+                                class time_s_up
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="kill_civ";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time > _losetime"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "player_or_uav__c">*/
+                                class player_or_uav__c
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allplayers findIf {" \n
+                                         "	_x distance _executioner < 100" \n
+                                         "	OR (getconnectedUAV _x distance2d _executioner < 350" \n
+                                         "	&& [getconnectedUAV _x, ""VIEW"", _executioner] checkVisibility [getposASL getconnectedUAV _x, getPosASL _executioner] < 1)" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "kill_civ">*/
+                class kill_civ
+                {
+                        name = "kill_civ";
+                        itemno = 7;
+                        init = /*%FSM<STATEINIT""">*/"_handle = [_executioner,_civ] spawn {" \n
+                         "    params [""_executioner"",""_civ""];" \n
+                         "	_civ = units _civ select 0;" \n
+                         "    [_executioner,""Acts_Executioner_Kill""] remoteExec [""switchMove""];" \n
+                         "    sleep 1;" \n
+                         "    _executioner forceWeaponFire [handgunWeapon _executioner,""SINGLE""];" \n
+                         "    [_civ,""Acts_ExecutionVictim_KillTerminal""] remoteExec [""switchMove""];" \n
+                         "    _civ setDamage 1;" \n
+                         "    sleep 2;" \n
+                         "    _executioner enableAI ""ALL"";" \n
+                         "	sleep 5;" \n
+                         "};" \n
+                         "[_TaskID,""FAILED""] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "execution_done">*/
+                                class execution_done
+                                {
+                                        itemno = 16;
+                                        priority = 0.000000;
+                                        to="__1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"scriptDone _handle"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 8;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "leader_talked_to">*/
+                                class leader_talked_to
+                                {
+                                        itemno = 10;
+                                        priority = 0.000000;
+                                        to="team_move_away_civ";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(leader _regularteam) getVariable [""AAS_DetainedLeaderTalkedTo"",false]"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "no_player_or_uav">*/
+                                class no_player_or_uav
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="__";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allplayers findIf {" \n
+                                         "	_x distance _executioner < 100" \n
+                                         "	OR (getconnectedUAV _x distance2d _executioner < 500" \n
+                                         "	&& [getconnectedUAV _x, ""VIEW"", _executioner] checkVisibility [getposASL getconnectedUAV _x, getPosASL _executioner] < 1)" \n
+                                         "} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "team_move_away_civ">*/
+                class team_move_away_civ
+                {
+                        name = "team_move_away_civ";
+                        itemno = 11;
+                        init = /*%FSM<STATEINIT""">*/"[_executioner, ""Acts_Executioner_Kill_End""] remoteExec [""switchMove""];" \n
+                         "_executioner enableAI ""ALL"";" \n
+                         "_wp = _regularteam addwaypoint [getpos _executioner vectorAdd [-random 500,-random 500,0], 25];" \n
+                         "_wp setWaypointSpeed ""LIMITED"";" \n
+                         "_wp setWaypointBehaviour ""SAFE"";" \n
+                         "_civ setvariable ['AAS_DetainedCivReadyToFree',true,true];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Civ_Freed">*/
+                                class Civ_Freed
+                                {
+                                        itemno = 12;
+                                        priority = 0.000000;
+                                        to="__1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_civ checkAIFeature ""MOVE"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "__1">*/
+                class __1
+                {
+                        name = "__1";
+                        itemno = 13;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near">*/
+                                class no_player_near
+                                {
+                                        itemno = 14;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allplayers findIf {_x distance2d _executioner < 500} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "end">*/
+                class end
+                {
+                        name = "end";
+                        itemno = 15;
+                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+                "terminate",
+                "end",
+        };
+};
+/*%FSM</COMPILE>*/
