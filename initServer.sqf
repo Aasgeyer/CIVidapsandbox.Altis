@@ -47,3 +47,5 @@ AAS_GuerillaSoldierPool = AAS_GuerillaSoldierPool apply {configName _x};
 
 TER_reportLog = [];
 TER_hints = [];
+AAS_TentsPlaced = 0;
+publicVariable "AAS_tentsPlaced";

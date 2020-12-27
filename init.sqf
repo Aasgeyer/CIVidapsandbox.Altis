@@ -1,4 +1,5 @@
 [] execVM "costs.sqf";
+MIS_restrictedAreas = ["marker_restrictedArea_"] call BIS_fnc_getMarkers;
 
 //objects that can be slingloaded
 MIS_SlingloadCargo = [
@@ -6,7 +7,6 @@ MIS_SlingloadCargo = [
     "Land_FoodSacks_01_cargo_brown_idap_F","Land_FoodSacks_01_cargo_white_idap_F",
     "Land_WaterBottle_01_stack_F"
 ];
-
 //objects that can be loaded into the back of the truck
 MIS_VanCargoObjectClasses = [
     "Land_PaperBox_01_small_stacked_F","Land_WaterBottle_01_stack_F",

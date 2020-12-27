@@ -1,0 +1,220 @@
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, PlayerViolation">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"_",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,""};
+item2[] = {"has_weapon",4,218,-250.000000,-50.000000,-150.000000,0.000000,0.000000,"has weapon"};
+item3[] = {"remove_weapons",2,250,-400.000000,50.000000,-300.000000,100.000000,0.000000,"remove weapons"};
+item4[] = {"true",8,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"true"};
+item5[] = {"true",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,"true"};
+item6[] = {"in_restricted_ar",4,218,50.000000,-50.000000,150.000000,0.000000,0.000000,"in restricted area"};
+item7[] = {"entered",2,250,200.000000,-50.000000,300.000000,0.000000,0.000000,"entered"};
+item8[] = {"__0s_done",4,218,475.000000,-50.000000,575.000000,0.000000,0.000000,"10s" \n "done"};
+item9[] = {"violation",2,250,475.000000,150.000000,575.000000,200.000000,0.000000,"violation"};
+item10[] = {"left_area",4,218,350.000000,50.000000,450.000000,100.000000,0.000000,"left area"};
+item11[] = {"",7,210,96.000000,171.000000,104.000000,179.000000,0.000000,""};
+item12[] = {"exited",2,250,200.000000,50.000000,300.000000,100.000000,0.000000,"exited"};
+item13[] = {"true",8,218,50.000000,50.000000,150.000000,100.000000,0.000000,"true"};
+link0[] = {0,5};
+link1[] = {1,2};
+link2[] = {1,6};
+link3[] = {2,3};
+link4[] = {3,4};
+link5[] = {4,1};
+link6[] = {5,1};
+link7[] = {6,7};
+link8[] = {7,8};
+link9[] = {7,10};
+link10[] = {8,9};
+link11[] = {9,11};
+link12[] = {10,12};
+link13[] = {11,13};
+link14[] = {12,13};
+link15[] = {13,1};
+globals[] = {0.000000,0,0,0,0,640,480,1,27,6316128,1,-993.569824,379.177734,577.112061,-401.524902,1240,884,1};
+window[] = {2,-1,-1,-1,-1,889,-1790,-350,130,3,1258};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "PlayerViolation";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_playerunit""];" \n
+                         "_restrictedAreas = [""marker_restrictedArea_""] call BIS_fnc_getMarkers;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 1;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "in_restricted_ar">*/
+                                class in_restricted_ar
+                                {
+                                        itemno = 6;
+                                        priority = 0.000000;
+                                        to="entered";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_restrictedAreas findIf {_playerunit inArea _x} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "has_weapon">*/
+                                class has_weapon
+                                {
+                                        itemno = 2;
+                                        priority = 0.000000;
+                                        to="remove_weapons";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"count primaryWeapon _playerunit > 0" \n
+                                         "OR" \n
+                                         "count secondaryWeapon _playerunit > 0" \n
+                                         "OR" \n
+                                         "count handGunWeapon _playerunit > 0" \n
+                                         "" \n
+                                         ""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "remove_weapons">*/
+                class remove_weapons
+                {
+                        name = "remove_weapons";
+                        itemno = 3;
+                        init = /*%FSM<STATEINIT""">*/"_weapons = [primaryWeapon _playerunit,secondaryWeapon _playerunit,handgunWeapon _playerunit] select {count _x > 0};" \n
+                         "{" \n
+                         "    [_playerunit, _x] call CBA_fnc_dropWeapon;" \n
+                         "} foreach _weapons;" \n
+                         "[""WeaponViolation""] call BIS_fnc_showNotification;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "entered">*/
+                class entered
+                {
+                        name = "entered";
+                        itemno = 7;
+                        init = /*%FSM<STATEINIT""">*/"[""RestrictedAreaEntered""] call BIS_fnc_showNotification;" \n
+                         "_to = time + 10;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "left_area">*/
+                                class left_area
+                                {
+                                        itemno = 10;
+                                        priority = 0.000000;
+                                        to="exited";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_restrictedAreas findIf {_playerunit inArea _x} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "__0s_done">*/
+                                class __0s_done
+                                {
+                                        itemno = 8;
+                                        priority = 0.000000;
+                                        to="violation";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time > _to"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "violation">*/
+                class violation
+                {
+                        name = "violation";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/"[""RestrictedAreaViolated""] call BIS_fnc_showNotification;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 13;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "exited">*/
+                class exited
+                {
+                        name = "exited";
+                        itemno = 12;
+                        init = /*%FSM<STATEINIT""">*/"[""RestrictedAreaExited""] call BIS_fnc_showNotification;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 13;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/
