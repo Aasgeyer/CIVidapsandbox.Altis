@@ -98,6 +98,16 @@ switch (_mode) do {
             AAS_TentsPlaced = AAS_TentsPlaced + 1;
             publicVariable "AAS_TentsPlaced";
         };
+
+        //--- Economy
+        TER_weeklyExpenses = TER_weeklyExpenses + ([typeOf _entity] call TER_fnc_getCost);
+        [
+            "Money spent",
+            format ["%1 placed at %2.", [configFile >> "CfgVehicles" >> typeOf _entity] call BIS_fnc_displayName, mapGridPosition _entity],
+            name player,
+            ["Economy", "Zeus"],
+            [_entity, typeOf _entity]
+        ] call TER_fnc_log;
     };
 
     case 2: {
