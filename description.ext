@@ -44,6 +44,11 @@ class CfgFunctions
         class Economy
         {
             class getCost;
+            class addFunding;
+            class removeFunding;
+            class payFunding;
+            class addMoney;
+            class removeMoney;
         };
         class Zeus
         {
