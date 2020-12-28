@@ -1,0 +1,76 @@
+/*%FSM<COMPILE "X:\SteamLibraryX\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, fn_dayCycle">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,0.000000,-175.000000,100.000000,-125.000000,0.000000,"Start"};
+item1[] = {"___o_clock",4,218,0.000000,-400.000000,100.000000,-350.000000,0.000000,"0 o'clock"};
+item2[] = {"New_day",2,4346,0.000000,-325.000000,100.000000,-275.000000,0.000000,"New day"};
+item3[] = {"true",8,218,0.000000,-250.000000,100.000000,-200.000000,0.000000,"true"};
+link0[] = {0,3};
+link1[] = {1,2};
+link2[] = {2,1};
+link3[] = {3,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,12,6316128,1,-230.586548,297.954010,-88.334869,-421.119690,1404,884,1};
+window[] = {2,-1,-1,-32000,-32000,915,156,1596,156,3,1422};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "fn_dayCycle";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"_day = date select 2;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="New_day";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "New_day">*/
+                class New_day
+                {
+                        name = "New_day";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"_day = date select 2;" \n
+                         "[""FSM dayCycle _day: %1"", _day] call BIS_fnc_logFormat;" \n
+                         "//--- Award funding" \n
+                         "[] call TER_fnc_payFunding;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "___o_clock">*/
+                                class ___o_clock
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="New_day";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_day != (date select 2)" \n
+                                         ""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/

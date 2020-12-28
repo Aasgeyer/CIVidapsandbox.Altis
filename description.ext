@@ -58,7 +58,14 @@ class CfgFunctions
         {
             class log;
         };
-        
+        class Time
+        {  
+            class dayCycle
+            {
+                ext = ".fsm";
+                postInit = 1;
+            };
+        };
     };
     class BRPVP
     {
