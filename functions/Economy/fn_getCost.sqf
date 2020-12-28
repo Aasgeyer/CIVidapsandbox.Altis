@@ -2,19 +2,21 @@
 	Author: Terra
 
 	Description:
-		__DESCRIPTION___
+		Get the cost of a vehicle placeable by Zeus from config.
 
 	Parameter(s):
-		0:	__TYPE__ - __EXPLANATION__
+		0:	STRING - Classname of the vehicle.
 		Optional:
-		N:	__TYPE___ - __EXPLANATION__
-			Default: __DEFAULT___
+		1:	STRING - Return type: "cost" in $ or "costZeus" in Zeus points
+			Default: "cost"
 
 	Returns:
-		__TYPE__ - __EXPLANATION___
+		NUMBER - Cost of the vehicle
 
 	Example(s):
-		__PARAMETER__ __EXECUTIONMETHOD__ __FUNCTION___; //-> __RETURN__
+		["C_IDAP_UAV_01_F"] call TER_fnc_getCost; //-> 3300
+		["C_IDAP_UAV_01_F", "costZeus"] call TER_fnc_getCost; //-> 0.00033
+		
 */
-params ["_class"];
-getNumber(missionConfigFile >> "CfgAssets" >> _class >> "cost")
+params ["_class", ["_mode", "cost"]];
+getNumber(missionConfigFile >> "CfgAssets" >> _class >> _mode)
