@@ -49,6 +49,18 @@ class CfgFunctions
         {
             class loadCuratorCosts;
         };
+        class Log
+        {
+            class log;
+        };
+        
+    };
+    class BRPVP
+    {
+        class Time
+        {
+            class getWeekDay;
+        };
     };
 };
 
