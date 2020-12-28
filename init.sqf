@@ -21,6 +21,3 @@ AAS_TentObjects = [
     "Land_MedicalTent_01_white_IDAP_closed_F",
     "Land_MedicalTent_01_white_IDAP_open_F"
 ];
-
-//Drone that carries leaflets
-MIS_leafletdroneclass = "C_IDAP_UAV_06_F";

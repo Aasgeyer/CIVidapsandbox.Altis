@@ -43,9 +43,17 @@ toupper getText (_y >> 'faction') isequalto 'BLU_G_F'
 configClasses (configFile >> "CfgVehicles");
 AAS_GuerillaSoldierPool = AAS_GuerillaSoldierPool apply {configName _x};
 
+
+//Drone that carries leaflets
+MIS_leafletdroneclass = "C_IDAP_UAV_06_F";
+publicVariable "MIS_leafletdroneclass";
 [] call AAS_fnc_TaskParents;
 
 TER_reportLog = [];
 TER_hints = [];
 AAS_TentsPlaced = 0;
 publicVariable "AAS_tentsPlaced";
+TER_weeklyExpenses = 0;
+publicVariable "TER_weeklyExpenses";
+TER_log = [];
+publicVariable "TER_log";
