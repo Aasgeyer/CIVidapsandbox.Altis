@@ -67,7 +67,8 @@ _mapgrid = mapGridPosition _destination;
 _destinationname = _destination getVariable "AAS_LogicLocationName";
 _displayname = [configFile >> "CfgVehicles" >> _supplyneeded] call BIS_fnc_displayName;
 _displayPicture = gettext (configfile >> "CfgVehicles" >> _supplyneeded >> "editorPreview");
-_TaskTitle = format ["Deliver Cargo (%1)",_curNrTasks];
+_titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
+_TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 Deliver %1 to the IDAP workers at %2. You have time until %3 (%4)!<br/>
 <img image='%5' width='114' height='59'/>
@@ -87,4 +88,5 @@ _TaskMarker = "";
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
 [_TaskID,_todeletearray,_trg,_loseTime,_destination,_supplyneeded] execFSM "taskFSM\taskCargo.fsm";

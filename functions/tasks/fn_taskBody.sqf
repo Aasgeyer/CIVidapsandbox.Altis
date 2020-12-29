@@ -107,4 +107,5 @@ _TaskMarker = _areamrk;
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_deadBody,_bodyID] execFSM "taskFSM\taskBody.fsm";
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
+[_TaskID,_todeletearray,_deadBody,_bodyID] execFSM _fsmPath;

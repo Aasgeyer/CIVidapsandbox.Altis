@@ -120,4 +120,5 @@ _TaskMarker = _evacmrk;
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_civEvacuteesArray,_evacuationPoint,_loseTime,_randomPos] execFSM "taskFSM\taskEvacuate.fsm";
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
+[_TaskID,_todeletearray,_civEvacuteesArray,_evacuationPoint,_loseTime,_randomPos] execFSM _fsmPath;

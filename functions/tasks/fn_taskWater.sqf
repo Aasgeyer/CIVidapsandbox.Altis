@@ -58,4 +58,5 @@ _TaskMarker = "";
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_destination,_loseTime] execFSM "taskFSM\taskWater.fsm";
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
+[_TaskID,_todeletearray,_destination,_loseTime] execFSM _fsmPath;

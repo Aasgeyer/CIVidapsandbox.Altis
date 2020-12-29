@@ -139,4 +139,5 @@ _TaskMarker = _marker;
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam] execFSM "taskFSM\taskDetainedCiv.fsm";
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
+[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam] execFSM _fsmPath;

@@ -79,4 +79,5 @@ _TaskMarker = _minefieldMarker;
 ] call BIS_fnc_taskCreate;
 
 //execute FSM
-[_TaskID,_todeletearray,_mineArray,_mineCountMarker] execFSM "taskFSM\taskDemine.fsm";
+_fsmPath = format ["taskFSM\%1.fsm",_parentTask];
+[_TaskID,_todeletearray,_mineArray,_mineCountMarker] execFSM _fsmPath;
