@@ -9,6 +9,8 @@ class CfgFunctions
             class cargoload;
             class idaplocation;
             class PrisonerOfWar;
+            class laptopHint;
+            class loadouts;
         };
         class zeus {
             class zeuscost;
@@ -23,6 +25,8 @@ class CfgFunctions
             class taskDemine;
             class taskDetainedCiv;
             class taskIEDExplosion;
+            class taskInformation;
+            class taskDemineRoad;
         };
         class presentation {
             class mapZoomMarker;
