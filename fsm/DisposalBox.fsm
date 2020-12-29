@@ -12,13 +12,17 @@ item7[] = {"true",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,"tru
 item8[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
 item9[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
 item10[] = {"Objnull",4,218,-250.000000,-150.000000,-150.000000,-100.000000,1.000000,"Objnull"};
-item11[] = {"init_boxes",1,4346,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"init boxes"};
+item11[] = {"init_boxes",1,250,-700.000000,-150.000000,-600.000000,-100.000000,0.000000,"init boxes"};
 item12[] = {"dead",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"dead"};
 item13[] = {"delete_case",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"delete case"};
 item14[] = {"case_dead",4,218,-250.000000,250.000000,-150.000000,300.000000,2.000000,"case dead"};
-item15[] = {"delete_old_case",2,250,-250.000000,350.000000,-150.000000,400.000000,0.000000,"delete old case" \n "explsosion"};
+item15[] = {"delete_old_case",2,250,-250.000000,350.000000,-150.000000,400.000000,0.000000,"delete old case" \n "explosion"};
 item16[] = {"has_no_explosive",4,218,-325.000000,0.000000,-225.000000,50.000000,1.000000,"has no explosives"};
-item17[] = {"count_explsoives",4,218,-400.000000,150.000000,-300.000000,200.000000,0.000000,"count explsoives" \n "changed"};
+item17[] = {"count_explosives",4,218,-400.000000,150.000000,-300.000000,200.000000,0.000000,"count explosives" \n "changed"};
+item18[] = {"disposal_markers",2,250,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"disposal markers"};
+item19[] = {"markers___0_1",4,218,-550.000000,-150.000000,-450.000000,-100.000000,0.000000,"markers > 0"};
+item20[] = {"markers___0",4,218,-400.000000,-250.000000,-300.000000,-200.000000,1.000000,"markers = 0"};
+item21[] = {"terminate_1",1,250,-400.000000,-350.000000,-300.000000,-300.000000,0.000000,"terminate"};
 link0[] = {0,5};
 link1[] = {0,8};
 link2[] = {0,10};
@@ -33,15 +37,19 @@ link10[] = {5,1};
 link11[] = {6,7};
 link12[] = {7,1};
 link13[] = {8,9};
-link14[] = {10,11};
+link14[] = {10,18};
 link15[] = {12,13};
 link16[] = {13,4};
 link17[] = {14,15};
 link18[] = {15,4};
 link19[] = {16,1};
 link20[] = {17,3};
-globals[] = {0.000000,0,0,0,0,640,480,1,44,6316128,1,-847.487854,497.942078,759.379578,-199.781677,1240,884,1};
-window[] = {2,-1,-1,-1,-1,785,26,1466,26,3,1258};
+link21[] = {18,19};
+link22[] = {18,20};
+link23[] = {19,11};
+link24[] = {20,21};
+globals[] = {0.000000,0,0,0,0,640,480,1,48,6316128,1,-907.714233,471.717651,471.550781,-511.850708,1103,884,1};
+window[] = {2,-1,-1,-1,-1,837,-1842,-402,78,3,1121};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -53,7 +61,9 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_case""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [" \n
+                         "	[""_case"",ObjNull]" \n
+                         "];" \n
                          "_explosivemagazines = [" \n
                          "    ""IEDUrbanSmall_Remote_Mag"",//""DemoCharge_Remote_Mag""," \n
                          "    ""IEDLandSmall_Remote_Mag"",""SatchelCharge_Remote_Mag""," \n
@@ -84,7 +94,7 @@ class FSM
                                 {
                                         itemno = 10;
                                         priority = 1.000000;
-                                        to="init_boxes";
+                                        to="disposal_markers";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
                                         condition=/*%FSM<CONDITION""">*/"isNull _case"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -151,7 +161,12 @@ class FSM
                         init = /*%FSM<STATEINIT""">*/"If _debug then {" \n
                          "	systemchat ""disposal - ID28"";" \n
                          "};" \n
-                         "_explosiveCount = {_x in _explosivemagazines} count (magazineCargo _case)"/*%FSM</STATEINIT""">*/;
+                         "_explosiveMagazineArray = (magazineCargo _case) select {_x in _explosivemagazines};" \n
+                         "_explosiveCount = count _explosiveMagazineArray;" \n
+                         "If _debug then {" \n
+                         "	systemchat str _explosiveCount;" \n
+                         "	systemchat str _explosiveMagazineArray;" \n
+                         "};"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -162,7 +177,7 @@ class FSM
                                         priority = 2.000000;
                                         to="delete_old_case";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!alive _case"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"damage _case > 0.5"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -177,14 +192,16 @@ class FSM
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
-                                /*%FSM<LINK "count_explsoives">*/
-                                class count_explsoives
+                                /*%FSM<LINK "count_explosives">*/
+                                class count_explosives
                                 {
                                         itemno = 17;
                                         priority = 0.000000;
                                         to="update_explosive";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"{_x in _explosivemagazines} count (magazineCargo _case) != _explosiveCount"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"{_x in _explosivemagazines} count (magazineCargo _case) != _explosiveCount" \n
+                                         "&&" \n
+                                         "alive _case"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -197,6 +214,7 @@ class FSM
                         name = "create_new_case";
                         itemno = 6;
                         init = /*%FSM<STATEINIT""">*/"_case = createVehicle [_classOldCase,_oldCasePosition,[],0,""CAN_COLLIDE""];" \n
+                         "clearmagazineCargoGlobal _case;" \n
                          "_case addMagazineCargoGlobal [""DemoCharge_Remote_Mag"",2];" \n
                          "_case setDir random 360;" \n
                          "If _debug then {" \n
@@ -236,7 +254,7 @@ class FSM
                 {
                         name = "init_boxes";
                         itemno = 11;
-                        init = /*%FSM<STATEINIT""">*/"_disposalMarkers = [""marker_disposal_""] call BIS_fnc_getmarkers;" \n
+                        init = /*%FSM<STATEINIT""">*/"" \n
                          "{" \n
                          "    _case = createVehicle [""Box_IDAP_AmmoOrd_F"",markerpos _x,[],0,""CAN_COLLIDE""];" \n
                          "    _case setDir random 360;" \n
@@ -294,11 +312,44 @@ class FSM
                         name = "delete_old_case";
                         itemno = 15;
                         init = /*%FSM<STATEINIT""">*/"deleteVehicle _case;" \n
-                         "_bomb = createVehicle [""Bo_GBU12_LGB"",_oldCasePosition,[],0,""CAN_COLLIDE""];" \n
-                         "_bomb setdamage 1;" \n
+                         "" \n
                          "If _debug then {" \n
-                         "	systemchat ""disposal - ID39"";" \n
-                         "};"/*%FSM</STATEINIT""">*/;
+                         "	systemchat ""disposal - ID15"";" \n
+                         "	diag_log format [""_explosiveMagazineArray: %1, count: %2"",_explosiveMagazineArray,_explosiveCount];" \n
+                         "};" \n
+                         "" \n
+                         "//determine explosion Size" \n
+                         "//replace Magazine with Ammo" \n
+                         "_explosiveAmmoArray = _explosiveMagazineArray apply {" \n
+                         "	[_x, ""Mag"", ""Ammo""] call CBA_fnc_replace;" \n
+                         "};" \n
+                         "If _debug then {" \n
+                         "	diag_log format [""_explosiveAmmoArray: %1"",_explosiveAmmoArray];" \n
+                         "};" \n
+                         "" \n
+                         "_ExplosionSizeArray = _explosiveAmmoArray apply {" \n
+                         "	If _debug then {" \n
+                         "		diag_log format [""hit _x: %1"",getnumber (configFile >> ""CfgAmmo"" >> _x >> ""hit"")];" \n
+                         "	};" \n
+                         "	getnumber (configFile >> ""CfgAmmo"" >> _x >> ""hit"");" \n
+                         "};" \n
+                         "If _debug then {" \n
+                         "	diag_log format [""_ExplosionSizeArray = %1"",_ExplosionSizeArray];" \n
+                         "};" \n
+                         "_MaxHitIndex = _ExplosionSizeArray findIf {_x == selectMax _ExplosionSizeArray};" \n
+                         "If _debug then {" \n
+                         "	diag_log format [""_MaxHitIndex = %1"",_MaxHitIndex];" \n
+                         "};" \n
+                         "_MaxAmmoExplosion = _explosiveAmmoArray select _MaxHitIndex;" \n
+                         "If _debug then {" \n
+                         "	diag_log format [""_MaxAmmoExplosion = %1"",_MaxAmmoExplosion];" \n
+                         "};" \n
+                         "" \n
+                         "_bomb = createVehicle [_MaxAmmoExplosion,_oldCasePosition,[],0,""CAN_COLLIDE""];" \n
+                         "_bomb setdir random 360;" \n
+                         "_bomb setdamage 1;" \n
+                         "" \n
+                         ""/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -316,12 +367,65 @@ class FSM
                         };
                 };
                 /*%FSM</STATE>*/
+                /*%FSM<STATE "disposal_markers">*/
+                class disposal_markers
+                {
+                        name = "disposal_markers";
+                        itemno = 18;
+                        init = /*%FSM<STATEINIT""">*/"_disposalMarkers = [""marker_disposal_""] call BIS_fnc_getmarkers;" \n
+                         "If _debug then {" \n
+                         "	systemchat ""disposal - ID44"";" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "markers___0">*/
+                                class markers___0
+                                {
+                                        itemno = 20;
+                                        priority = 1.000000;
+                                        to="terminate_1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"count _disposalMarkers == 0"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "markers___0_1">*/
+                                class markers___0_1
+                                {
+                                        itemno = 19;
+                                        priority = 0.000000;
+                                        to="init_boxes";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"count _disposalMarkers > 0"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "terminate_1">*/
+                class terminate_1
+                {
+                        name = "terminate_1";
+                        itemno = 21;
+                        init = /*%FSM<STATEINIT""">*/"If _debug then {" \n
+                         "	systemchat ""disposal - ID47"";" \n
+                         "	systemchat ""No Markers for explosive disposal found. No crates created."";" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
         };
         initState="Start";
         finalStates[] =
         {
                 "terminate",
                 "init_boxes",
+                "terminate_1",
         };
 };
 /*%FSM</COMPILE>*/
