@@ -14,7 +14,7 @@
 		BOOL - Success flag
 
 	Example(s):
-		["Economy", "money", 100] call TER_fnc_saveDB; //-> true
+		["Economy", "money", 100] call TER_fnc_writeDB; //-> true
 */
 if (!isServer) exitWith {};
 ["write", _this] call TER_db

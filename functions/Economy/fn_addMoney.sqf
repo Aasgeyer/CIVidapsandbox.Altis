@@ -16,5 +16,5 @@
 params ["_amount"];
 TER_money = TER_money + _amount;
 publicVariable "TER_money";
-["Economy","money",TER_money] remoteExecCall ["TER_fnc_saveDB", 2];
+["Economy","money",TER_money] remoteExecCall ["TER_fnc_writeDB", 2];
 TER_money

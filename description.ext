@@ -75,7 +75,8 @@ class CfgFunctions
         {
             class initDB {preInit = 1;};
             class resumeMission {postInit = 1;};
-            class saveDB;
+            class writeDB;
+            class getPUID;
         };
     };
     class BRPVP
