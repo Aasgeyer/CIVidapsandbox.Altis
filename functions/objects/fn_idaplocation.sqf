@@ -1,4 +1,5 @@
 If (!isServer) exitWith {};
+_debug = missionNamespace getVariable ["MIS_debugMode",false];
 
 _idapcomposition =
 [
@@ -51,10 +52,12 @@ MIS_idapoutposts = [];
     _outpostMrkArea setMarkerSizeLocal [_r,_r];
     _outpostMrkArea setMarkerColorLocal "ColorWhite";
     _outpostMrkArea setMarkerBrush "SolidBorder";
+    If !(_debug) then {_outpostMrkArea setMarkerAlpha 0;};
     _outpostMrk = createMarker [format ["marker_%1_idap",_name],_safepos];
     _outpostMrk setMarkerShapeLocal "ICON";
     _outpostMrk setMarkerTypeLocal "flag_IDAP";
     _outpostMrk setMarkerSize [0.5,0.5];
+    If !(_debug) then {_outpostMrk setMarkerAlpha 0;};
     _azimuth = (_safepos getdir _pos) - 90;
     _objectaray = [_safepos,_azimuth,_idapcomposition] call BIS_fnc_objectsMapper;
     _idapvan = _objectaray select (_objectaray findIf {typeOf _x isEqualTo "C_IDAP_Van_02_vehicle_F"});
