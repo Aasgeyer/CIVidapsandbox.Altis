@@ -66,6 +66,12 @@ class CfgFunctions
                 postInit = 1;
             };
         };
+        class Database
+        {
+            class initDB {preInit = 1;};
+            class resumeMission {postInit = 1;};
+            class saveDB;
+        };
     };
     class BRPVP
     {

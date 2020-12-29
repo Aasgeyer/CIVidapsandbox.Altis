@@ -14,5 +14,5 @@
 		[] call TER_fnc_payFunding;
 */
 [TER_funds] call TER_fnc_addMoney;
-TER_funds = 0;
+[TER_funds] call TER_fnc_removeFunding;
 publicVariable "TER_funds";
