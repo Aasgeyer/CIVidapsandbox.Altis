@@ -75,8 +75,10 @@ class CfgFunctions
         {
             class initDB {preInit = 1;};
             class resumeMission {postInit = 1;};
+            class readDB;
             class writeDB;
             class getPUID;
+            class loadClient;
         };
     };
     class BRPVP
