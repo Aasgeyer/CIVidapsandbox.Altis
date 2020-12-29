@@ -64,3 +64,4 @@ if (!isDedicated && isMultiplayer && !isNull player) then {
     //--- Connect SP progress too
     ["write", ["_SP_PLAYER_", "puid", getPlayerUID player]] call TER_db;
 };
+[objNull] execFSM "fsm\DisposalBox.fsm";

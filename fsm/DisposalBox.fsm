@@ -1,0 +1,327 @@
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, DisposalBox">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"get_old_position",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"get old position" \n "and class"};
+item2[] = {"has_explosives",4,218,-250.000000,50.000000,-150.000000,100.000000,1.000000,"has explosives"};
+item3[] = {"update_explosive",2,250,-250.000000,150.000000,-150.000000,200.000000,0.000000,"update" \n "explosive count"};
+item4[] = {"players_away",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"players away"};
+item5[] = {"not_objNull",4,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,"not objNull"};
+item6[] = {"create_new_case",2,250,50.000000,250.000000,150.000000,300.000000,0.000000,"create new case"};
+item7[] = {"true",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,"true"};
+item8[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
+item9[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
+item10[] = {"Objnull",4,218,-250.000000,-150.000000,-150.000000,-100.000000,1.000000,"Objnull"};
+item11[] = {"init_boxes",1,4346,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"init boxes"};
+item12[] = {"dead",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"dead"};
+item13[] = {"delete_case",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"delete case"};
+item14[] = {"case_dead",4,218,-250.000000,250.000000,-150.000000,300.000000,2.000000,"case dead"};
+item15[] = {"delete_old_case",2,250,-250.000000,350.000000,-150.000000,400.000000,0.000000,"delete old case" \n "explsosion"};
+item16[] = {"has_no_explosive",4,218,-325.000000,0.000000,-225.000000,50.000000,1.000000,"has no explosives"};
+item17[] = {"count_explsoives",4,218,-400.000000,150.000000,-300.000000,200.000000,0.000000,"count explsoives" \n "changed"};
+link0[] = {0,5};
+link1[] = {0,8};
+link2[] = {0,10};
+link3[] = {1,2};
+link4[] = {1,12};
+link5[] = {2,3};
+link6[] = {3,14};
+link7[] = {3,16};
+link8[] = {3,17};
+link9[] = {4,6};
+link10[] = {5,1};
+link11[] = {6,7};
+link12[] = {7,1};
+link13[] = {8,9};
+link14[] = {10,11};
+link15[] = {12,13};
+link16[] = {13,4};
+link17[] = {14,15};
+link18[] = {15,4};
+link19[] = {16,1};
+link20[] = {17,3};
+globals[] = {0.000000,0,0,0,0,640,480,1,44,6316128,1,-847.487854,497.942078,759.379578,-199.781677,1240,884,1};
+window[] = {2,-1,-1,-1,-1,785,26,1466,26,3,1258};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "DisposalBox";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_case""];" \n
+                         "_explosivemagazines = [" \n
+                         "    ""IEDUrbanSmall_Remote_Mag"",//""DemoCharge_Remote_Mag""," \n
+                         "    ""IEDLandSmall_Remote_Mag"",""SatchelCharge_Remote_Mag""," \n
+                         "    ""IEDUrbanBig_Remote_Mag"",""IEDLandBig_Remote_Mag""," \n
+                         "    ""ATMine_Range_Mag"",""ClaymoreDirectionalMine_Remote_Mag""," \n
+                         "    ""APERSMine_Range_Mag"",""APERSBoundingMine_Range_Mag""," \n
+                         "    ""SLAMDirectionalMine_Wire_Mag"",""APERSTripMine_Wire_Mag""" \n
+                         "];" \n
+                         "_case addMagazineCargoGlobal [""DemoCharge_Remote_Mag"",2];" \n
+                         "_debug = missionNamespace getVariable [""MIS_debugMode"",false];" \n
+                         "_debug = true;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "__IsServer">*/
+                                class __IsServer
+                                {
+                                        itemno = 8;
+                                        priority = 2.000000;
+                                        to="terminate";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!IsServer"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Objnull">*/
+                                class Objnull
+                                {
+                                        itemno = 10;
+                                        priority = 1.000000;
+                                        to="init_boxes";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"isNull _case"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "not_objNull">*/
+                                class not_objNull
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="get_old_position";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!IsNull _case"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "get_old_position">*/
+                class get_old_position
+                {
+                        name = "get_old_position";
+                        itemno = 1;
+                        init = /*%FSM<STATEINIT""">*/"_oldCasePosition = position _case;" \n
+                         "_classOldCase = typeOf _case;" \n
+                         "If _debug then {" \n
+                         "	systemchat ""disposal - ID1"";" \n
+                         "};" \n
+                         "_explosiveCount = 0;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "has_explosives">*/
+                                class has_explosives
+                                {
+                                        itemno = 2;
+                                        priority = 1.000000;
+                                        to="update_explosive";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(magazineCargo _case) findIf {_x in _explosivemagazines} != -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "dead">*/
+                                class dead
+                                {
+                                        itemno = 12;
+                                        priority = 0.000000;
+                                        to="delete_case";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _case"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "update_explosive">*/
+                class update_explosive
+                {
+                        name = "update_explosive";
+                        itemno = 3;
+                        init = /*%FSM<STATEINIT""">*/"If _debug then {" \n
+                         "	systemchat ""disposal - ID28"";" \n
+                         "};" \n
+                         "_explosiveCount = {_x in _explosivemagazines} count (magazineCargo _case)"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "case_dead">*/
+                                class case_dead
+                                {
+                                        itemno = 14;
+                                        priority = 2.000000;
+                                        to="delete_old_case";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _case"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "has_no_explosive">*/
+                                class has_no_explosive
+                                {
+                                        itemno = 16;
+                                        priority = 1.000000;
+                                        to="get_old_position";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(magazineCargo _case) findIf {_x in _explosivemagazines} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "count_explsoives">*/
+                                class count_explsoives
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="update_explosive";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"{_x in _explosivemagazines} count (magazineCargo _case) != _explosiveCount"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "create_new_case">*/
+                class create_new_case
+                {
+                        name = "create_new_case";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/"_case = createVehicle [_classOldCase,_oldCasePosition,[],0,""CAN_COLLIDE""];" \n
+                         "_case addMagazineCargoGlobal [""DemoCharge_Remote_Mag"",2];" \n
+                         "_case setDir random 360;" \n
+                         "If _debug then {" \n
+                         "	systemchat ""disposal - ID30"";" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="get_old_position";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "terminate">*/
+                class terminate
+                {
+                        name = "terminate";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "init_boxes">*/
+                class init_boxes
+                {
+                        name = "init_boxes";
+                        itemno = 11;
+                        init = /*%FSM<STATEINIT""">*/"_disposalMarkers = [""marker_disposal_""] call BIS_fnc_getmarkers;" \n
+                         "{" \n
+                         "    _case = createVehicle [""Box_IDAP_AmmoOrd_F"",markerpos _x,[],0,""CAN_COLLIDE""];" \n
+                         "    _case setDir random 360;" \n
+                         "    _case setVectorUp surfaceNormal position _case;" \n
+                         "    _randomDirStart = random 90;" \n
+                         "    for ""_d"" from _randomDirStart to (360) step 90 do {" \n
+                         "        _ramp = ""Land_Rampart_F"" createVehicle (_case getpos [8,_d]);" \n
+                         "        _ramp setdir (_d+90);" \n
+                         "        //_ramp setVectorUp surfaceNormal position _ramp;" \n
+                         "        _ramp setpos (_ramp modelToWorld [0,0,-1.5]);" \n
+                         "        //_sign = ""Land_Sign_MinesDanger_English_F"" createVehicle (_case getpos [8,_d]);" \n
+                         "        //_sign setdir (_d+180);" \n
+                         "        //_sign setpos (_ramp modelToWorld [0,0,0.5]);  " \n
+                         "    };" \n
+                         "    [_case] execFSM ""fsm\DisposalBox.fsm"";" \n
+                         "} foreach _disposalMarkers;" \n
+                         "If _debug then {" \n
+                         "	systemchat ""disposal - ID35"";" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "delete_case">*/
+                class delete_case
+                {
+                        name = "delete_case";
+                        itemno = 13;
+                        init = /*%FSM<STATEINIT""">*/"If _debug then {" \n
+                         "	systemchat ""disposal - ID37"";" \n
+                         "};" \n
+                         "deleteVehicle _case;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "players_away">*/
+                                class players_away
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="create_new_case";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allplayers findIf {_x distance2d _oldCasePosition < 500} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "delete_old_case">*/
+                class delete_old_case
+                {
+                        name = "delete_old_case";
+                        itemno = 15;
+                        init = /*%FSM<STATEINIT""">*/"deleteVehicle _case;" \n
+                         "_bomb = createVehicle [""Bo_GBU12_LGB"",_oldCasePosition,[],0,""CAN_COLLIDE""];" \n
+                         "_bomb setdamage 1;" \n
+                         "If _debug then {" \n
+                         "	systemchat ""disposal - ID39"";" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "players_away">*/
+                                class players_away
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="create_new_case";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allplayers findIf {_x distance2d _oldCasePosition < 500} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+                "terminate",
+                "init_boxes",
+        };
+};
+/*%FSM</COMPILE>*/
