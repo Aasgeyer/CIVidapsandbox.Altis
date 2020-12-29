@@ -31,11 +31,13 @@ Requirement: %1 and vehicle with enough cargo slots.
 ",_leafletDroneDisplayName];
 [true, "TaskEvacuate", [_TaskDescription,"Evacuate Civilians",""], objNull, "CREATED", -1, false, "run"] call BIS_fnc_taskCreate;
 
+/*
 _TaskDescription = format ["
 With a helicopter we are able to deliver supplies faster and further away than by car.<br/>
 Requirement: %1.
 ",_heliDisplayName];
 [true, "TaskAirsupply", [_TaskDescription,"Cargo Delivery (Air)",""], objNull, "CREATED", -1, false, "container"] call BIS_fnc_taskCreate;
+*/
 
 _TaskDescription = format ["
 Both sides of the war make use of mines. No one really knows where they are 
@@ -49,12 +51,13 @@ To inform the local populace of our activity and intention we must communicate w
 Requirement: %1.
 ","None"];
 [true, "TaskInformation", [_TaskDescription,"Information Campaign",""], objNull, "CREATED", -1, false, "talk"] call BIS_fnc_taskCreate;
-
+/*
 _TaskDescription = format ["
 Occasionally new volunteers arrive to support our efforts. We make sure they get to their destinations safe and fast.<br/>
 Requirement: %1.
 ","Vehicle with enough cargo slots"];
-[true, "TaskNewworkers", [_TaskDescription,"New Aid Workers",""], objNull, "CREATED", -1, false, "meet"] call BIS_fnc_taskCreate;
+[true, "TaskNewWorkers", [_TaskDescription,"New Aid Workers",""], objNull, "CREATED", -1, false, "meet"] call BIS_fnc_taskCreate;
+*/
 
 _TaskDescription = format ["
 Both sides have agreed to let us retrieve bodies of fallen combatants and non-combatants alike. 
@@ -74,10 +77,17 @@ Requirement: %1.
 [true, "TaskDetainedCiv", [_TaskDescription,"Detained Civilian",""], objNull, "CREATED", -1, false, "defend"] call BIS_fnc_taskCreate;
 
 _TaskDescription = format ["
-Guerilla emmploy a number of tactics such as Improvise Explosive Devices. 
+Guerilla employ a number of tactics such as Improvised Explosive Devices (IEDs). 
 They are sometimes unreliable and cause casualties among the civilian populace. 
 When there is an explosion we'll do our best to get a picture of the situation 
 and help where we can.<br/>
 Requirement: %1.
 ","First Aid Kits " + _cargoVanDisplayName];
 [true, "TaskIEDExplosion", [_TaskDescription,"IED Explosion",""], objNull, "CREATED", -1, false, "destroy"] call BIS_fnc_taskCreate;
+
+_TaskDescription = format ["
+Both guerilla and regular forces try to deny the enemy supply routes by setting up AT mines on roads.
+ When we receive intel about such mined roads we should clear them.<br/>
+Requirements: %1.
+","Mine Detector and Toolkit or Deminig Drone"];
+[true, "TaskDemineRoad", [_TaskDescription,"Demine Road",""], objNull, "CREATED", -1, false, "mine"] call BIS_fnc_taskCreate;
