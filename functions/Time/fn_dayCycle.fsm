@@ -2,15 +2,13 @@
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Start",0,250,0.000000,-175.000000,100.000000,-125.000000,0.000000,"Start"};
-item1[] = {"___o_clock",4,218,0.000000,-400.000000,100.000000,-350.000000,0.000000,"0 o'clock"};
-item2[] = {"New_day",2,4346,0.000000,-325.000000,100.000000,-275.000000,0.000000,"New day"};
-item3[] = {"true",8,218,0.000000,-250.000000,100.000000,-200.000000,0.000000,"true"};
-link0[] = {0,3};
+item1[] = {"___o_clock",4,218,0.000000,-250.000000,100.000000,-200.000000,0.000000,"0 o'clock"};
+item2[] = {"New_day",2,250,0.000000,-325.000000,100.000000,-275.000000,0.000000,"New day"};
+link0[] = {0,1};
 link1[] = {1,2};
 link2[] = {2,1};
-link3[] = {3,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,12,6316128,1,-230.586548,297.954010,-88.334869,-421.119690,1404,884,1};
-window[] = {2,-1,-1,-32000,-32000,915,156,1596,156,3,1422};
+globals[] = {0.000000,0,0,0,0,640,480,1,12,6316128,1,-195.077850,275.851654,-72.354263,-368.865417,1404,884,1};
+window[] = {2,-1,-1,-1,-1,863,104,1544,104,3,1422};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -26,14 +24,15 @@ class FSM
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
-                                /*%FSM<LINK "true">*/
-                                class true
+                                /*%FSM<LINK "___o_clock">*/
+                                class ___o_clock
                                 {
-                                        itemno = 3;
+                                        itemno = 1;
                                         priority = 0.000000;
                                         to="New_day";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_day != (date select 2)" \n
+                                         ""/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
