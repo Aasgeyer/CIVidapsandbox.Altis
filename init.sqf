@@ -1,5 +1,15 @@
 [] execVM "costs.sqf";
 MIS_restrictedAreas = ["marker_restrictedArea_"] call BIS_fnc_getMarkers;
+If (IsServer) then {
+    {
+        _borderMarker = createMarker [format ["marker_restrictedBorder_%1",_foreachindex+1],markerpos _x];
+        _borderMarker setMarkerBrushLocal "Border";
+        _bordermarker setMarkerColorLocal (markerColor _x);
+        _bordermarker setMarkerSizeLocal (markerSize _x);
+        _borderMarker setMarkerDirLocal (markerDir _x);
+        _borderMarker setMarkerShape (markerShape _x)
+    } foreach MIS_restrictedAreas;
+};
 
 //objects that can be slingloaded
 MIS_SlingloadCargo = [
