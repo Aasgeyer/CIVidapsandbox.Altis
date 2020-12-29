@@ -11,6 +11,7 @@ class CfgFunctions
             class PrisonerOfWar;
             class laptopHint;
             class loadouts;
+            class lightpoint;
         };
         class zeus {
             class zeuscost;
