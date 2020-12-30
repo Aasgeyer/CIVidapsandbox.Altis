@@ -5,9 +5,10 @@
 		Get a value from the server's database.
 
 	Parameter(s):
-		0:	STRING - Section
-		1:	STRING - Key
-		2:	ANY - Default value
+		0:	STRING - Database name, eg. "general", "players", ...
+		1:	STRING - Section
+		2:	STRING - Key
+		3:	ANY - Default value to return, if key does not exist.
 
 	Returns:
 		ANY - The value that is saved in the database.
