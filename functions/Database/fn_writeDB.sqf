@@ -17,4 +17,6 @@
 		["Economy", "money", 100] call TER_fnc_writeDB; //-> true
 */
 if (!isServer) exitWith {};
-["write", _this] call TER_db
+params ["_dbName", "_section", "_key", "_value"];
+private _db = missionNamespace getVariable format ["TER_db_%1", _dbName];
+["write", [_section, _key, _value]] call _db
