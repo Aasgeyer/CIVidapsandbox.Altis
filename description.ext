@@ -75,10 +75,14 @@ class CfgFunctions
         {
             class initDB {preInit = 1;};
             class resumeMission {postInit = 1;};
+            class getDB;
             class readDB;
             class writeDB;
             class getPUID;
             class loadClient;
+            class increaseDBValue;
+            class decreaseDBValue;
+            class deleteDBSection;
         };
     };
     class BRPVP
