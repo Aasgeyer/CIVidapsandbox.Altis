@@ -28,6 +28,6 @@ _player spawn {
 		private _loadout = getUnitLoadout _this;
 		waitUntil {sleep 10; !(getUnitLoadout _this isEqualTo _loadout)};
 		//--- Loadout changed, save to DB
-		["players", getPlayerUID _player, "loadout", getUnitLoadout _this] remoteExecCall ["TER_fnc_writeDB", 2];
+		["players", getPlayerUID _this, "loadout", getUnitLoadout _this] remoteExecCall ["TER_fnc_writeDB", 2];
 	};
 };
