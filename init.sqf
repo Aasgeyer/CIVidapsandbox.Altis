@@ -2,12 +2,12 @@
 MIS_restrictedAreas = ["marker_restrictedArea_"] call BIS_fnc_getMarkers;
 If (IsServer) then {
     {
-        _borderMarker = createMarker [format ["marker_restrictedBorder_%1",_foreachindex+1],markerpos _x];
-        _borderMarker setMarkerBrushLocal "Border";
-        _bordermarker setMarkerColorLocal (markerColor _x);
-        _bordermarker setMarkerSizeLocal (markerSize _x);
-        _borderMarker setMarkerDirLocal (markerDir _x);
-        _borderMarker setMarkerShape (markerShape _x)
+        _CrossMarker = createMarker [format ["marker_restrictedCross_%1",_foreachindex+1],markerpos _x];
+        _CrossMarker setMarkerBrushLocal "Cross";
+        _CrossMarker setMarkerColorLocal (markerColor _x);
+        _CrossMarker setMarkerSizeLocal (markerSize _x);
+        _CrossMarker setMarkerDirLocal (markerDir _x);
+        _CrossMarker setMarkerShape (markerShape _x)
     } foreach MIS_restrictedAreas;
 };
 
