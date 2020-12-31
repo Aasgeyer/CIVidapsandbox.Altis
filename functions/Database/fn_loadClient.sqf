@@ -16,7 +16,7 @@
 		[player] call TER_fnc_loadClient;
 */
 params [["_player", player]];
-private _puid = [_player] call TER_fnc_getPUID;
+private _puid = getPlayerUID _player;
 ["%1 (%2) requesting loading of stats from db.", name _player, _puid] call BIS_fnc_logFormat;
 //--- Apply loadout from database
 private _loadout = ["players", _puid, "loadout", getUnitLoadout _player] call TER_fnc_readDB;
@@ -28,6 +28,6 @@ _player spawn {
 		private _loadout = getUnitLoadout _this;
 		waitUntil {sleep 10; !(getUnitLoadout _this isEqualTo _loadout)};
 		//--- Loadout changed, save to DB
-		["players", [_this] call TER_fnc_getPUID, "loadout", getUnitLoadout _this] remoteExecCall ["TER_fnc_writeDB", 2];
+		["players", getPlayerUID _player, "loadout", getUnitLoadout _this] remoteExecCall ["TER_fnc_writeDB", 2];
 	};
 };

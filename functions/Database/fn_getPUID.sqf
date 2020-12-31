@@ -6,6 +6,8 @@
 		return "_SP_PLAYER_" to sync progress from single player.
 		! LOCAL ONLY !
 
+		Not implemented atm.
+
 	Parameter(s):
 		None
 
@@ -13,11 +15,13 @@
 		STRING - player UID
 
 	Example(s):
-		[] call TER_fnc_getPUID; //-> "123456789"
+		[player] call TER_fnc_getPUID; //-> "123456789"
 */
-
-if isServer then {
-	"_SP_PLAYER_"
+params ["_player"];
+if (getPlayerUID _player == "_SP_PLAYER_") then {
+	//--- Try to get the PUID from database
+	["players", "_SP_PLAYER_", "puid", getPlayerUID _player] call TER_fnc_readDB;
 } else {
-	getPlayerUID player
+	remoteExecutedOwner
+	getPlayerUID _player;
 };
