@@ -22,6 +22,5 @@ if (getPlayerUID _player == "_SP_PLAYER_") then {
 	//--- Try to get the PUID from database
 	["players", "_SP_PLAYER_", "puid", getPlayerUID _player] call TER_fnc_readDB;
 } else {
-	remoteExecutedOwner
 	getPlayerUID _player;
 };
