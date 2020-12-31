@@ -12,6 +12,7 @@ class CfgFunctions
             class laptopHint;
             class loadouts;
             class lightpoint;
+            class printerHint;
         };
         class zeus {
             class zeuscost;
@@ -32,6 +33,10 @@ class CfgFunctions
         class presentation {
             class mapZoomMarker;
             class TaskParents;
+            class TalkToMayor;
+        };
+        class ambient {
+            class flyBy;
         };
 	};
     class TER
