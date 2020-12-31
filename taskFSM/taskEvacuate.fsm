@@ -1,36 +1,26 @@
 /*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskEvacuate">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
-item1[] = {"time_over_and_no",4,218,350.000000,50.000000,450.000000,100.000000,1.000000,"time over" \n "and no one in" \n "player group"};
+item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item1[] = {"all_alive_civs_a",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"all alive" \n "civs away"};
 item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
 item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
-item4[] = {"fail",2,250,350.000000,750.000000,450.000000,800.000000,0.000000,"fail"};
+item4[] = {"fail",2,250,50.000000,350.000000,150.000000,400.000000,0.000000,"fail"};
 item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
 item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"leaflets_dropped",4,218,-250.000000,-50.000000,-150.000000,0.000000,0.000000,"leaflets dropped"};
-item8[] = {"success",2,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"success"};
-item9[] = {"no_player_near",4,218,-100.000000,750.000000,0.000000,800.000000,0.000000,"no player near"};
-item10[] = {"end",1,250,-100.000000,850.000000,0.000000,900.000000,0.000000,"end"};
-item11[] = {"move_to_evac",2,250,-400.000000,50.000000,-300.000000,100.000000,0.000000,"move to evac"};
-item12[] = {"all_civs_in_player",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"all civs in" \n "player group"};
-item13[] = {"_",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,""};
-item14[] = {"in_evacuated_not",4,4314,-100.000000,550.000000,0.000000,600.000000,0.000000,"in evacuated" \n "not dead"};
-item15[] = {"all_civs_dead",4,218,50.000000,550.000000,150.000000,600.000000,1.000000,"all civs dead"};
-item16[] = {"",7,210,396.000000,571.000000,404.000000,579.000000,0.000000,""};
-item17[] = {"civ_near_base",4,218,50.000000,350.000000,150.000000,400.000000,0.000000,"civ near base"};
-item18[] = {"set_evacuated",2,250,200.000000,350.000000,300.000000,400.000000,0.000000,"set evacuated"};
-item19[] = {"unit_left_behind",4,218,-250.000000,550.000000,-150.000000,600.000000,0.000000,"unit left behind"};
-item20[] = {"abondened_unit_leave",2,250,-400.000000,450.000000,-300.000000,500.000000,0.000000,"abondened unit" \n "leave player group"};
-item21[] = {"_",8,218,-250.000000,350.000000,-150.000000,400.000000,0.000000,""};
-item22[] = {"_",8,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,""};
-item23[] = {"_",8,218,50.000000,450.000000,150.000000,500.000000,0.000000,""};
-item24[] = {"update_destination",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"update destination" \n "all civs not in player" \n " group abondened"};
-item25[] = {"_",8,218,-100.000000,350.000000,0.000000,400.000000,0.000000,""};
-item26[] = {"time_over_some_civs",4,218,50.000000,150.000000,150.000000,200.000000,0.000000,"time over" \n "some civs in" \n "player group"};
+item8[] = {"success",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"success"};
+item9[] = {"no_player_near",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"no player near"};
+item10[] = {"end",1,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
+item11[] = {"move_to_evac",2,250,-400.000000,-50.000000,-300.000000,0.000000,0.000000,"move to evac"};
+item12[] = {"civ_died",4,218,50.000000,-50.000000,150.000000,0.000000,1.000000,"civ died"};
+item13[] = {"update_dead_civ",2,250,200.000000,50.000000,300.000000,100.000000,0.000000,"update dead" \n "civ array"};
+item14[] = {"_",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,""};
+item15[] = {"__50__dead",4,218,50.000000,250.000000,150.000000,300.000000,2.000000,">50% dead"};
+item16[] = {"_",8,218,-250.000000,50.000000,-150.000000,100.000000,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,5};
-link2[] = {1,16};
+link2[] = {1,8};
 link3[] = {2,3};
 link4[] = {4,9};
 link5[] = {5,6};
@@ -38,31 +28,17 @@ link6[] = {6,1};
 link7[] = {6,7};
 link8[] = {6,12};
 link9[] = {6,15};
-link10[] = {6,26};
-link11[] = {7,11};
-link12[] = {8,9};
-link13[] = {9,10};
-link14[] = {11,22};
-link15[] = {12,24};
-link16[] = {13,14};
-link17[] = {13,15};
-link18[] = {13,17};
-link19[] = {13,19};
-link20[] = {14,8};
-link21[] = {15,16};
-link22[] = {16,4};
-link23[] = {17,18};
-link24[] = {18,23};
-link25[] = {19,20};
-link26[] = {20,21};
-link27[] = {21,13};
-link28[] = {22,6};
-link29[] = {23,13};
-link30[] = {24,25};
-link31[] = {25,13};
-link32[] = {26,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,34,6316128,1,-551.956238,779.569763,899.350464,-49.898285,1240,884,1};
-window[] = {2,-1,-1,-1,-1,811,-1868,-428,52,3,1258};
+link10[] = {7,11};
+link11[] = {8,9};
+link12[] = {9,10};
+link13[] = {11,16};
+link14[] = {12,13};
+link15[] = {13,14};
+link16[] = {14,6};
+link17[] = {15,4};
+link18[] = {16,6};
+globals[] = {0.000000,0,0,0,0,640,480,1,44,6316128,1,-475.064148,675.700073,602.600220,-217.783325,911,587,1};
+window[] = {0,-1,-1,-1,-1,923,124,1564,164,1,929};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -74,13 +50,12 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_civEvacuteesArray"",""_evacuationPoint"",""_losetime"",""_randomPos""];" \n
-                         "_startStrength = count _civEvacuteesArray;" \n
-                         "_closeplayer = ObjNull;" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_civEvacuteesArray"",""_losetime"",""_randomPos"",""_fleePos"",""_OutpostsClose""];" \n
                          "_debug = missionNamespace getVariable [""MIS_debugMode"",false];" \n
+                         "_deadCivArray = [];" \n
+                         "_startStrength = count _civEvacuteesArray;" \n
                          "_leafletsdropped = false;" \n
-                         "_evacuatedGroup = createGroup [civilian,false];" \n
-                         "_evacuatedGroup setSpeedMode ""LIMITED"";"/*%FSM</STATEINIT""">*/;
+                         ""/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -137,7 +112,7 @@ class FSM
                                         priority = 0.000000;
                                         to="end";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _evacuationPoint < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _randomPos < 400} == -1;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -153,51 +128,28 @@ class FSM
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
-                                /*%FSM<LINK "all_civs_dead">*/
-                                class all_civs_dead
+                                /*%FSM<LINK "__50__dead">*/
+                                class __50__dead
                                 {
                                         itemno = 15;
-                                        priority = 1.000000;
+                                        priority = 2.000000;
                                         to="fail";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {alive _x} == -1"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_startStrength/2 > ({alive _x} count _civEvacuteesArray)"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
-                                /*%FSM<LINK "time_over_and_no">*/
-                                class time_over_and_no
-                                {
-                                        itemno = 1;
-                                        priority = 1.000000;
-                                        to="fail";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"time >= _losetime" \n
-                                         "&&" \n
-                                         "_civEvacuteesArray findIf {isplayer leader _x} == -1"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                                /*%FSM<LINK "all_civs_in_player">*/
-                                class all_civs_in_player
+                                /*%FSM<LINK "civ_died">*/
+                                class civ_died
                                 {
                                         itemno = 12;
-                                        priority = 0.000000;
-                                        to="update_destination";
+                                        priority = 1.000000;
+                                        to="update_dead_civ";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {!(isplayer leader _x)} == -1"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                                /*%FSM<LINK "time_over_some_civs">*/
-                                class time_over_some_civs
-                                {
-                                        itemno = 26;
-                                        priority = 0.000000;
-                                        to="update_destination";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"time >= _losetime" \n
-                                         "&&" \n
-                                         "_civEvacuteesArray findIf {isplayer leader _x} != -1"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {" \n
+                                         "	!alive _x" \n
+                                         "	&& _x in _deadCivArray" \n
+                                         "} != -1"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -214,6 +166,21 @@ class FSM
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
+                                /*%FSM<LINK "all_alive_civs_a">*/
+                                class all_alive_civs_a
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="success";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {" \n
+                                         "	_x distance2d _randomPos < 200" \n
+                                         "	&& !(_x getVariable [""AAS_civEvacuated"",false])" \n
+                                         "	&& alive _x" \n
+                                         "} == -1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                         };
                 };
                 /*%FSM</STATE>*/
@@ -222,7 +189,16 @@ class FSM
                 {
                         name = "success";
                         itemno = 8;
-                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;" \n
+                         "" \n
+                         "_evacedCivs = {" \n
+                         "	_x getVariable [""AAS_civEvacuated"",false]" \n
+                         "} count _civEvacuteesArray;" \n
+                         "_deadCivs = count _deadCivArray;" \n
+                         "_fledCivsNotEvacuated = {" \n
+                         "	!(_x getVariable [""AAS_civEvacuated"",false])" \n
+                         "	&& alive _x" \n
+                         "} count _civEvacuteesArray;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -233,7 +209,7 @@ class FSM
                                         priority = 0.000000;
                                         to="end";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _evacuationPoint < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _randomPos < 400} == -1;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -245,7 +221,10 @@ class FSM
                 {
                         name = "end";
                         itemno = 10;
-                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;" \n
+                         "{" \n
+                         "    _x setVariable [""AAS_IDAPoutpostActive"",false,true];" \n
+                         "} forEach _OutpostsClose;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -258,10 +237,11 @@ class FSM
                         name = "move_to_evac";
                         itemno = 11;
                         init = /*%FSM<STATEINIT""">*/"{" \n
-                         "    group _x addWaypoint [_evacuationPoint,20];" \n
+                         "    group _x addWaypoint [_fleePos,20];" \n
+                         "	_x setvariable [""AAS_civEvacuated"",true,true];" \n
                          "} foreach _civEvacuteesArray;" \n
                          "If _debug then {" \n
-                         "	systemchat ""Civs moving to Evac"";" \n
+                         "	systemchat ""Civs moving to Flee Point"";" \n
                          "};" \n
                          "_leafletsdropped = true;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -270,7 +250,7 @@ class FSM
                                 /*%FSM<LINK "_">*/
                                 class _
                                 {
-                                        itemno = 22;
+                                        itemno = 16;
                                         priority = 0.000000;
                                         to="__";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
@@ -281,159 +261,30 @@ class FSM
                         };
                 };
                 /*%FSM</STATE>*/
-                /*%FSM<STATE "_">*/
-                class _
+                /*%FSM<STATE "update_dead_civ">*/
+                class update_dead_civ
                 {
-                        name = "_";
+                        name = "update_dead_civ";
                         itemno = 13;
-                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"_deadCivIndex = _civEvacuteesArray findIf {" \n
+                         "	!alive _x" \n
+                         "	&& !(_x in _deadCivArray)" \n
+                         "};" \n
+                         "_deadCiv = _civEvacuteesArray select _deadCivIndex;" \n
+                         "_deadCivArray pushBack _deadCiv;" \n
+                         "If (_debug) then {" \n
+                         "	systemchat format [""%1 died. Dead Civ counter: %2"",_deadCiv,count _deadCivArray];" \n
+                         "};" \n
+                         ""/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
-                                /*%FSM<LINK "all_civs_dead">*/
-                                class all_civs_dead
-                                {
-                                        itemno = 15;
-                                        priority = 1.000000;
-                                        to="fail";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {alive _x} == -1"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                                /*%FSM<LINK "civ_near_base">*/
-                                class civ_near_base
-                                {
-                                        itemno = 17;
-                                        priority = 0.000000;
-                                        to="set_evacuated";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {" \n
-                                         "	markerpos ""marker_idapbase"" distance2d _x < 100" \n
-                                         "	&& isNull objectParent _x" \n
-                                         "	&& !(group _x isequalto _evacuatedGroup)" \n
-                                         "} != -1"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                                /*%FSM<LINK "unit_left_behind">*/
-                                class unit_left_behind
-                                {
-                                        itemno = 19;
-                                        priority = 0.000000;
-                                        to="abondened_unit_leave";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"_civEvacuteesArray findIf {" \n
-                                         "	leader _x distance2d _x > 150" \n
-                                         "	&& isplayer leader _x" \n
-                                         "	&& isNull Objectparent _x" \n
-                                         "} != -1"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                                /*%FSM<LINK "in_evacuated_not">*/
-                                class in_evacuated_not
+                                /*%FSM<LINK "_">*/
+                                class _
                                 {
                                         itemno = 14;
                                         priority = 0.000000;
-                                        to="success";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"count units _evacuatedGroup" \n
-                                         "==" \n
-                                         "{" \n
-                                         "	alive _x" \n
-                                         "	&& !(_x getVariable [""AAS_civabondened"",false])" \n
-                                         "} count _civEvacuteesArray"/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                        };
-                };
-                /*%FSM</STATE>*/
-                /*%FSM<STATE "set_evacuated">*/
-                class set_evacuated
-                {
-                        name = "set_evacuated";
-                        itemno = 18;
-                        init = /*%FSM<STATEINIT""">*/"_safeUnit = _civEvacuteesArray select (" \n
-                         "	_civEvacuteesArray findIf {" \n
-                         "		markerpos ""marker_idapbase"" distance2d _x < 100" \n
-                         "		&& isNull objectParent _x" \n
-                         "		&& !(group _x isequalto _evacuatedGroup)" \n
-                         "	}" \n
-                         ");" \n
-                         "[_safeunit] join _evacuatedGroup;" \n
-                         "_safeUnit move markerpos ""marker_base"";"/*%FSM</STATEINIT""">*/;
-                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
-                        class Links
-                        {
-                                /*%FSM<LINK "_">*/
-                                class _
-                                {
-                                        itemno = 23;
-                                        priority = 0.000000;
-                                        to="_";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                        };
-                };
-                /*%FSM</STATE>*/
-                /*%FSM<STATE "abondened_unit_leave">*/
-                class abondened_unit_leave
-                {
-                        name = "abondened_unit_leave";
-                        itemno = 20;
-                        init = /*%FSM<STATEINIT""">*/"If _debug then {" \n
-                         "	systemchat ""Civ abondened"";" \n
-                         "};" \n
-                         "" \n
-                         "_abondenedUnit = _civEvacuteesArray select (" \n
-                         "	_civEvacuteesArray findIf {" \n
-                         "		leader _x distance2d _x > 150" \n
-                         "		&& isplayer leader _x" \n
-                         "		&& isNull Objectparent _x" \n
-                         "	}" \n
-                         ");" \n
-                         "[_abondenedUnit] join GrpNull;" \n
-                         "_abondenedUnit setVariable [""AAS_civabondened"",true,true];"/*%FSM</STATEINIT""">*/;
-                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
-                        class Links
-                        {
-                                /*%FSM<LINK "_">*/
-                                class _
-                                {
-                                        itemno = 21;
-                                        priority = 0.000000;
-                                        to="_";
-                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
-                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-                                };
-                                /*%FSM</LINK>*/
-                        };
-                };
-                /*%FSM</STATE>*/
-                /*%FSM<STATE "update_destination">*/
-                class update_destination
-                {
-                        name = "update_destination";
-                        itemno = 24;
-                        init = /*%FSM<STATEINIT""">*/"[_taskID,""marker_idapbase""] call BIS_fnc_TaskSetDestination;" \n
-                         "{" \n
-                         "	_x setVariable [""AAS_civabondened"",true,true];" \n
-                         "} foreach (_civEvacuteesArray select {!(isplayer leader _x)});"/*%FSM</STATEINIT""">*/;
-                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
-                        class Links
-                        {
-                                /*%FSM<LINK "_">*/
-                                class _
-                                {
-                                        itemno = 25;
-                                        priority = 0.000000;
-                                        to="_";
+                                        to="__";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
                                         condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;

@@ -25,9 +25,10 @@ Requirement: %1.
 
 _TaskDescription = format ["
 FIA and AAF forces clash from time to time and endanger civilian lifes. 
-We must do all we can to protect them. Inform them of the evacuation with leaflets 
-dropped from drones and evacuate the local populace where fighting is imminent.<br/>
-Requirement: %1 and vehicle with enough cargo slots.
+We must do all we can to protect them. Inform them of the evacuation either by 
+talking to them or with leaflets 
+dropped from drones where fighting is imminent.<br/>
+Requirement: (optional) %1.
 ",_leafletDroneDisplayName];
 [true, "TaskEvacuate", [_TaskDescription,"Evacuate Civilians",""], objNull, "CREATED", -1, false, "run"] call BIS_fnc_taskCreate;
 

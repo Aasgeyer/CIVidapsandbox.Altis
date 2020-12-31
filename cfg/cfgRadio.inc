@@ -72,6 +72,55 @@ class CfgRadio
 		title	= "I'll bring you somewhere safe. Stay close!";
 	};
 
+	class IDAP_fleeOrder_0
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Run Forest! Run!";
+	};
+	class IDAP_fleeOrder_1
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Get out of here! Head towards a safe position and stay away from combatants!";
+	};
+	class IDAP_fleeOrder_2
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Hurry to move away from here! There are soldiers closing in on this area. Avoid them and go to safe position.";
+	};
+	class IDAP_fleeOrder_3
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Move! Move! Move! There will be fighting close by! So get yourself to safety!";
+	};
+	class C_fleeComply_0
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Yes, daddy IDAP";
+	};
+	class C_fleeComply_1
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Alright, I'm leaving!";
+	};
+	class C_fleeComply_2
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "I'm going as fast as possible!";
+	};
+	class C_fleeComply_3
+	{
+		name = "";
+		sound[]	= { "", db - 100, 1.0 };
+		title	= "Ok, ok! I'll go then!";
+	};
+
 	class IDAP_DetainedTalk_1
 	{
 		name	= "";
@@ -99,4 +148,5 @@ class CfgRadio
 		//title	= "I thank thee good sir! Forevermore I am in thy debt, which not gold nor gem can repay! Thank thee, O savior of mine!";
 		title = "No, I think I can handle. I am glad you came. I'll be on my way and thank you!";
 	};
+
 };
