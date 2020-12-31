@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, DisposalBox">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
 item1[] = {"get_old_position",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"get old position" \n "and class"};
 item2[] = {"has_explosives",4,218,-250.000000,50.000000,-150.000000,100.000000,1.000000,"has explosives"};
 item3[] = {"update_explosive",2,250,-250.000000,150.000000,-150.000000,200.000000,0.000000,"update" \n "explosive count"};
@@ -19,7 +19,7 @@ item14[] = {"case_dead",4,218,-250.000000,250.000000,-150.000000,300.000000,2.00
 item15[] = {"delete_old_case",2,250,-250.000000,350.000000,-150.000000,400.000000,0.000000,"delete old case" \n "explosion"};
 item16[] = {"has_no_explosive",4,218,-325.000000,0.000000,-225.000000,50.000000,1.000000,"has no explosives"};
 item17[] = {"count_explosives",4,218,-400.000000,150.000000,-300.000000,200.000000,0.000000,"count explosives" \n "changed"};
-item18[] = {"disposal_markers",2,250,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"disposal markers"};
+item18[] = {"disposal_markers",2,4346,-400.000000,-150.000000,-300.000000,-100.000000,0.000000,"disposal markers"};
 item19[] = {"markers___0_1",4,218,-550.000000,-150.000000,-450.000000,-100.000000,0.000000,"markers > 0"};
 item20[] = {"markers___0",4,218,-400.000000,-250.000000,-300.000000,-200.000000,1.000000,"markers = 0"};
 item21[] = {"terminate_1",1,250,-400.000000,-350.000000,-300.000000,-300.000000,0.000000,"terminate"};
@@ -49,7 +49,7 @@ link22[] = {18,20};
 link23[] = {19,11};
 link24[] = {20,21};
 globals[] = {0.000000,0,0,0,0,640,480,1,48,6316128,1,-907.714233,471.717651,471.550781,-511.850708,1103,884,1};
-window[] = {2,-1,-1,-1,-1,889,-1790,-350,130,3,1121};
+window[] = {2,-1,-1,-32000,-32000,785,-1894,-454,26,3,1121};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -375,7 +375,8 @@ class FSM
                         init = /*%FSM<STATEINIT""">*/"_disposalMarkers = [""marker_disposal_""] call BIS_fnc_getmarkers;" \n
                          "If _debug then {" \n
                          "	systemchat ""disposal - ID44"";" \n
-                         "};"/*%FSM</STATEINIT""">*/;
+                         "};" \n
+                         "//{_x setMarkerAlpha 0;} foreach _disposalMarkers;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
