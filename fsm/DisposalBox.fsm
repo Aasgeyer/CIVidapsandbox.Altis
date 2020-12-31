@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, DisposalBox">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
 item1[] = {"get_old_position",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"get old position" \n "and class"};
 item2[] = {"has_explosives",4,218,-250.000000,50.000000,-150.000000,100.000000,1.000000,"has explosives"};
 item3[] = {"update_explosive",2,250,-250.000000,150.000000,-150.000000,200.000000,0.000000,"update" \n "explosive count"};
@@ -49,7 +49,7 @@ link22[] = {18,20};
 link23[] = {19,11};
 link24[] = {20,21};
 globals[] = {0.000000,0,0,0,0,640,480,1,48,6316128,1,-907.714233,471.717651,471.550781,-511.850708,1103,884,1};
-window[] = {2,-1,-1,-1,-1,837,-1842,-402,78,3,1121};
+window[] = {2,-1,-1,-1,-1,889,-1790,-350,130,3,1121};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -74,7 +74,7 @@ class FSM
                          "];" \n
                          "_case addMagazineCargoGlobal [""DemoCharge_Remote_Mag"",2];" \n
                          "_debug = missionNamespace getVariable [""MIS_debugMode"",false];" \n
-                         "_debug = true;"/*%FSM</STATEINIT""">*/;
+                         "//_debug = true;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

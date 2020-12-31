@@ -20,7 +20,7 @@ if (isNull CivUnitPool) then {
 CivUnitPool = getArray CivUnitPool;
 
 //AAF soldier pool
-AAS_RegularSoliderPool =
+AAS_RegularSoldierPool =
 "_y = _x;
 _classblacklist = ['story','pilot','heli','officer'];
 toupper getText (_y >> 'faction') isequalto 'IND_F'
@@ -29,7 +29,7 @@ toupper getText (_y >> 'faction') isequalto 'IND_F'
 && count getArray (_y >> 'weapons') > 2
 && _classBlacklist findIf {tolower getText (_y >> '_generalMacro') find _x > -1} == -1"
 configClasses (configFile >> "CfgVehicles");
-AAS_RegularSoliderPool = AAS_RegularSoliderPool apply {configName _x};
+AAS_RegularSoldierPool = AAS_RegularSoldierPool apply {configName _x};
 
 //FIA soldier pool
 AAS_GuerillaSoldierPool =
