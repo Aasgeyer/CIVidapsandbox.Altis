@@ -13,11 +13,20 @@ _randomPos = [
     ["marker_AO_1"],
     ["water"],
     {
-        MIS_idapoutposts findIf {_x distance2D _this < 300} == -1
+        MIS_idapoutposts findIf {
+            _x distance2D _this < 300
+            && (_x getVariable ["AAS_IDAPOutPostActive",false])
+        } == -1
         && AllPlayers findIf {_x distance2D _this < 300} == -1
         && count (_this nearRoads 50) > 0
+        && MIS_restrictedAreas findIf {_this inArea _x} == -1
     }
 ] call BIS_fnc_randomPos;
+
+_OutpostsClose = MIS_idapoutposts select {_x distance2D _randomPos < 300};
+{
+    _x setVariable ["AAS_IDAPoutpostActive",true,true];
+} forEach _OutpostsClose;
 
 _randomPos = selectRandom (_randomPos nearRoads 50);
 
@@ -87,6 +96,7 @@ _civ setdir getdir _executioner;
     {},													// Code executed on every progress tick
     {// Code executed on completion
         params ["_target", "_caller", "_actionId", "_arguments"];
+        _target setVariable ["AAS_CivFreed",true,true];
         _saymessage = "C_DetainedFreed_1";
         [_target, _saymessage] remoteExec ["directSay",_caller];
         [_target, "Acts_ExecutionVictim_Unbow"] remoteExec ["switchMove"];
@@ -131,7 +141,7 @@ _TaskMarker = _marker;
     true,
     [_TaskID,_parentTask],
     [_TaskDescription,_TaskTitle,_TaskMarker],
-    _randomPos,
+    _sidepos,
     "AUTOASSIGNED",
     0,
     true,
@@ -140,4 +150,4 @@ _TaskMarker = _marker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam] execFSM _fsmPath;
+[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam,_OutpostsClose] execFSM _fsmPath;

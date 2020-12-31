@@ -13,8 +13,19 @@ _ATmineTypePool = ["ATMine","SLAMDirectionalMine"];
 _randomPos = [
     ["marker_AO_1"],
     ["water"],
-    {MIS_idapoutposts findIf {_x distance2D _this < _minefieldRadius*2} == -1}
+    {
+        MIS_idapoutposts findIf {
+            _x distance2D _this < _minefieldRadius*2
+            && (_x getVariable ["AAS_IDAPOutPostActive",false])
+        } == -1
+        && MIS_restrictedAreas findIf {_this inArea _x} == -1 // not in restricted area
+    }
 ] call BIS_fnc_randomPos;
+
+_OutpostsClose = MIS_idapoutposts select {_x distance2D _randomPos < 300};
+{
+    _x setVariable ["AAS_IDAPoutpostActive",true,true];
+} forEach _OutpostsClose;
 
 //create marker over minefield
 _minefieldMarker = createMarker [format ["mrkMinefield_%1",_randomPos],_randomPos];
@@ -80,4 +91,4 @@ _TaskMarker = _minefieldMarker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_mineArray,_mineCountMarker] execFSM _fsmPath;
+[_TaskID,_todeletearray,_mineArray,_mineCountMarker,_OutpostsClose] execFSM _fsmPath;

@@ -26,7 +26,7 @@ link9[] = {8,9};
 link10[] = {9,10};
 link11[] = {11,6};
 globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
-window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1258};
+window[] = {2,-1,-1,-1,-1,837,-1842,-402,78,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -38,7 +38,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_mineArray"",""_mineCountMarker""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_mineArray"",""_mineCountMarker"",""_OutpostsClose""];" \n
                          "_mineCount = count _mineArray;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -167,7 +167,9 @@ class FSM
                         name = "end";
                         itemno = 10;
                         init = /*%FSM<STATEINIT""">*/"_todeletearray call CBA_fnc_deleteEntity;" \n
-                         ""/*%FSM</STATEINIT""">*/;
+                         "{" \n
+                         "    _x setVariable [""AAS_IDAPoutpostActive"",false,true];" \n
+                         "} forEach _OutpostsClose;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

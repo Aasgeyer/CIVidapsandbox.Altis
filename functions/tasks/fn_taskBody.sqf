@@ -4,8 +4,16 @@ _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random position in woods
-_randomPos = selectBestPlaces [markerpos "marker_AO_1", markerSize "marker_AO_1" select 0, "forest+trees-meadow", 50, 1];
-_randomPos = (_randomPos select 0) select 0;
+_randomPos = [0,0,0]; _try = 0;
+while {
+     (_randomPos isEqualTo [0,0,0] 
+     OR  MIS_restrictedAreas findIf {_randomPos inArea _x} != -1) 
+     && _try < 25
+} do {
+    _randomPos = selectBestPlaces [markerpos "marker_AO_1", markerSize "marker_AO_1" select 0, "forest+trees-meadow", 50, 1];
+    _randomPos = (_randomPos select 0) select 0;
+    _try = _try + 1;   
+};
 If (_randomPos isEqualTo [0,0,0]) exitWith {
     If _debug then {
         systemChat "No Position found, exiting medicalemergency script...";
@@ -13,13 +21,18 @@ If (_randomPos isEqualTo [0,0,0]) exitWith {
 };
 
 //create body
-_deadbodyPool = selectRandom [AAS_RegularSoliderPool,AAS_GuerillaSoldierPool,CivUnitPool];
+_deadbodyPool = selectRandom [AAS_RegularSoldierPool,AAS_GuerillaSoldierPool,CivUnitPool];
 _deadBodyClass = selectRandom _deadbodyPool;
 _deadBody = createGroup [civilian,true] createUnit [_deadBodyClass,_randomPos,[],0,"NONE"];
 _faction = faction _deadBody;
 removeFromRemainsCollector [_deadBody];
-_deadBody setDamage 1;
-_deadBody setVelocity [random 2, random 2, random 2];
+_deadBody disableAI "ALL";
+_deadBody enableAI "ANIM";
+_deadBody spawn {
+    sleep 4;
+    _this setDamage 1;
+    _this setVelocity [random 2, random 2, random 2];
+};
 _bodyID = round random 1000;
 
 [

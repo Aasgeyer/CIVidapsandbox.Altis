@@ -5,21 +5,35 @@ _todeletearray = [];
 
 //select a random location
 _randomLocation = selectRandom MIS_locationsCar;
+If _debug then {
+    diag_log format ["_randomLocation: %1",text _randomLocation];
+};
 
 //find a road in that location
-_roadInLocation = position _randomLocation nearRoads selectMin size _randomLocation;
+_radiusLocation = (selectMax size _randomLocation) * 0.75;
+_roadInLocation = position _randomLocation nearRoads _radiusLocation;
 _roadInLocation = _roadInLocation select {
     _y = _x;
-    MIS_idapoutposts findIf {_x distance2D _y < 150} == -1
+    _activeOutposts = MIS_idapoutposts select {_x getVariable ["AAS_IDAPOutPostActive",false]};
+    _activeOutposts findIf {_x distance2D _y < 150} == -1
 };
 _roadInLocation = selectrandom _roadInLocation;
+If _debug then {
+    diag_log format ["_roadInLocation: %1",_roadInLocation];
+};
 _roadPos = getpos _roadInLocation;
 
 //set up IED and detonate it
 _roadinfo = getroadinfo _roadInLocation;
+If _debug then {
+    diag_log format ["_roadinfo: %1",_roadinfo];
+};
 _roadinfo params ["", "_width", "", "", "", "", "_begPos", "_endPos", "_isBridge"];
 _roadDir = _begPos getdir _endPos;
 _roadSidePos = _roadInLocation getpos [_width*random [0.2,0.35,0.6],_roadDir + selectRandom [90,-90]];
+If _debug then {
+    diag_log format ["_roadSidePos: %1",_roadSidePos];
+};
 
 _actionPool = ["GestureAgonyCargo"];
 _civArray = [];

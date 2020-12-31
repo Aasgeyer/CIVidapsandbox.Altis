@@ -7,8 +7,20 @@ _todeletearray = [];
 _randomPos = [
     ["marker_AO_1"],
     ["water"],
-    {count (_this nearRoads 150) > 6} // more than n roads in radius
+    {
+        count (_this nearRoads 150) > 6 // more than n roads in radius
+        && MIS_idapoutposts findIf {
+            _x distance2D _this < 150
+            && (_x getVariable ["AAS_IDAPOutPostActive",false])
+        } == -1
+        && MIS_restrictedAreas findIf {_this inArea _x} == -1
+    } 
 ] call BIS_fnc_randomPos;
+
+_OutpostsClose = MIS_idapoutposts select {_x distance2D _randomPos < 300};
+{
+    _x setVariable ["AAS_IDAPoutpostActive",true,true];
+} forEach _OutpostsClose;
 
 //define roads and pools of mines
 _roadsNear = _randomPos nearRoads 150;
@@ -27,7 +39,7 @@ _mineArray = [];
     _roadInfo = getroadInfo _x;
     _roadpos = getpos _x;
     _roadInfo params ["", "_width", "", "", "", "", "_begPos", "_endPos", "_isBridge"];
-    _markerRoad = createMarker [format ["marker_road_%1",_x],_x];
+    _markerRoad = createMarker [format ["marker_road_%1_%2",_x,random 1000],_x];
     _roaddir = _begpos getdir _endpos;
     _markerRoad setMarkerSizeLocal [_width*0.5, (_begpos distance2D _endpos) * 0.5];
     _markerRoad setMarkerShapeLocal "RECTANGLE";
@@ -134,4 +146,4 @@ _TaskMarker = _markerMeanPos;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_mineArray,_meanPos] execFSM _fsmPath;
+[_TaskID,_todeletearray,_mineArray,_meanPos,_OutpostsClose] execFSM _fsmPath;

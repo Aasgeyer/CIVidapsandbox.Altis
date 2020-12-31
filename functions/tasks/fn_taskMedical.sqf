@@ -7,7 +7,10 @@ _todeletearray = [];
 _randomPos = [
     ["marker_AO_1"],
     ["water",[markerpos "marker_idapbase",500]],
-    {_this getEnvSoundController "houses" > 0}
+    {
+        _this getEnvSoundController "houses" > 0
+        && MIS_restrictedAreas findIf {_this inArea _x} == -1
+    }
 ] call BIS_fnc_randomPos;
 If (_randomPos isEqualTo [0,0]) exitWith {
     If _debug then {
@@ -15,7 +18,11 @@ If (_randomPos isEqualTo [0,0]) exitWith {
     };
 };
 
-_randomhouse = _randompos nearObjects ["house",100] select {count (_x buildingPos -1) > 2};
+_randomhouse = _randompos nearObjects ["house",100] select {
+    _y = _x;
+    count (_y buildingPos -1) > 2
+    && MIS_restrictedAreas findIf {position _y inArea _x} == -1
+};
 _randomhouse = selectRandom _randomhouse;
 If (isNil "_randomHouse") exitWith {
     If _debug then {
