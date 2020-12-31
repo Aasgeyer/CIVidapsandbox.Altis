@@ -43,6 +43,18 @@ toupper getText (_y >> 'faction') isequalto 'BLU_G_F'
 configClasses (configFile >> "CfgVehicles");
 AAS_GuerillaSoldierPool = AAS_GuerillaSoldierPool apply {configName _x};
 
+//AAF air pool
+AAS_AirVehiclePool =
+"_y = _x;
+toupper getText (_y >> 'faction') isequalto 'IND_F'
+&& getNumber (_y >> 'scope') >= 2
+&& getText (_y >> 'vehicleClass') in ['Air']"
+configClasses (configFile >> "CfgVehicles");
+AAS_AirVehiclePool = AAS_AirVehiclePool apply {configName _x};
+If (count AAS_AirVehiclePool > 0) then {
+    [] spawn AAS_fnc_flyBy;
+};
+
 
 //Drone that carries leaflets
 MIS_leafletdroneclass = "C_IDAP_UAV_06_F";
@@ -63,3 +75,47 @@ if (!isDedicated && isMultiplayer && !isNull player) then {
     ["players", "_SP_PLAYER_", "puid", getPlayerUID player] call TER_fnc_writeDB;
 };
 [objNull] execFSM "fsm\DisposalBox.fsm";
+
+//function to return the distance to the edge of an ellipse or circle.
+//Thanks Nick!
+_fn_distanceEllipse = {
+    params ["_sizeA","_sizeB",["_phi",135]];
+    _x_a = _sizeA * cos(_phi);
+    _y_b = _sizeB * sin(_phi);
+    [_y_b, _x_a, 0]
+    //_distance = sqrt(_x_a^2 + _y_b^2); // not needed
+    //_distance
+};
+
+//markers over area where IDAP is active
+AO_markerIDAPZones = ["marker_AO_"] call BIS_fnc_getMarkers;
+{
+    //for "_phi" from 0 to 360 do { // for testing
+        _markerSize = markerSize _x;
+        _phi = 135;
+        _vectorEdge = [_markerSize#1, _markerSize#0, _phi] call _fn_distanceEllipse;
+        _color = markerColor _x;
+        _pos = markerpos _x vectorAdd _vectorEdge;
+        _marker = createMarker [format ["marker_%1Text_%2",_x,_phi],_pos];
+        _marker setMarkerTypeLocal "mil_dot_noShadow";
+        _marker setMarkerColorLocal _color;
+        _marker setMarkerSizeLocal [0.025,0.025];
+        _marker setMarkerText format ["IDAP AO %1",_foreachindex+1];
+        //_marker setMarkerText format ["Phi = %1",_phi]; // for testing
+    //};
+} foreach AO_markerIDAPZones;
+
+//markers over area where combat happens
+AO_markerCombatZones = ["marker_AOcombat_"] call BIS_fnc_getMarkers;
+{
+    _markersize = markerSize _x;
+    _phi = 135;
+    _vectorEdge = [_markerSize#1, _markerSize#0, _phi] call _fn_distanceEllipse;
+    _pos = markerpos _x vectorAdd _vectorEdge;
+    _marker = createMarker [format ["marker_%1Text",_x],_pos];
+    _marker setMarkerTypeLocal "mil_dot_noShadow";
+    _color = markerColor _x;
+    _marker setMarkerColorLocal _color;
+    _marker setMarkerSizeLocal [0.025,0.025];
+    _marker setMarkerText "Active Combat Zone";
+} foreach AO_markerCombatZones;
