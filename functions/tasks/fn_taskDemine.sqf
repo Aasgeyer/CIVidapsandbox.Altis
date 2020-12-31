@@ -10,8 +10,9 @@ _APmineTypePool = ["APERSMine","APERSBoundingMine"];
 _ATmineTypePool = ["ATMine","SLAMDirectionalMine"];
 
 //find position in AO
+_AOcombat = selectRandom AO_markerCombatZones;
 _randomPos = [
-    ["marker_AO_1"],
+    [_AOcombat],
     ["water"],
     {
         MIS_idapoutposts findIf {

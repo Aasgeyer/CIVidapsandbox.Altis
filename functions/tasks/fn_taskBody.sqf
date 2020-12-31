@@ -4,13 +4,14 @@ _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random position in woods
+_AOcombat = selectRandom AO_markerCombatZones;
 _randomPos = [0,0,0]; _try = 0;
 while {
      (_randomPos isEqualTo [0,0,0] 
      OR  MIS_restrictedAreas findIf {_randomPos inArea _x} != -1) 
      && _try < 25
 } do {
-    _randomPos = selectBestPlaces [markerpos "marker_AO_1", markerSize "marker_AO_1" select 0, "forest+trees-meadow", 50, 1];
+    _randomPos = selectBestPlaces [markerpos _AOcombat, markerSize _AOcombat select 0, "forest+trees-meadow", 50, 1];
     _randomPos = (_randomPos select 0) select 0;
     _try = _try + 1;   
 };

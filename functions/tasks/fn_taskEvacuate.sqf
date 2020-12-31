@@ -7,9 +7,10 @@ _todeletearray = [];
 _radiusHouses = 150;
 _randomPos = [0,0];
 _try = 0;
+_AOcombat = selectRandom AO_markerCombatZones;
 while { _randompos isequalto [0,0] && _try <= 25} do {
     _randomPos = [
-        ["marker_AO_1"],
+        [_AOcombat],
         ["water",[markerpos "marker_idapbase",500]],
         {
             _counthouses = {count (_x buildingPos -1) > 2} count (_this nearObjects ["house",_radiusHouses]);

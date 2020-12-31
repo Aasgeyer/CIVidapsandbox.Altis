@@ -4,8 +4,9 @@ _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random position with roads near
+_AOcombat = selectRandom AO_markerCombatZones;
 _randomPos = [
-    ["marker_AO_1"],
+    [_AOcombat],
     ["water"],
     {
         count (_this nearRoads 150) > 6 // more than n roads in radius
