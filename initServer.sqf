@@ -60,8 +60,6 @@ publicVariable "TER_log";
 
 if (!isDedicated && isMultiplayer && !isNull player) then {
     //--- player exists as server, mark him as host in database
-    ["write", [getPlayerUID player, "host", true]] call TER_db;
-    //--- Connect SP progress too
-    ["write", ["_SP_PLAYER_", "puid", getPlayerUID player]] call TER_db;
+    ["players", "_SP_PLAYER_", "puid", getPlayerUID player] call TER_fnc_writeDB;
 };
 [objNull] execFSM "fsm\DisposalBox.fsm";
