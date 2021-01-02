@@ -43,6 +43,7 @@ if (_mode == "onLoad") then {
 		_varHolder setVariable [ctrlClassName _x, _x];
 	};
 	//--- Register Display
+	uiNamespace setVariable [_class, _display];
 	//--- Call display function
 	private _fncCode = [
 		missionNamespace getVariable _fnc,
@@ -55,5 +56,7 @@ if (_mode == "onLoad") then {
 } else {
 	//--- Unload
 	_params params ["_display", "_exitCode"];
+	//--- Unregister display
+	uiNamespace setVariable [_class, nil];
 };
 nil
