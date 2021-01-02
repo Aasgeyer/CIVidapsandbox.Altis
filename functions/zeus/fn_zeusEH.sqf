@@ -27,11 +27,6 @@ switch (_mode) do {
         If (typeOf _entity in MIS_VanCargoObjectClasses) then {
             [_entity,nil,nil,[0]] call AAS_fnc_cargoload;
         };
-        //if it is a UAV, create crew, so that terminal can be connected
-        If (getnumber (configfile >> "CfgVehicles" >> typeOf _entity >> "isUav") isEqualTo 1) then {
-            private _crew = createVehicleCrew _entity;
-            _curator addCuratorEditableObjects [units _crew, true];
-        };
         //If vehcile is the leaflet drone class, defined in initServer.sqf, add leaflet weapon
         If (tolower typeOf _entity isEqualTo toLower MIS_leafletdroneclass) then {
             _entity addMagazine "1Rnd_Leaflets_Civ_F";

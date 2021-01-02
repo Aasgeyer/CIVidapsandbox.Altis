@@ -29,6 +29,8 @@ if (_vehicle isEqualType "") then {
 //--- Add vehicle to Zeus
 [L_idapzeus_1, [[_vehicle], true]] remoteExec ["addCuratorEditableObjects", 2];
 
+if (unitIsUAV _vehicle) then {createVehicleCrew _vehicle};
+
 if (typeOf _vehicle call BIS_fnc_crewCount > 0) then {
 	//--- Save to database
 	private _vehicleDBSection = [_vehicle] call TER_fnc_getDBVehicleName;
