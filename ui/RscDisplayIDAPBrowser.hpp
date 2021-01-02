@@ -137,9 +137,10 @@ class RscDisplayIDAPBrowser
 					text = "Finances";
 					y = 7.5 * GUI_GRID_H;
 				};
-				class Reports: Activity
+				class Garage: Activity
 				{
-					text = "Reports";
+					text = "Garage";
+					group = "GroupGarage";
 					y = 9 * GUI_GRID_H;
 				};
 				class Prices: Activity
@@ -194,7 +195,7 @@ class RscDisplayIDAPBrowser
 			w = W_GROUP;
 			h = 1 * GUI_GRID_H;
 		};
-		groups[] = {"GroupActivity", "GroupPrices"};
+		groups[] = {"GroupActivity", "GroupPrices", "GroupGarage"};
 		class GroupActivity: TER_RscControlsGroupNoScrollbars
 		{
 			show = 0;
@@ -369,6 +370,76 @@ class RscDisplayIDAPBrowser
 					};
 				};
 				#undef _HROW
+			};
+		};
+		class GroupGarage: GroupActivity
+		{
+			show = 1;
+			textTitle = "Stored Vehicles";
+			textDescription = "Purchased vehicles that were stored in the garage.";
+			class controls
+			{
+				#define _HROW 5
+				#define _WIMAGE ((_HROW - 1)*16/9)
+				#define _W_LIST (1.5 + _WIMAGE + 10)
+				class List: TER_RscControlsTable
+				{
+					x = 0.5 * W_GROUP - 0.5 * _W_LIST * GUI_GRID_W;
+					y = 0;
+					w = _W_LIST * GUI_GRID_W;
+					h = H_GROUP - 3.1 * GUI_GRID_H;
+					selectedRowColorFrom[] = {0,0,0,0};
+					selectedRowColorTo[] = {0,0,0,0};
+					rowHeight = _HROW * GUI_GRID_H;
+					class RowTemplate
+					{
+						class Image
+						{
+							controlBaseClassPath[] = {"RscPicture"};
+							columnX = 0.5 * GUI_GRID_W;
+							controlOffsetY = 0.5 * GUI_GRID_H;
+							columnW = _WIMAGE * GUI_GRID_W;
+							controlH = (_HROW - 1) * GUI_GRID_H;
+						};
+						class Name: Image
+						{
+							controlBaseClassPath[] = {"RscStructuredText"};
+							columnX = (_WIMAGE + 1) * GUI_GRID_W;
+							columnW = 10 * GUI_GRID_W;
+							controlH = 1 * GUI_GRID_H;
+						};
+						class Retrieve: Image
+						{
+							controlBaseClassPath[] = {"RscButton"};
+							columnX = (_WIMAGE + 1) * GUI_GRID_W;
+							controlOffsetY = 1.6 * GUI_GRID_H;
+							columnW = 10 * GUI_GRID_W;
+							controlH = 2 * GUI_GRID_H;
+						};
+					};
+				};
+				class StatusLabel: TER_RscStructuredText
+				{
+					text = "Status";
+					x = 0;
+					y = H_GROUP - 2.5 * GUI_GRID_H;
+					w = W_GROUP;
+					h = 1.5 * GUI_GRID_H;
+					class Attributes: Attributes
+					{
+						size = 1.5;
+					};
+				};
+				class Status: StatusLabel
+				{
+					text = "Waiting...";
+					y = H_GROUP - 1 * GUI_GRID_H;
+					h = 1 * GUI_GRID_H;
+					class Attributes: Attributes
+					{
+						size = 1;
+					};
+				};
 			};
 		};
 	};

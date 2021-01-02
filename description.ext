@@ -83,11 +83,19 @@ class CfgFunctions
             class getDB;
             class readDB;
             class writeDB;
+            class renameDBSection;
             class getPUID;
             class loadClient;
             class increaseDBValue;
             class decreaseDBValue;
             class deleteDBSection;
+            class initDBAsset;
+            class updateDBAsset;
+            class getDBVehicleName;
+        };
+        class Garage
+        {
+            class garageRetrieve;
         };
     };
     class BRPVP

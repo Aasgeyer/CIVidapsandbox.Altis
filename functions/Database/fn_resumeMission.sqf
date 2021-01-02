@@ -2,10 +2,7 @@
 	Author: Terra
 
 	Description:
-		Mission is restarted. What happens:
-		- Set money (funds, money)
-		- Set date
-		- ...
+		Mission is restarted. Apply database.
 
 	Parameter(s):
 		None
@@ -37,4 +34,21 @@ setDate _date;
 	};
 };
 
-true
+//--- Mark vehicles in database as stored
+"getSections" call TER_db_assets apply {
+	["write", [_x, "stored", true]] call TER_db_assets;
+};
+
+//--- Timestamp the database
+TER_missionStart = "getTimeStamp" call TER_db_general;
+TER_missionStart params ["_year", "_month", "_day", "_hour", "_minute", "_second"];
+TER_missionStartStr = format ["%1%2%3%4%5%6",
+	_year,
+	[_month, 2] call CBA_fnc_formatNumber,
+	[_day, 2] call CBA_fnc_formatNumber,
+	[_hour, 2] call CBA_fnc_formatNumber,
+	[_minute, 2] call CBA_fnc_formatNumber,
+	[_second, 2] call CBA_fnc_formatNumber
+];
+
+

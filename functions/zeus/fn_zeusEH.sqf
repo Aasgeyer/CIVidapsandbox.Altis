@@ -108,6 +108,9 @@ switch (_mode) do {
             ["Economy", "Zeus"],
             [_entity, typeOf _entity]
         ] call TER_fnc_log;
+
+        //--- DB related
+        [_entity] remoteExecCall ["TER_fnc_initDBAsset", 2];
     };
 
     case 2: {
@@ -116,6 +119,9 @@ switch (_mode) do {
             AAS_TentsPlaced = AAS_TentsPlaced - 1;
             publicVariable "AAS_TentsPlaced";
         };
+
+        // DB
+        ["deleteSection", [_entity] call TER_fnc_getDBVehicleName] remoteExecCall ["TER_db_assets", 2];
     };
 
     case 3: {

@@ -1,9 +1,18 @@
 #define COLOR_IDAP [0.784314,0.286275,0,1]
 #define SELF RscDisplayIDAPBrowser_script
+#define STRSELF #SELF
 #define BREAK if true exitWith {}
 
-private _cfgDisplay = missionConfigFile >> "RscDisplayIDAPBrowser";
 params ["_mode", "_params"];
+
+//--- Controls
+private _display = uiNamespace getVariable "RscDisplayIDAPBrowser";
+private _ctrlGroupGarage = _display getVariable "GroupGarage";
+	private _ctrlGroupGarageList = _ctrlGroupGarage getVariable "List";
+	private _ctrlGroupGarageStatus = _ctrlGroupGarage getVariable "Status";
+
+private _cfgDisplay = missionConfigFile >> "RscDisplayIDAPBrowser";
+
 switch _mode do {
 	case "onLoad":{
 		_params params ["_display"];
@@ -12,10 +21,10 @@ switch _mode do {
 		_ctrlNavbar = _display getVariable "NavbarLeft";
 		_ctrlActivity = _ctrlNavbar getVariable "Activity";
 		_ctrlFinances = _ctrlNavbar getVariable "Finances";
-		_ctrlReports = _ctrlNavbar getVariable "Reports";
+		_ctrlGarage = _ctrlNavbar getVariable "Garage";
 		_ctrlPrices = _ctrlNavbar getVariable "Prices";
 		_ctrlCredits = _ctrlNavbar getVariable "Credits";
-		[_ctrlActivity, _ctrlFinances, _ctrlReports, _ctrlPrices, _ctrlCredits] apply {
+		[_ctrlActivity, _ctrlFinances, _ctrlGarage, _ctrlPrices, _ctrlCredits] apply {
 			_x ctrlAddEventHandler ["ButtonClick",{
 				["changeTopic", _this] call SELF;
 			}];
@@ -46,6 +55,78 @@ switch _mode do {
 			}];
 		};
 		["pricesSortChanged", [_display]] call SELF;
+
+		//--- Garage
+		_ctrlGrpGarage = _display getVariable "GroupGarage";
+		_ctrlList = _ctrlGrpGarage getVariable "List";
+		["requestVehicles"] remoteExecCall [STRSELF, 2];
+		_ctrlGroupGarageStatus ctrlSetText "Requesting vehicles from server...";
+	};
+	case "requestVehicles":{
+		private _vehicleList = "getSections" call TER_db_assets select {
+			["read", [_x, "stored", false]] call TER_db_assets
+		};
+		_vehicleList = _vehicleList apply {
+			[_x, ["read", [_x, "class"]] call TER_db_assets]
+		};
+		["receiveVehicles", [_vehicleList]] remoteExecCall [STRSELF, remoteExecutedOwner];
+	};
+	case "receiveVehicles":{
+		_params params ["_vehicleList"];
+		diag_log _vehicleList;
+		_display = uiNamespace getVariable "RscDisplayIDAPBrowser";
+		_ctrlGrpGarage = _display getVariable "GroupGarage";
+		_ctrlList = _ctrlGrpGarage getVariable "List";
+		_vehicleList apply {
+			_x params ["_id", "_class"];
+			private _cfg = configFile >> "CfgVehicles" >> _class;
+			private _img = getText(_cfg >> "editorPreview");
+			private _name = _cfg call BIS_fnc_displayName;
+			ctAddRow _ctrlList params ["_ind", "_row"];
+			_row params ["_ctrlImage", "_ctrlName", "_ctrlRetrieve"];
+			_ctrlImage ctrlSetText _img;
+			_ctrlName ctrlSetText _name;
+			_ctrlRetrieve ctrlSetText "Retrieve";
+			_ctrlList ctSetData [_ind, _id];
+			_ctrlRetrieve setVariable ["id", _id];
+			_ctrlRetrieve setVariable ["class", _class];
+			_ctrlRetrieve ctrlAddEventHandler ["ButtonClick",{
+				["retrieveVehicle", _this] call SELF;
+			}];
+		};
+		_ctrlGroupGarageStatus ctrlSetText "Vehicles loaded from server.";
+	};
+	case "retrieveVehicle":{
+		_params params ["_ctrlRetrieve"];
+		private _class = _ctrlRetrieve getVariable "class";
+		private _id = _ctrlRetrieve getVariable "id";
+		_ctrlGroupGarageStatus ctrlSetText "Request for retrieving the vehicle sent...";
+		["requestRetrival", _id] remoteExecCall [STRSELF, 2];
+	};
+	case "requestRetrival":{
+		_params params ["_id"];
+		_veh = [_id] call TER_fnc_garageRetrieve;
+		["receiveRetrival", [_veh, _id]] remoteExecCall [STRSELF, remoteExecutedOwner];
+	};
+	case "receiveRetrival":{
+		_params params ["_veh", "_oldID"];
+		_display = uiNamespace getVariable "RscDisplayIDAPBrowser";
+		_ctrlGrpGarage = _display getVariable "GroupGarage";
+		_ctrlList = _ctrlGrpGarage getVariable "List";
+		if (isNull _veh) exitWith {
+			//--- Vehicle could not be spawned.
+			_ctrlGroupGarageStatus ctrlSetStructuredText parseText "<t color='#990000'>Failed.</t> Vehicle could not retrieved.";
+		};
+		for "_ind" from 0 to ctRowCount _ctrlList do {
+			if (_ctrlList ctData _ind == _oldID) exitWith {
+				diag_log _ind;
+				[_ctrllist, _ind] spawn {
+					params ["_ctrllist", "_ind"];
+					_ctrlList ctRemoveRows [_ind];
+				};
+			};
+		};
+		_ctrlGroupGarageStatus ctrlSetStructuredText parseText "<t color='#009900'>SUCCESS.</t> Vehicle retrieved.";
 	};
 	case "changeTopic":{
 		_params params ["_ctrl"];
