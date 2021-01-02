@@ -23,9 +23,16 @@ if !(["read", [_id, "stored", false]] call TER_db_assets) exitWith {
 };
 private _class = ["read", [_id, "class"]] call TER_db_assets;
 private _spawnPositions = [
-	[3061.71,12588.2,0.0230105],
-	[3052.95,12603,0.0229905]
-];
+	[
+		//--- Ground vehicle spawn positions
+		[3061.71,12588.2,0],
+		[3052.95,12603,0]
+	],
+	[
+		//--- Helicopter spawn positions
+		[3115.08,12481.1,0]
+	]
+] select (_class isKindOf "Helicopter");
 private _spawnDir = 58;
 private _spawnRadius = 3;
 private _spawnPos = {
