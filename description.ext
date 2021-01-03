@@ -34,6 +34,8 @@ class CfgFunctions
             class mapZoomMarker;
             class TaskParents;
             class TalkToMayor;
+            class briefing;
+            class setMarkerAlpha;
         };
         class ambient {
             class flyBy;
@@ -120,29 +122,5 @@ class CfgFunctions
 
 class CfgNotifications
 {
-    class RestrictedAreaEntered
-    {
-        title = "WARNING";
-        description = "You are entering a restricted area!";
-        iconPicture = "\A3\Ui_f\data\IGUI\Cfg\Actions\take_ca.paa";
-    };
-    class RestrictedAreaExited
-    {
-        title = "ALL CLEAR";
-        description = "You are leaving the restricted area.";
-        iconPicture = "\A3\Ui_f\data\IGUI\Cfg\Actions\open_door_ca.paa";
-    };
-    class RestrictedAreaViolated
-    {
-        title = "VIOLATION";
-        description = "You have violated a restricted area!";
-        iconPicture = "\A3\Ui_f\data\IGUI\Cfg\Actions\Obsolete\ui_action_cancel_ca.paa";
-    };
-    
-    class WeaponViolation
-    {
-        title = "VIOLATION";
-        description = "You have picked up a weapon!";
-        iconPicture = "\A3\Ui_f\data\IGUI\Cfg\Actions\Obsolete\ui_action_cancel_ca.paa";
-    };
+    #include "cfg\cfgNotifications.hpp"
 };
