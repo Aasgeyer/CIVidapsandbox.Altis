@@ -1,8 +1,6 @@
-#define M *10^6
-#define K *10^3
 TER_maxFunds = parsingNamespace getVariable "TER_maxFunds";
 if (isServer) then {
-	TER_baseFunds = 10K;
+	TER_baseFunds = 10*10^3;
 	publicVariable "TER_baseFunds";
 };
 
