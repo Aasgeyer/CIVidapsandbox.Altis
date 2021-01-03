@@ -1,5 +1,5 @@
 params ["_player", "_didJIP"];
-[] spawn AAS_fnc_mapZoomMarker;
+["marker_zoom_"] spawn AAS_fnc_mapZoomMarker;
 [_player] execFSM "fsm\PlayerViolation.fsm";
 //--- Let the server load the client's data from the database
 [_player] remoteExecCall ["TER_fnc_loadClient", 2];
@@ -21,3 +21,5 @@ params ["_player", "_didJIP"];
 	false,
 	true
 ] call BIS_fnc_holdActionAdd;
+
+[] call AAS_fnc_briefing;

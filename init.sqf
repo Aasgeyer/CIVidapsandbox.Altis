@@ -1,5 +1,6 @@
 [] execVM "costs.sqf";
 MIS_restrictedAreas = ["marker_restrictedArea_"] call BIS_fnc_getMarkers;
+MIS_restrictedAreasExtended = +MIS_restrictedAreas;
 If (IsServer) then {
     {
         _CrossMarker = createMarker [format ["marker_restrictedCross_%1",_foreachindex+1],markerpos _x];
@@ -7,7 +8,8 @@ If (IsServer) then {
         _CrossMarker setMarkerColorLocal (markerColor _x);
         _CrossMarker setMarkerSizeLocal (markerSize _x);
         _CrossMarker setMarkerDirLocal (markerDir _x);
-        _CrossMarker setMarkerShape (markerShape _x)
+        _CrossMarker setMarkerShape (markerShape _x);
+        MIS_restrictedAreasExtended pushBack _CrossMarker;
     } foreach MIS_restrictedAreas;
 };
 
