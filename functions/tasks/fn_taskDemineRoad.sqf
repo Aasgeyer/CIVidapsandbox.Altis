@@ -34,6 +34,7 @@ _mineATPool = selectRandom _minePools;
 _trashPool = ["Land_Garbage_square3_F","Land_Garbage_square5_F","Land_Garbage_line_F"];
 
 _mineArray = [];
+_posArray = [];
 //create mines for the roads
 {
     //create marker on road
@@ -70,7 +71,7 @@ _mineArray = [];
             _markerMine setMarkerTypeLocal "mil_warning";
             _markerMine setMarkerColorLocal "ColorRed";
             _markermine setmarkerSize [0.35,0.35];
-            _toDeleteArray pushBack _markerMeanPos;
+            _toDeleteArray pushBack _markermine;
         };
         //if SLAM set up direction towards road center
         If (tolower _mineClass isEqualTo "slamdirectionalmine") then {

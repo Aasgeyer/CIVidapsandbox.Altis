@@ -33,6 +33,7 @@ _deadBody spawn {
     sleep 4;
     _this setDamage 1;
     _this setVelocity [random 2, random 2, random 2];
+    //[position _this] remoteExec ["BIS_fnc_flies"];
 };
 _bodyID = round random 1000;
 
