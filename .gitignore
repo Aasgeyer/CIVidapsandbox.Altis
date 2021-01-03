@@ -1,1 +1,6 @@
 test.sqf
+functions/ambient/ModuleCivillianPresence_F.hpp
+functions/ambient/ModuleCivillianPresenceSafeSpot_F.hpp
+functions/ambient/ModuleCivillianPresenceUnit_F.hpp
+functions/ambient/temp_ModuleSmoke_F.hpp
+functions/ambient/CivilianPresence_init.sqf

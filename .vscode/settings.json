@@ -1,0 +1,7 @@
+{
+		"sqflint.exclude": [
+			"ui/scripts/RscDisplayIDAPBrowser.sqf",
+			"costs.sqf",
+			"functions/ambient/CivilianPresence_init.sqf"
+		]
+}
