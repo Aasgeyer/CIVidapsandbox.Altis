@@ -98,6 +98,11 @@ class CfgFunctions
         {
             class garageRetrieve;
         };
+        class Ambient
+        {
+            class ambientCivs;
+            class allAOLocations;
+        };
     };
     class BRPVP
     {

@@ -119,3 +119,6 @@ AO_markerCombatZones = ["marker_AOcombat_"] call BIS_fnc_getMarkers;
     _marker setMarkerSizeLocal [0.025,0.025];
     _marker setMarkerText "Active Combat Zone";
 } foreach AO_markerCombatZones;
+
+waitUntil {time > 1 or serverTime > 1};
+[] call TER_fnc_ambientCivs;
