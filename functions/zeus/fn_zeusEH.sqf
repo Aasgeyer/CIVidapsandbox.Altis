@@ -1,3 +1,29 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Add eventhandlers to Zeus logic
+
+    Parameter(s):
+        0:	LOGIC - Curator Module
+        Optional:
+        1:	OBJECT - created Object
+            Default: ObjNull
+        2:	NUMBER - Mode
+            -1: nothing
+            0: add EHs to Zeus for placed and deleted
+            1: Object Created EH execution
+            2: Object Deleted EH execution
+            3: Create orbs on selection positions of an entity. Not used.
+            Default: -1
+
+    Returns: nothing
+
+    Example(s):
+        [this,nil,0] call AAS_fnc_zeusEH; //-> in zeus module
+*/
+
+
 params [
     ["_curator",objNull],
     ["_entity",objNull],

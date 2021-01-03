@@ -1,5 +1,23 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Makes Markers smoothly appear on zooming in on them.
+
+    Parameter(s):
+        0:	STRING - Marker Prefix
+
+    Returns:
+        nothing
+
+    Example(s):
+        ["marker_zoom_"] spawn AAS_fnc_mapZoomMarker; //-> nothing
+*/
+
+
 //initPlayerLocal.sqf
-{_x setMarkerAlphaLocal 0;} forEach (["marker_zoom_"] call BIS_fnc_getMarkers);
+params ["_markerPreFix"];
+{_x setMarkerAlphaLocal 0;} forEach ([_markerPreFix] call BIS_fnc_getMarkers);
 
 waitUntil { !isNull ( uiNamespace getVariable [ "RscDiary", displayNull ] ) };
 
@@ -16,6 +34,6 @@ uiNamespace getVariable "RscDiary" displayCtrl 51 ctrlAddEventHandler [ "MouseZC
         _maxAlphaZoom = _appearZoom/2;
         _alpha = linearConversion [_appearZoom,_maxAlphaZoom,_zoom,0,1,true];
         _x setMarkerAlphaLocal _alpha;
-	}forEach (["marker_zoom_"] call BIS_fnc_getMarkers);
+	} forEach ([_markerPreFix] call BIS_fnc_getMarkers);
 	
 }];

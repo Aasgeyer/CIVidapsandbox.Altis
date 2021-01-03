@@ -1,10 +1,28 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Applies a loadout to a player. Exported from Arsenal.
+
+    Parameter(s):
+        0:	OBJECT - Unit to which to apply loadout
+        1: STRING - Which loadout to apply
+
+    Returns:
+        nothing
+
+    Example(s):
+        [player, "EOD"] call AAS_fnc_loadouts; //-> nothing
+*/
+
+
 params ["_unit","_loadout"];
 
 // in init line:
 //this addAction ["EOD Loadout", {[(_this select 1),"eod"] call AAS_fnc_loadouts;}, [], 0, false, true, "", "true", 8];
 
 hint format ["%1 Loadout taken, %2", toupper _loadout, name _unit];
-switch (_loadout) do {
+switch (tolower _loadout) do {
     case "eod": {
         comment "Exported from Arsenal by Aasgeyer";
 

@@ -1,3 +1,29 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Used to add an action to cargo objects to load them into vehicles.
+
+    Parameter(s):
+        0:	OBJECT - target, in which object will be loaded or cargo object
+        3:	ARRAY - arguments passed to hold action. conatins mode of execution:
+            -1: default, nothing
+            0: initialize object for cargo loading
+            1: load object in vehicle
+        Optional:
+        1:	OBJECT - caller of the action
+            Default: ObjNull
+        2:	NUMBER - action ID of the action
+            Default: -1
+
+    Returns:
+        nothing - /
+
+    Example(s):
+        [this,nil,nil,[0]] call AAS_fnc_cargoLoad; //-> initialize object for cargo loading
+*/
+
+
 params [
     ["_target",objNull],
     ["_caller",objNull],

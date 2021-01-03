@@ -1,3 +1,18 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Spawns random fly byes across the map
+
+    Parameter(s):
+        0:	none - /
+
+    Returns:
+        none - /
+
+    Example(s):
+        [] spawn AAS_fnc_flyBy; //-> nothing
+*/
 
 while {true} do {
     _startpos = [

@@ -1,3 +1,19 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Adds an informative hint to the printer for all players
+
+    Parameter(s):
+        0:	OBJECT - Printer
+
+    Returns: nothing
+
+    Example(s):
+        [this] call AAS_fnc_printerHint; //-> nothing
+*/
+
+
 params ["_printer"];
 If !(isServer) exitWith {};
 

@@ -1,3 +1,23 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Used in the task Information Campaign
+
+    Parameter(s):
+        0:	OBJECT - Mayor (NPC)
+        1:	OBJECT - Player
+        2:  NUMBER - Action ID
+        3:  ARRAY - Arguments
+
+    Returns:
+        nothing
+
+    Example(s):
+        _this spawn AAS_fnc_TalkToMayor; //-> nothing
+*/
+
+
 params ["_target", "_caller", "_actionId", "_arguments"];
 
 _target setVariable ["MayorisBeingInformed",true,true];

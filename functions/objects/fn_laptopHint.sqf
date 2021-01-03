@@ -1,3 +1,20 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Adds a hold action for all players to a laptop (or any other object) that opens the
+        Field Manual on the page for International Humanitarian Law
+
+    Parameter(s):
+        0:	OBJECT - Object to which the hold action is added
+
+    Returns: nothing
+
+    Example(s):
+        [this] call AAS_fnc_laptopHint; //-> nothing
+*/
+
+
 params ["_laptop"];
 [
     _laptop,											// Object the action is attached to
