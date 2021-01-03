@@ -37,6 +37,7 @@ class CfgFunctions
         };
         class ambient {
             class flyBy;
+            class roadBlocks;
         };
 	};
     class TER
