@@ -1,3 +1,17 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Medical Emergency.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskMedical; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -5,7 +19,7 @@ _todeletearray = [];
 
 //random position near houses
 _randomPos = [
-    ["marker_AO_1"],
+    [],
     ["water",[markerpos "marker_idapbase",500]],
     {
         _this getEnvSoundController "houses" > 0
@@ -105,6 +119,12 @@ _civ switchAction "agonyStart";
 	false												// Show in unconscious state
 ] remoteExec ["BIS_fnc_holdActionAdd", 0, _civ];	// MP compatible implementation
 
+_medCivMarker = createMarker [format ["mrkMedCiv_%1",_randomhouse],getpos _randomhouse];
+_medCivMarker setMarkerSizeLocal [1,1];
+_medCivMarker setMarkerTextLocal "Medical Emergency";
+_medCivMarker setMarkerType "mil_objective";
+_todeletearray pushBack _medCivMarker;
+
 //determine time, to and from, so twice
 _dist2d = (_randomhouse distance2D markerpos "marker_idapbase") * 1.5;
 //assuming 50 km/h and some leeway
@@ -114,6 +134,12 @@ _etaDelta = _dist2d/_speed + _leeway;
 _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
+
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_funding = linearConversion [0,_worldSizeR,_dist2d,1000,10000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
 
 //create task
 _parentTask = "TaskMedical";
@@ -125,11 +151,12 @@ _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 A civilian, called %1, needs medical treatment at %2! Go there, stabilize him 
 and bring him to the medical tent at base for further treatment. You have time until
-%3 (%4).
+%3 (%4).<br/>
+Reward: + %5$ to daily funding.
 ",
-    name _civ, _mapgrid, _daytimestr, _timestr
+    name _civ, _mapgrid, _daytimestr, _timestr, _fundingStr
 ];
-_TaskMarker = "";
+_TaskMarker = _medCivMarker;
 [
     true,
     [_TaskID,_parentTask],
@@ -143,4 +170,4 @@ _TaskMarker = "";
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_civ,_loseTime] execFSM _fsmPath;
+[_TaskID,_todeletearray,_civ,_loseTime,_funding] execFSM _fsmPath;

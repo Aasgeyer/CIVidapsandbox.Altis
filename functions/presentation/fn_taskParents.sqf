@@ -1,3 +1,18 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Create the Task parents for all possible tasks at start
+        execute from initServer.sqf
+
+    Parameter(s): nothing
+
+    Returns: nothing
+
+    Example(s):
+        [] call AAS_fnc_taskParents; //-> nothing
+*/
+
 
 _cargoVanDisplayName = [configFile >> "CfgVehicles" >> "C_IDAP_Van_02_vehicle_F"] call BIS_fnc_displayName;
 _ambulanceDisplayName = [configFile >> "CfgVehicles" >> "C_IDAP_Van_02_medevac_F"] call BIS_fnc_displayName;

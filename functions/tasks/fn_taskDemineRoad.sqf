@@ -1,10 +1,24 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Demine Road.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskDemineRoad; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
 _todeletearray = [];
 
 //random position with roads near
-_AOcombat = selectRandom AO_markerCombatZones;
+_AOcombat = selectRandomWeighted AO_markerCombatZonesWeighted;
 _randomPos = [
     [_AOcombat],
     ["water"],
@@ -121,6 +135,13 @@ _markermeanPos setMarkerColorLocal "ColorRed";
 _markerMeanPos setMarkerText "Mined Road";
 _toDeleteArray pushBack _markerMeanPos;
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_dist2d = _meanpos distance2D markerpos "marker_idapBase";
+_funding = linearConversion [0,_worldSizeR,_dist2d,800,8000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskDemineRoad";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -130,9 +151,10 @@ _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 We got reports of a road riddled with mines near mapgrid %1. Go clear it!
- Expect %2 to %3 mines there.
+ Expect %2 to %3 mines there.<br/>
+ Reward: + %4$ to daily funding.
 ",
-    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1]))
+    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1])), _fundingStr
 ];
 _TaskMarker = _markerMeanPos;
 [
@@ -148,4 +170,4 @@ _TaskMarker = _markerMeanPos;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_mineArray,_meanPos,_OutpostsClose] execFSM _fsmPath;
+[_TaskID,_todeletearray,_mineArray,_meanPos,_OutpostsClose,_funding] execFSM _fsmPath;

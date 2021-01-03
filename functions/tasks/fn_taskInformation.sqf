@@ -1,3 +1,17 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Information Campaign.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskInformation; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -64,6 +78,12 @@ _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_funding = linearConversion [0,_worldSizeR,_dist2d,500,5000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskInformation";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -75,9 +95,10 @@ _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 The mayor of %1 has shown interest in our program here. We arranged a meeting for
  you at %2 (%3 from now). Go there and inform him of what we do here and how we can help.
- Don't take too long as the mayor has only very limited time.
+ Don't take too long as the mayor has only very limited time.<br/>
+ Reward: + %4$ to daily funding.
 ",
-    _locationName, _daytimeStr, _timeStr
+    _locationName, _daytimeStr, _timeStr, _fundingStr
 ];
 _TaskMarker = _marker;
 [
@@ -93,4 +114,4 @@ _TaskMarker = _marker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_civ,_randomHouse,_losetime] execFSM _fsmPath;
+[_TaskID,_todeletearray,_civ,_randomHouse,_losetime,_funding] execFSM _fsmPath;

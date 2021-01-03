@@ -1,3 +1,17 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Demine Minefield.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskDemine; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -10,7 +24,7 @@ _APmineTypePool = ["APERSMine","APERSBoundingMine"];
 _ATmineTypePool = ["ATMine","SLAMDirectionalMine"];
 
 //find position in AO
-_AOcombat = selectRandom AO_markerCombatZones;
+_AOcombat = selectRandomWeighted AO_markerCombatZonesWeighted;
 _randomPos = [
     [_AOcombat],
     ["water"],
@@ -39,7 +53,7 @@ _todeletearray pushBack _minefieldMarker;
 _mineCountMarker = createMarker [format ["mrkMineCount_%1",_randomPos],_randomPos];
 _mineCountMarker setMarkerColorLocal "ColorRed";
 _mineCountMarker setMarkerSizeLocal [0.5,0.5];
-_mineCountMarker setMarkerTextLocal str _mineCount;
+//_mineCountMarker setMarkerTextLocal str _mineCount;
 _mineCountMarker setMarkerType "mil_warning";
 _todeletearray pushBack _mineCountMarker;
 
@@ -66,6 +80,13 @@ for "_m" from 1 to _mineCount do {
     }
 };
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_dist2d = _randomPos distance2D markerpos "marker_idapBase";
+_funding = linearConversion [0,_worldSizeR,_dist2d,800,8000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskDemine";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -74,9 +95,10 @@ _mapgrid = mapGridPosition _randomPos;
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
-There are reports of a minefield near map grid %1. Expect %2 to %3 mines there. Go clear it!
+There are reports of a minefield near map grid %1. Expect %2 to %3 mines there. Go clear it!<br/>
+Reward: + %4$ to daily funding.
 ",
-    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1]))
+    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1])), _fundingStr
 ];
 _TaskMarker = _minefieldMarker;
 [
@@ -92,4 +114,4 @@ _TaskMarker = _minefieldMarker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_mineArray,_mineCountMarker,_OutpostsClose] execFSM _fsmPath;
+[_TaskID,_todeletearray,_mineArray,_mineCountMarker,_OutpostsClose,_funding] execFSM _fsmPath;

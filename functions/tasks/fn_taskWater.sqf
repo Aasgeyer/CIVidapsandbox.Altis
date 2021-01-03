@@ -1,3 +1,17 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Water Shortage.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskWater; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -34,6 +48,12 @@ _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_funding = linearConversion [0,_worldSizeR,_dist2d,1000,10000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskWater";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -42,10 +62,11 @@ _locationName = _destination getVariable ["AAS_LogicLocationName","the designate
 _TaskTitle = format ["Water Shortage (%1)",_curNrTasks];
 _TaskDescription = format ["
 The people in %1 are in need of additional water supplies. Bring a water truck to their location.
-Be fast as they are awaiting it eagerly. You have time until %2 (%3).
-", _locationName, _daytimestr, _timestr
+Be fast as they are awaiting it eagerly. You have time until %2 (%3).<br/>
+Reward: + %4$ to daily funding.
+", _locationName, _daytimestr, _timestr, _fundingStr
 ];
-_TaskMarker = "";
+_TaskMarker = _markerArray#0;
 [
     true,
     [_TaskID,_parentTask],
@@ -59,4 +80,4 @@ _TaskMarker = "";
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_destination,_loseTime] execFSM _fsmPath;
+[_TaskID,_todeletearray,_destination,_loseTime,_funding] execFSM _fsmPath;

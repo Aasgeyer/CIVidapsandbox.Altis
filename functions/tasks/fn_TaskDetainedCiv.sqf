@@ -1,3 +1,18 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Detained Civilian.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskDetainedCiv; //-> nothing
+*/
+
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -10,7 +25,7 @@ Acts_ExecutionVictim_Loop, Acts_ExecutionVictim_Unbow, Acts_ExecutionVictim_Kill
 
 //find position in AO
 _randomPos = [
-    ["marker_AO_1"],
+    [],
     ["water"],
     {
         MIS_idapoutposts findIf {
@@ -122,6 +137,12 @@ _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_funding = linearConversion [0,_worldSizeR,_dist2d,1200,12000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskDetainedCiv";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -132,9 +153,10 @@ _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 We got a report of a detained civilian being held captive near grid %1! Go there
  and talk to the team leader. Be quick as they may harm him without our eyes
- present! You have time until %2 (%3).
+ present! You have time until %2 (%3).<br/>
+ Reward: + %4$ to daily funding.
 ",
-    _mapgrid, _daytimestr, _timestr
+    _mapgrid, _daytimestr, _timestr, _fundingStr
 ];
 _TaskMarker = _marker;
 [
@@ -150,4 +172,4 @@ _TaskMarker = _marker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam,_OutpostsClose] execFSM _fsmPath;
+[_TaskID,_todeletearray,_loseTime,_executioner,_civ,_regularteam,_OutpostsClose,_funding] execFSM _fsmPath;

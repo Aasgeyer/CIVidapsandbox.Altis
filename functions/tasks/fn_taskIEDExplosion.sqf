@@ -1,3 +1,17 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task IED Explosion.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskIEDExplosion; //-> nothing
+*/
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -89,6 +103,13 @@ If (_debug) then {
     _todeletearray pushBack _marker;
 };
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_dist2d = _roadPos distance2D markerpos "marker_idapBase";
+_funding = linearConversion [0,_worldSizeR,_dist2d,900,9000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskIEDExplosion";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -99,10 +120,11 @@ _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 We got calls of an explosion near %1. Go there and treat whoever is wounded and
- put those in a body bag that didn't survive and bring them back to base for identification.
- You may want to use a drone with thermal iamging to find all victims of the explosion.
+ put those in a body bag that didn't survive and bring them back to base for identification.<br/>
+ (optional) Use a drone with thermal iamging to find all victims of the explosion.<br/>
+ Reward: + %2$ to daily funding.
 ",
-    _locationName
+    _locationName, _fundingStr
 ];
 _TaskMarker = _marker;
 [
@@ -118,4 +140,4 @@ _TaskMarker = _marker;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_civArray,_woundedCivArray,_roadPos] execFSM _fsmPath;
+[_TaskID,_todeletearray,_civArray,_woundedCivArray,_roadPos,_funding] execFSM _fsmPath;

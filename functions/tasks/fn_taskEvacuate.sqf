@@ -1,3 +1,18 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Evacuate Area.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskEvacuate; //-> nothing
+*/
+
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -7,7 +22,7 @@ _todeletearray = [];
 _radiusHouses = 150;
 _randomPos = [0,0];
 _try = 0;
-_AOcombat = selectRandom AO_markerCombatZones;
+_AOcombat = selectRandomWeighted AO_markerCombatZonesWeighted;
 while { _randompos isequalto [0,0] && _try <= 25} do {
     _randomPos = [
         [_AOcombat],
@@ -81,6 +96,7 @@ _maxCivCount = 12;
         _houseMarker setMarkerTypeLocal "hd_unknown";
         _houseMarker setMarkerSizeLocal [0.5,0.5];
         _houseMarker setMarkerColor "ColorCIV";
+        _todeletearray pushBack _houseMarker;
         _bposarray = (_y buildingPos -1);
         {
             _expDistr = 1*exp(-(_foreachindex-0.0)*1);
@@ -150,6 +166,7 @@ _maxCivCount = 12;
             _houseMarker setMarkerTypeLocal "hd_unknown";
             _houseMarker setMarkerSizeLocal [0.5,0.5];
             _houseMarker setMarkerColor (["ColorCIV","ColorBlack"] select _debug);
+            _todeletearray pushBack _houseMarker;
         };
     };
 } foreach _houses;
@@ -164,6 +181,13 @@ _etaDelta = _dist2d/_speed + _leeway + 10*_nrOfCivs;
 _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
+
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_dist2d = _randomPos distance2D markerpos "marker_idapBase";
+_funding = linearConversion [0,_worldSizeR,_dist2d,800/_nrOfCivs,8000/_nrOfCivs];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
 
 //spawn conflict parties
 _defenderPool = selectRandom [AAS_RegularSoldierPool,AAS_GuerillaSoldierPool];
@@ -216,11 +240,12 @@ _TaskDescription = format ["
 AAF and FIA are closing on on the designated area near mapgrid %1. Evacuate the local populace there!
  Expect %2 people there.
  You have time until ca. %3 (%4) before the fighting starts. If more than 50%5 
- of the civilians die, your task fails.
- (optional) Drop leaflets so that they flee without you searching for every single civilian there.
-", mapGridPosition _randomPos, _nrOfCivs, _daytimestr, _timestr, "%"
+ of the civilians die, your task fails.<br/>
+ (optional) Drop leaflets so that they flee without you searching for every single civilian there.<br/>
+ Reward: + %6$ to daily funding for every evacuated civilian.
+", mapGridPosition _randomPos, _nrOfCivs, _daytimestr, _timestr, "%", _fundingStr
 ];
-_TaskMarker = _evacmrk;
+_TaskMarker = _areamrk;
 [
     true,
     [_TaskID,_parentTask],
@@ -234,4 +259,4 @@ _TaskMarker = _evacmrk;
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_civEvacuteesArray,_loseTime,_randomPos,_fleePos,_OutpostsClose] execFSM _fsmPath;
+[_TaskID,_todeletearray,_civEvacuteesArray,_loseTime,_randomPos,_fleePos,_OutpostsClose,_funding] execFSM _fsmPath;

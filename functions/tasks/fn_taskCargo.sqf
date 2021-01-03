@@ -1,3 +1,18 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Task Cargo Delivery.
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_TaskCargo; //-> nothing
+*/
+
+
 If (!isServer) exitWith {};
 
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
@@ -59,6 +74,12 @@ _loseTime = time + _etaDelta;
 _timestr = [_etaDelta, "MM:SS"] call BIS_fnc_secondsToString;
 _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
 
+//calculate reward
+_worldSizeR = sqrt 2 * (worldSize/2);
+_funding = linearConversion [0,_worldSizeR,_dist2d,1000,10000];
+_funding = round _funding;
+_fundingStr = _funding call BIS_fnc_numberText;
+
 //create task
 _parentTask = "TaskCargo";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
@@ -71,9 +92,10 @@ _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 Deliver %1 to the IDAP workers at %2. You have time until %3 (%4)!<br/>
-<img image='%5' width='114' height='59'/>
+Reward: + %5$ to daily funding.<br/>
+<img image='%6' width='114' height='59'/>
 ",
-    _displayname, _destinationname, _daytimestr, _timestr, _displayPicture
+    _displayname, _destinationname, _daytimestr, _timestr,_fundingStr, _displayPicture
 ];
 _TaskMarker = "";
 [
@@ -89,4 +111,4 @@ _TaskMarker = "";
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_trg,_loseTime,_destination,_supplyneeded] execFSM "taskFSM\taskCargo.fsm";
+[_TaskID,_todeletearray,_trg,_loseTime,_destination,_supplyneeded,_funding] execFSM "taskFSM\taskCargo.fsm";
