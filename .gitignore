@@ -4,3 +4,4 @@ functions/ambient/ModuleCivillianPresenceSafeSpot_F.hpp
 functions/ambient/ModuleCivillianPresenceUnit_F.hpp
 functions/ambient/temp_ModuleSmoke_F.hpp
 functions/ambient/CivilianPresence_init.sqf
+functions/ambient/behaviour.fsm
