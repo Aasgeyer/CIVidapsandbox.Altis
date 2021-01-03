@@ -11,6 +11,4 @@
 	__EVAL(COLOR_A * 0.00392157)
 
 #include "controls.hpp"
-#include "RscDisplayFinancialReport.hpp"
-#include "RscDisplayReports.hpp"
 #include "RscDisplayIDAPBrowser.hpp"
