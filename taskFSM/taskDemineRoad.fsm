@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskDemine">*/
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskDemineRoad">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
@@ -11,7 +11,7 @@ item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"all_mines_cleare",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"all mines cleared"};
 item8[] = {"success",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"success"};
 item9[] = {"no_player_near_",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"no player near" \n "(objNull)"};
-item10[] = {"end",1,4346,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
+item10[] = {"end",1,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
 item11[] = {"_",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,5};
@@ -26,11 +26,11 @@ link9[] = {8,9};
 link10[] = {9,10};
 link11[] = {11,6};
 globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
-window[] = {2,-1,-1,-1,-1,863,-1816,-376,104,3,1258};
+window[] = {2,-1,-1,-1,-1,889,-1790,-350,130,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
-        fsmName = "TaskDemine";
+        fsmName = "TaskDemineRoad";
         class States
         {
                 /*%FSM<STATE "Start">*/
@@ -38,7 +38,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_mineArray"",""_meanPos"",""_OutpostsClose""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_mineArray"",""_meanPos"",""_OutpostsClose"",""_funding""];" \n
                          "_mineCount = count _mineArray;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -143,7 +143,8 @@ class FSM
                 {
                         name = "success";
                         itemno = 8;
-                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;" \n
+                         "_funding call TER_fnc_addFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

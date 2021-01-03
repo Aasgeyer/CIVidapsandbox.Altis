@@ -14,11 +14,11 @@ item9[] = {"no_player_near_",4,218,-100.000000,550.000000,0.000000,600.000000,0.
 item10[] = {"end",1,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
 item11[] = {"get_body_bags",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"get body bags"};
 item12[] = {"near_med_tent",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"near med tent"};
-item13[] = {"success",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
+item13[] = {"success",2,4346,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
 item14[] = {"civ_died",4,218,-250.000000,-50.000000,-150.000000,0.000000,3.000000,"civ died"};
 item15[] = {"update_dead_list",2,250,-400.000000,50.000000,-300.000000,100.000000,0.000000,"update dead list"};
 item16[] = {"_",8,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,""};
-item17[] = {"civ_wounded",4,4314,50.000000,-50.000000,150.000000,0.000000,2.000000,"civ wounded"};
+item17[] = {"civ_wounded",4,218,50.000000,-50.000000,150.000000,0.000000,2.000000,"civ wounded"};
 item18[] = {"set_wounded_civ",2,250,200.000000,-50.000000,300.000000,0.000000,0.000000,"set wounded" \n "civ"};
 link0[] = {0,2};
 link1[] = {0,5};
@@ -41,8 +41,8 @@ link17[] = {15,16};
 link18[] = {16,1};
 link19[] = {17,18};
 link20[] = {18,7};
-globals[] = {0.000000,0,0,0,0,640,480,1,36,6316128,1,-855.200745,805.823792,694.623779,-489.525940,1240,884,1};
-window[] = {2,-1,-1,-1,-1,967,208,1648,208,3,1258};
+globals[] = {0.000000,0,0,0,0,640,480,1,36,6316128,1,-848.950806,941.815918,842.871948,-433.771301,1240,884,1};
+window[] = {2,-1,-1,-32000,-32000,915,-1764,-324,156,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -54,7 +54,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_civArray"",""_woundedCivArray"",""_roadPos""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_civArray"",""_woundedCivArray"",""_roadPos"",""_funding""];" \n
                          "_deadCivArray = [];" \n
                          "_updateCivArray = +_civArray;" \n
                          "_debug = missionNamespace getVariable [""MIS_debugMode"",false];" \n
@@ -264,7 +264,8 @@ class FSM
                 {
                         name = "success";
                         itemno = 13;
-                        init = /*%FSM<STATEINIT""">*/"[_TaskID, ""SUCCEEDED""] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_TaskID, ""SUCCEEDED""] call BIS_fnc_TaskSetState;" \n
+                         "_funding call TER_fnc_addFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

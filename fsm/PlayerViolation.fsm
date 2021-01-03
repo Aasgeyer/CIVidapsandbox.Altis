@@ -31,8 +31,8 @@ link12[] = {10,12};
 link13[] = {11,13};
 link14[] = {12,13};
 link15[] = {13,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,27,6316128,1,-993.569824,379.177734,577.112061,-401.524902,1240,884,1};
-window[] = {2,-1,-1,-1,-1,889,-1790,-350,130,3,1258};
+globals[] = {0.000000,0,0,0,0,640,480,1,27,6316128,1,-552.961670,819.785889,543.900391,-434.736572,1240,884,1};
+window[] = {2,-1,-1,-1,-1,811,52,1492,52,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -112,7 +112,8 @@ class FSM
                          "{" \n
                          "    [_playerunit, _x] call CBA_fnc_dropWeapon;" \n
                          "} foreach _weapons;" \n
-                         "[""WeaponViolation""] call BIS_fnc_showNotification;"/*%FSM</STATEINIT""">*/;
+                         "[""WeaponViolation""] call BIS_fnc_showNotification;" \n
+                         "2500 call TER_fnc_removeMoney;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -170,7 +171,8 @@ class FSM
                 {
                         name = "violation";
                         itemno = 9;
-                        init = /*%FSM<STATEINIT""">*/"[""RestrictedAreaViolated""] call BIS_fnc_showNotification;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[""RestrictedAreaViolated""] call BIS_fnc_showNotification;" \n
+                         "5000 call TER_fnc_removeMoney;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

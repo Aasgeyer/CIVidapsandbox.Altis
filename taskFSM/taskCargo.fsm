@@ -11,7 +11,7 @@ item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"supply_near",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"supply near"};
 item8[] = {"success",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"success"};
 item9[] = {"no_player_near",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"no player near"};
-item10[] = {"end",1,4346,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
+item10[] = {"end",1,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,4};
@@ -24,7 +24,7 @@ link8[] = {7,8};
 link9[] = {8,9};
 link10[] = {9,10};
 globals[] = {0.000000,0,0,0,0,640,480,1,14,6316128,1,-702.416809,670.330811,713.278503,-265.357574,1240,884,1};
-window[] = {2,-1,-1,-1,-1,894,11,1451,135,3,1258};
+window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -36,7 +36,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_trg"",""_loseTime"",""_destination"",""_supplyNeeded""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_trg"",""_loseTime"",""_destination"",""_supplyNeeded"",""_funding""];" \n
                          "_ObjArray = _destination getvariable ""AAS_IDAPOutpostObjectArray"";"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -83,7 +83,8 @@ class FSM
                 {
                         name = "fail";
                         itemno = 4;
-                        init = /*%FSM<STATEINIT""">*/"[_taskID,""FAILED"",true] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""FAILED"",true] call BIS_fnc_TaskSetState;" \n
+                         "(round (_funding/2)) call TER_fnc_removeFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -147,7 +148,8 @@ class FSM
                          "_nearCargo = _destination nearObjects [_supplyNeeded, 25];" \n
                          "_supplyDelivered = _nearCargo#0;" \n
                          "_supplyDelivered setvariable ['CargoLoadingEnabled',false,true];" \n
-                         "_todeleteArray pushBack _supplyDelivered;"/*%FSM</STATEINIT""">*/;
+                         "_todeleteArray pushBack _supplyDelivered;" \n
+                         "_funding call TER_fnc_addFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

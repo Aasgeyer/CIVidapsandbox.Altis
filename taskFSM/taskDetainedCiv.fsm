@@ -18,7 +18,7 @@ item13[] = {"no_player_near",4,218,-100.000000,750.000000,0.000000,800.000000,0.
 item14[] = {"end",1,250,-100.000000,850.000000,0.000000,900.000000,0.000000,"end"};
 item15[] = {"execution_done",4,218,50.000000,550.000000,150.000000,600.000000,0.000000,"execution done"};
 item16[] = {"success",2,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"success"};
-item17[] = {"fail",2,250,50.000000,650.000000,150.000000,700.000000,0.000000,"fail"};
+item17[] = {"fail",2,4346,50.000000,650.000000,150.000000,700.000000,0.000000,"fail"};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,8};
@@ -38,8 +38,8 @@ link15[] = {13,14};
 link16[] = {15,17};
 link17[] = {16,13};
 link18[] = {17,13};
-globals[] = {0.000000,0,0,0,0,640,480,1,36,6316128,1,-765.931152,599.244263,1374.318115,255.860352,1079,884,1};
-window[] = {2,-1,-1,-1,-1,889,130,1570,130,3,1097};
+globals[] = {0.000000,0,0,0,0,640,480,1,36,6316128,1,-340.923462,536.943665,920.172485,-65.120117,523,587,1};
+window[] = {0,-1,-1,-1,-1,993,-1686,-246,234,1,541};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -51,7 +51,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_losetime"",""_executioner"",""_civ"",""_regularteam"",""_OutpostsClose""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_losetime"",""_executioner"",""_civ"",""_regularteam"",""_OutpostsClose"",""_funding""];" \n
                          "//systemchat str _this;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -252,7 +252,8 @@ class FSM
                 {
                         name = "success";
                         itemno = 16;
-                        init = /*%FSM<STATEINIT""">*/"[_TaskID,""SUCCEEDED""] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_TaskID,""SUCCEEDED""] call BIS_fnc_TaskSetState;" \n
+                         "_funding call TER_fnc_addFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -275,7 +276,8 @@ class FSM
                 {
                         name = "fail";
                         itemno = 17;
-                        init = /*%FSM<STATEINIT""">*/"[_TaskID,""FAILED""] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_TaskID,""FAILED""] call BIS_fnc_TaskSetState;" \n
+                         "(round (0.5*_funding)) call TER_fnc_removeFundingFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {

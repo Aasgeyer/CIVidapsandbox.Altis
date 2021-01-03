@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskCargo">*/
+/*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskBody">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
@@ -9,9 +9,9 @@ item4[] = {"bag_near_base",4,218,-100.000000,350.000000,0.000000,400.000000,0.00
 item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
 item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"bodybag_in_car",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"bodybag in" \n "car"};
-item8[] = {"success",2,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
+item8[] = {"success",2,4346,-100.000000,450.000000,0.000000,500.000000,0.000000,"success"};
 item9[] = {"no_player_near_",4,218,-100.000000,550.000000,0.000000,600.000000,0.000000,"no player near" \n "(objNull)"};
-item10[] = {"end",1,4346,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
+item10[] = {"end",1,250,-100.000000,650.000000,0.000000,700.000000,0.000000,"end"};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,4};
@@ -23,11 +23,11 @@ link7[] = {7,1};
 link8[] = {8,9};
 link9[] = {9,10};
 globals[] = {0.000000,0,0,0,0,640,480,1,16,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
-window[] = {2,-1,-1,-32000,-32000,785,26,1466,26,3,1258};
+window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
-        fsmName = "TaskCargo";
+        fsmName = "TaskBody";
         class States
         {
                 /*%FSM<STATE "Start">*/
@@ -35,7 +35,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_deadBody"",""_BodyID""];"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_deadBody"",""_BodyID"",""_funding""];"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -132,7 +132,8 @@ class FSM
                 {
                         name = "success";
                         itemno = 8;
-                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;"/*%FSM</STATEINIT""">*/;
+                        init = /*%FSM<STATEINIT""">*/"[_taskID,""SUCCEEDED"",true] call BIS_fnc_TaskSetState;" \n
+                         "_funding call TER_fnc_addFunding;"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
