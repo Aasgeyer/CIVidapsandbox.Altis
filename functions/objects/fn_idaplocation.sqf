@@ -1,3 +1,20 @@
+/*
+    Author: Aasgeyer
+
+    Description:
+        Return all locations on map and set up IDAP outposts on an empty space nearby.
+        Locations stored in MIS_locationsCar
+        Outposts stored in MIS_idapoutposts
+
+    Parameter(s): None
+
+    Returns: Nothing
+
+    Example(s):
+        [] call AAS_fnc_idapLocation; //-> nothing
+*/
+
+
 If (!isServer) exitWith {};
 _debug = missionNamespace getVariable ["MIS_debugMode",false];
 
@@ -22,7 +39,10 @@ _idapcomposition =
 	["Land_PaperBox_01_open_empty_F",[-1.7793,-5.40234,0.00145721],359.991,1,0,[-0.762879,0.746858],"","",true,false]
 ];
 
-MIS_locationsCar = nearestLocations [markerPos "marker_AO_1",["NameCity","NameVillage"],selectMax markerSize "marker_AO_1"];
+//MIS_locationsCar = nearestLocations [markerPos "marker_AO_1",["NameCity","NameVillage"],selectMax markerSize "marker_AO_1"];
+_worldCenter = worldSize/2;
+_worldRadius = sqrt 2 * _worldCenter;
+MIS_locationsCar = nearestLocations [[_worldCenter,_worldCenter,0],["NameCity","NameVillage"],_worldRadius];
 MIS_idapoutposts = [];
 //_animationPool = ["Acts_AidlPercMstpSnonWnonDnon_warmup_1_loop","Acts_AidlPercMstpSnonWnonDnon_warmup_3_loop","Acts_AidlPercMstpSnonWnonDnon_warmup_8_loop"];
 {
