@@ -39,5 +39,10 @@
 		],
 		"description": "Inserts Arma 3 function header",
 		"prefix": "sqfheader"
+	},
+	"private":{
+		"body": "private _${1:var} = $0",
+		"description": "Declare private variable.",
+		"prefix": "private"
 	}
 }
