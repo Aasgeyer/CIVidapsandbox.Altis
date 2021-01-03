@@ -88,7 +88,17 @@ _fn_distanceEllipse = {
 };
 
 //markers over area where IDAP is active
+_worldSizeHalf = worldSize/2;
+_worldCenter = [_worldSizeHalf,_worldSizeHalf,0];
+_worldRadius = sqrt 2 * _worldSizeHalf;
+_markerWholeMap = createmarker ["marker_AOmap",_worldCenter];
+_markerWholeMap setMarkerShapeLocal "ELLIPSE";
+_markerWholeMap setMarkerBrushLocal "Border";
+_markerWholeMap setMarkerColorLocal "ColorBlue";
+_markerWholeMap setMarkerSize [_worldRadius,_worldRadius];
 AO_markerIDAPZones = ["marker_AO_"] call BIS_fnc_getMarkers;
+AO_markerIDAPZones pushBack _markerWholeMap;
+AO_markerIDAPZonesExtended = +AO_markerIDAPZones;
 {
     //for "_phi" from 0 to 360 do { // for testing
         _markerSize = markerSize _x;
@@ -101,12 +111,15 @@ AO_markerIDAPZones = ["marker_AO_"] call BIS_fnc_getMarkers;
         _marker setMarkerColorLocal _color;
         _marker setMarkerSizeLocal [0.025,0.025];
         _marker setMarkerText format ["IDAP AO %1",_foreachindex+1];
+        AO_markerIDAPZonesExtended pushBack _marker;
         //_marker setMarkerText format ["Phi = %1",_phi]; // for testing
     //};
 } foreach AO_markerIDAPZones;
 
 //markers over area where combat happens
 AO_markerCombatZones = ["marker_AOcombat_"] call BIS_fnc_getMarkers;
+AO_markerCombatZonesExtended = +AO_markerCombatZones;
+
 {
     _markersize = markerSize _x;
     _phi = 135;
@@ -118,7 +131,24 @@ AO_markerCombatZones = ["marker_AOcombat_"] call BIS_fnc_getMarkers;
     _marker setMarkerColorLocal _color;
     _marker setMarkerSizeLocal [0.025,0.025];
     _marker setMarkerText "Active Combat Zone";
+    AO_markerCombatZonesExtended pushBack _marker;
 } foreach AO_markerCombatZones;
+
+_AO_markerComabtZonesLocal = [];
+AO_markerCombatZones apply {
+    _AO_markerComabtZonesLocal pushBack _x;
+    _result = [markerSize _x, 1, {_accumulator * _x}] call CBA_fnc_inject;
+    _result = sqrt(_result);
+    _AO_markerComabtZonesLocal pushBack _result;
+};
+AO_markerCombatZonesWeighted = _AO_markerComabtZonesLocal;
+
+0 = [] spawn {
+    _bool = true;
+    while {_bool} do {
+        _bool = [] call AAS_fnc_roadBlocks;
+    };
+};
 
 waitUntil {time > 1 or serverTime > 1};
 [] call TER_fnc_ambientCivs;
