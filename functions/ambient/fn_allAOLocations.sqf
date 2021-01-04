@@ -20,13 +20,13 @@ _this = if (isNil "_this" or count _this == 0) then {["NameCity","NameVillage"]}
 _this sort true;
 _globalVar = "TER_fnc_allLocations_" + (_this joinString "_");
 if (isNil _globalVar) then {
-	// Cache the result
-	missionNamespace setVariable [_globalVar,
-		nearestLocations [
-			markerPos "marker_AO_1",
-			_this,
-			selectMax markerSize "marker_AO_1"
-		]
+	private _locs = nearestLocations [
+		[worldSize/2, worldSize/2, 0],
+		_this,
+		2 * worldSize
 	];
+	_locs deleteAt (_locs apply {text _x} find "Oreokastro");
+	// Cache the result
+	missionNamespace setVariable [_globalVar,_locs];
 };
 missionNamespace getVariable _globalVar
