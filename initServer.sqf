@@ -132,6 +132,7 @@ AO_markerCombatZonesExtended = +AO_markerCombatZones;
     _marker setMarkerSizeLocal [0.025,0.025];
     _marker setMarkerText "Active Combat Zone";
     AO_markerCombatZonesExtended pushBack _marker;
+    [_x] call AAS_fnc_battlefieldSounds;
 } foreach AO_markerCombatZones;
 
 _AO_markerComabtZonesLocal = [];
