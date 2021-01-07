@@ -71,7 +71,7 @@ _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
 _TaskDescription = format ["
 Deliver %1 to the IDAP workers at %2. You have time until %3 (%4)!<br/>
 Reward: + %5$ to daily funding.<br/>
-<img image='%6' width='114' height='59'/>
+<img image='%6' width='160' height='90'/>
 ",
     _displayname, _destinationname, _daytimestr, _timestr,_fundingStr, _displayPicture
 ];
