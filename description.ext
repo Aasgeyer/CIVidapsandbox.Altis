@@ -19,7 +19,8 @@ class CfgFunctions
             class zeusEH;
         };
         class tasks {
-            class taskcargo;
+            class taskCargo;
+            class taskCargoHeli;
             class taskMedical;
             class taskBody;
             class taskWater;

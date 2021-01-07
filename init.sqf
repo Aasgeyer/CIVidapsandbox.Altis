@@ -17,7 +17,7 @@ If (IsServer) then {
 MIS_SlingloadCargo = [
     "Land_PaperBox_01_small_stacked_F",
     "Land_FoodSacks_01_cargo_brown_idap_F","Land_FoodSacks_01_cargo_white_idap_F",
-    "Land_WaterBottle_01_stack_F"
+    "CargoNet_01_box_F","CargoNet_01_barrels_F"
 ];
 //objects that can be loaded into the back of the truck
 MIS_VanCargoObjectClasses = [
