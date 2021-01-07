@@ -37,6 +37,7 @@ class CfgFunctions
             class TalkToMayor;
             class briefing;
             class setMarkerAlpha;
+            class teleportBase;
         };
         class ambient {
             class flyBy;

@@ -25,3 +25,8 @@
 <execute expression='[""marker_RoadBlock_""] call AAS_fnc_setMarkerAlpha;'>Toggle checkpoint markers</execute><br/>
 "
 ],taskNull,"",true];
+
+0 = player createDiaryRecord ["technical",["Taxi Service",
+"
+<executeClose expression='[] spawn AAS_fnc_teleportBase;'>Call Taxi</executeClose> to <marker name='marker_idapbase'>Base</marker>.
+"],taskNull,"",true];
