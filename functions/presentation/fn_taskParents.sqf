@@ -47,13 +47,11 @@ Requirement: (optional) %1.
 ",_leafletDroneDisplayName];
 [true, "TaskEvacuate", [_TaskDescription,"Evacuate Civilians",""], objNull, "CREATED", -1, false, "run"] call BIS_fnc_taskCreate;
 
-/*
 _TaskDescription = format ["
 With a helicopter we are able to deliver supplies faster and further away than by car.<br/>
 Requirement: %1.
 ",_heliDisplayName];
-[true, "TaskAirsupply", [_TaskDescription,"Cargo Delivery (Air)",""], objNull, "CREATED", -1, false, "container"] call BIS_fnc_taskCreate;
-*/
+[true, "TaskCargoHeli", [_TaskDescription,"Cargo Delivery (Air)",""], objNull, "CREATED", -1, false, "container"] call BIS_fnc_taskCreate;
 
 _TaskDescription = format ["
 Both sides of the war make use of mines. No one really knows where they are 
