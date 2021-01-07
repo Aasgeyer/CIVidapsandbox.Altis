@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskCargo">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
 item1[] = {"time_over",4,218,50.000000,150.000000,150.000000,200.000000,0.000000,"time over"};
 item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
 item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
@@ -24,7 +24,7 @@ link8[] = {7,8};
 link9[] = {8,9};
 link10[] = {9,10};
 globals[] = {0.000000,0,0,0,0,640,480,1,14,6316128,1,-702.416809,670.330811,713.278503,-265.357574,1240,884,1};
-window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1258};
+window[] = {2,-1,-1,-1,-1,837,-1842,-402,78,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -36,7 +36,7 @@ class FSM
                 {
                         name = "Start";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_trg"",""_loseTime"",""_destination"",""_supplyNeeded"",""_funding""];" \n
+                        init = /*%FSM<STATEINIT""">*/"params [""_TaskID"",""_todeletearray"",""_loseTime"",""_destination"",""_supplyNeeded"",""_funding""];" \n
                          "_ObjArray = _destination getvariable ""AAS_IDAPOutpostObjectArray"";"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -95,7 +95,7 @@ class FSM
                                         priority = 0.000000;
                                         to="end";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _trg < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _destination < 400} == -1;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -160,7 +160,7 @@ class FSM
                                         priority = 0.000000;
                                         to="end";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _trg < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _destination < 400} == -1;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/

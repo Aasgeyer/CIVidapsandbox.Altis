@@ -42,28 +42,6 @@ _markerArray = _destination getVariable "AAS_IDAPOutpostMarkerArray";
 //random supply
 _supplyneeded = selectRandom MIS_VanCargoObjectClasses;
 
-//create Trigger
-_trg = createTrigger ["EmptyDetector",getpos _destination];
-_trg setTriggerActivation ["ANY","PRESENT",false];
-_trg setTriggerArea [15,15,0,false];
-_condtrg = format [
-    "{
-        alive _x
-        && IsNull isVehicleCargo _x
-    } count (
-        position ThisTrigger nearObjects [
-            %1, (TriggerArea ThisTrigger) select 0
-        ]
-    ) > 0",
-str _supplyneeded];
-_acttrg = format ["
-    _nearCargo = position ThisTrigger nearObjects [%1, (TriggerArea ThisTrigger) select 0];
-    _nearCargo#0 setvariable ['CargoLoadingEnabled',false,true];
-",str _supplyneeded];
-_deacttrg = "";
-_trg setTriggerStatements [_condtrg,_acttrg,_deacttrg];
-_todeletearray pushBack _trg;
-
 //determine time
 _dist2d = _destination distance2D markerpos "marker_idapbase";
 //assuming 50 km/h and some leeway
@@ -111,4 +89,4 @@ _TaskMarker = "";
 
 //execute FSM
 _fsmPath = format ["taskFSM\%1.fsm",_parentTask];
-[_TaskID,_todeletearray,_trg,_loseTime,_destination,_supplyneeded,_funding] execFSM "taskFSM\taskCargo.fsm";
+[_TaskID,_todeletearray,_loseTime,_destination,_supplyneeded,_funding] execFSM _fsmPath;
