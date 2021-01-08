@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "D:\Programme HDD\Steam HDD\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, TaskCargo">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,4346,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
+item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"Start"};
 item1[] = {"time_over",4,218,50.000000,150.000000,150.000000,200.000000,0.000000,"time over"};
 item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
 item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
@@ -12,6 +12,8 @@ item7[] = {"supply_near",4,218,-100.000000,150.000000,0.000000,200.000000,0.0000
 item8[] = {"success",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"success"};
 item9[] = {"no_player_near",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"no player near"};
 item10[] = {"end",1,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
+item11[] = {"canceled",4,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"canceled"};
+item12[] = {"_",2,250,-250.000000,250.000000,-150.000000,300.000000,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,4};
@@ -20,11 +22,14 @@ link4[] = {4,9};
 link5[] = {5,6};
 link6[] = {6,1};
 link7[] = {6,7};
-link8[] = {7,8};
-link9[] = {8,9};
-link10[] = {9,10};
-globals[] = {0.000000,0,0,0,0,640,480,1,14,6316128,1,-702.416809,670.330811,713.278503,-265.357574,1240,884,1};
-window[] = {2,-1,-1,-1,-1,837,-1842,-402,78,3,1258};
+link8[] = {6,11};
+link9[] = {7,8};
+link10[] = {8,9};
+link11[] = {9,10};
+link12[] = {11,12};
+link13[] = {12,9};
+globals[] = {0.000000,0,0,0,0,640,480,1,16,6316128,1,-702.416809,670.330811,713.278503,-265.357574,1240,884,1};
+window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -125,6 +130,17 @@ class FSM
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
+                                /*%FSM<LINK "canceled">*/
+                                class canceled
+                                {
+                                        itemno = 11;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"toupper ([_TaskID] call BIS_fnc_TaskState) isEqualTo ""CANCELED"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                                 /*%FSM<LINK "time_over">*/
                                 class time_over
                                 {
@@ -185,6 +201,29 @@ class FSM
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 12;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near">*/
+                                class no_player_near
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _destination < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                         };
                 };
                 /*%FSM</STATE>*/

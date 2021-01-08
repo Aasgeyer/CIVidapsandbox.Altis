@@ -129,12 +129,14 @@ _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
 _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 We have an approximate location around grid %1 of a body of a person, which we should retrieve.
 He was a %2 of the %3 faction.<br/>
 Reward: + %4$ to daily funding.
+%5
 ",
-    _mapgrid, _BodyDisplayName, _BodyDisplayFaction, _fundingStr
+    _mapgrid, _BodyDisplayName, _BodyDisplayFaction, _fundingStr, _taskCancel
 ];
 _TaskMarker = _areamrk;
 [

@@ -68,12 +68,14 @@ _displayname = [configFile >> "CfgVehicles" >> _supplyneeded] call BIS_fnc_displ
 _displayPicture = gettext (configfile >> "CfgVehicles" >> _supplyneeded >> "editorPreview");
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 Deliver %1 to the IDAP workers at %2. You have time until %3 (%4)!<br/>
 Reward: + %5$ to daily funding.<br/>
 <img image='%6' width='160' height='90'/>
+%7
 ",
-    _displayname, _destinationname, _daytimestr, _timestr,_fundingStr, _displayPicture
+    _displayname, _destinationname, _daytimestr, _timestr,_fundingStr, _displayPicture, _taskCancel
 ];
 _TaskMarker = "";
 [

@@ -236,6 +236,7 @@ _parentTask = "TaskEvacuate";
 _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
 _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _TaskTitle = format ["Evacuation (%1)",_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 AAF and FIA are closing on on the designated area near mapgrid %1. Evacuate the local populace there!
  Expect %2 people there.
@@ -243,7 +244,8 @@ AAF and FIA are closing on on the designated area near mapgrid %1. Evacuate the 
  of the civilians die, your task fails.<br/>
  (optional) Drop leaflets so that they flee without you searching for every single civilian there.<br/>
  Reward: + %6$ to daily funding for every evacuated civilian.
-", mapGridPosition _randomPos, _nrOfCivs, _daytimestr, _timestr, "%", _fundingStr
+ %7
+", mapGridPosition _randomPos, _nrOfCivs, _daytimestr, _timestr, "%", _fundingStr, _taskCancel
 ];
 _TaskMarker = _areamrk;
 [

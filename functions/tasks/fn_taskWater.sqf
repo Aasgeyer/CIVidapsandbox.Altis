@@ -60,11 +60,13 @@ _curNrTasks = count (_parentTask call BIS_fnc_taskChildren) + 1;
 _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _locationName = _destination getVariable ["AAS_LogicLocationName","the designated location"];
 _TaskTitle = format ["Water Shortage (%1)",_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 The people in %1 are in need of additional water supplies. Bring a water truck to their location.
 Be fast as they are awaiting it eagerly. You have time until %2 (%3).<br/>
 Reward: + %4$ to daily funding.
-", _locationName, _daytimestr, _timestr, _fundingStr
+%5
+", _locationName, _daytimestr, _timestr, _fundingStr, _taskCancel
 ];
 _TaskMarker = _markerArray#0;
 [

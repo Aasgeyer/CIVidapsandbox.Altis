@@ -5,7 +5,7 @@ item0[] = {"Start",0,250,-100.000000,-150.000000,0.000000,-100.000000,0.000000,"
 item1[] = {"all_alive_civs_a",4,218,-100.000000,150.000000,0.000000,200.000000,0.000000,"all alive" \n "civs away"};
 item2[] = {"__IsServer",4,218,50.000000,-150.000000,150.000000,-100.000000,2.000000,"!IsServer"};
 item3[] = {"terminate",1,250,200.000000,-150.000000,300.000000,-100.000000,0.000000,"terminate"};
-item4[] = {"fail",2,4346,50.000000,350.000000,150.000000,400.000000,0.000000,"fail"};
+item4[] = {"fail",2,250,50.000000,350.000000,150.000000,400.000000,0.000000,"fail"};
 item5[] = {"_",8,218,-100.000000,-50.000000,0.000000,0.000000,0.000000,""};
 item6[] = {"__",2,250,-100.000000,50.000000,0.000000,100.000000,0.000000,"/"};
 item7[] = {"leaflets_dropped",4,218,-250.000000,-50.000000,-150.000000,0.000000,0.000000,"leaflets dropped"};
@@ -18,6 +18,8 @@ item13[] = {"update_dead_civ",2,250,200.000000,50.000000,300.000000,100.000000,0
 item14[] = {"_",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,""};
 item15[] = {"__50__dead",4,218,50.000000,250.000000,150.000000,300.000000,2.000000,">50% dead"};
 item16[] = {"_",8,218,-250.000000,50.000000,-150.000000,100.000000,0.000000,""};
+item17[] = {"canceled",4,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"canceled"};
+item18[] = {"_",2,250,-250.000000,250.000000,-150.000000,300.000000,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,8};
@@ -28,17 +30,20 @@ link6[] = {6,1};
 link7[] = {6,7};
 link8[] = {6,12};
 link9[] = {6,15};
-link10[] = {7,11};
-link11[] = {8,9};
-link12[] = {9,10};
-link13[] = {11,16};
-link14[] = {12,13};
-link15[] = {13,14};
-link16[] = {14,6};
-link17[] = {15,4};
-link18[] = {16,6};
-globals[] = {0.000000,0,0,0,0,640,480,1,44,6316128,1,-475.064148,675.700073,602.600220,-217.783325,911,587,1};
-window[] = {0,-1,-1,-1,-1,941,-1738,-298,182,1,929};
+link10[] = {6,17};
+link11[] = {7,11};
+link12[] = {8,9};
+link13[] = {9,10};
+link14[] = {11,16};
+link15[] = {12,13};
+link16[] = {13,14};
+link17[] = {14,6};
+link18[] = {15,4};
+link19[] = {16,6};
+link20[] = {17,18};
+link21[] = {18,9};
+globals[] = {0.000000,0,0,0,0,640,480,1,46,6316128,1,-475.064148,675.700073,602.600220,-217.783325,1239,884,1};
+window[] = {2,-1,-1,-1,-1,785,-1894,-454,26,3,1257};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -167,6 +172,17 @@ class FSM
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
+                                /*%FSM<LINK "canceled">*/
+                                class canceled
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"toupper ([_TaskID] call BIS_fnc_TaskState) isEqualTo ""CANCELED"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                                 /*%FSM<LINK "all_alive_civs_a">*/
                                 class all_alive_civs_a
                                 {
@@ -290,6 +306,29 @@ class FSM
                                         to="__";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
                                         condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 18;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near">*/
+                                class no_player_near
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance _randomPos < 400} == -1;"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/

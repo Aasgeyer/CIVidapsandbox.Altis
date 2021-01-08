@@ -19,13 +19,13 @@ _todeletearray = [];
 
 //random position near houses
 _randomPos = [
-    [],
-    ["water",[markerpos "marker_idapbase",500]],
+    nil,
+    ["water",[markerpos "marker_idapbase",500]]+MIS_restrictedAreas,
     {
-        _this getEnvSoundController "houses" > 0
-        && MIS_restrictedAreas findIf {_this inArea _x} == -1
+        count (_this nearObjects ["house",100]) > 0
     }
 ] call BIS_fnc_randomPos;
+
 If (_randomPos isEqualTo [0,0]) exitWith {
     If _debug then {
         systemChat "No Position found, exiting medicalemergency script...";
@@ -148,13 +148,15 @@ _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _mapgrid = mapGridPosition _randomhouse;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 A civilian, called %1, needs medical treatment at %2! Go there, stabilize him 
 and bring him to the medical tent at base for further treatment. You have time until
 %3 (%4).<br/>
 Reward: + %5$ to daily funding.
+%6
 ",
-    name _civ, _mapgrid, _daytimestr, _timestr, _fundingStr
+    name _civ, _mapgrid, _daytimestr, _timestr, _fundingStr, _taskCancel
 ];
 _TaskMarker = _medCivMarker;
 [

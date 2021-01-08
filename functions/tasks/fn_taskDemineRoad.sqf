@@ -149,12 +149,14 @@ _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _mapgrid = mapGridPosition _meanPos;
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 We got reports of a road riddled with mines near mapgrid %1. Go clear it!
  Expect %2 to %3 mines there.<br/>
  Reward: + %4$ to daily funding.
+ %5
 ",
-    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1])), _fundingStr
+    _mapgrid, round (_mineCount*(random [0,0.9,1])), round (_mineCount*(1 + random [0,0.1,1])), _fundingStr, _taskCancel
 ];
 _TaskMarker = _markerMeanPos;
 [

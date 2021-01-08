@@ -118,13 +118,15 @@ _mapgrid = mapGridPosition _roadPos;
 _locationName = text _randomLocation;
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 We got calls of an explosion near %1. Go there and treat whoever is wounded and
  put those in a body bag that didn't survive and bring them back to base for identification.<br/>
  (optional) Use a drone with thermal iamging to find all victims of the explosion.<br/>
  Reward: + %2$ to daily funding.
+ %3
 ",
-    _locationName, _fundingStr
+    _locationName, _fundingStr, _taskCancel
 ];
 _TaskMarker = _marker;
 [

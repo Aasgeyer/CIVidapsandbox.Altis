@@ -92,13 +92,15 @@ _mapgrid = mapGridPosition _roadPos;
 _locationName = text _randomLocation;
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 The mayor of %1 has shown interest in our program here. We arranged a meeting for
  you at %2 (%3 from now). Go there and inform him of what we do here and how we can help.
  Don't take too long as the mayor has only very limited time.<br/>
  Reward: + %4$ to daily funding.
+ %5
 ",
-    _locationName, _daytimeStr, _timeStr, _fundingStr
+    _locationName, _daytimeStr, _timeStr, _fundingStr, _taskCancel
 ];
 _TaskMarker = _marker;
 [

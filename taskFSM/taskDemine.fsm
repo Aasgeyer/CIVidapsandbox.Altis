@@ -13,6 +13,8 @@ item8[] = {"success",2,250,-100.000000,250.000000,0.000000,300.000000,0.000000,"
 item9[] = {"no_player_near_",4,218,-100.000000,350.000000,0.000000,400.000000,0.000000,"no player near" \n "(objNull)"};
 item10[] = {"end",1,250,-100.000000,450.000000,0.000000,500.000000,0.000000,"end"};
 item11[] = {"_",8,218,50.000000,150.000000,150.000000,200.000000,0.000000,""};
+item12[] = {"canceled",4,218,-250.000000,150.000000,-150.000000,200.000000,0.000000,"canceled"};
+item13[] = {"_",2,250,-250.000000,250.000000,-150.000000,300.000000,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,5};
 link2[] = {1,4};
@@ -21,12 +23,15 @@ link4[] = {4,11};
 link5[] = {5,6};
 link6[] = {6,1};
 link7[] = {6,7};
-link8[] = {7,8};
-link9[] = {8,9};
-link10[] = {9,10};
-link11[] = {11,6};
-globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
-window[] = {2,-1,-1,-1,-1,863,-1816,-376,104,3,1258};
+link8[] = {6,12};
+link9[] = {7,8};
+link10[] = {8,9};
+link11[] = {9,10};
+link12[] = {11,6};
+link13[] = {12,13};
+link14[] = {13,9};
+globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-782.014160,728.008118,831.622620,-244.877075,1240,884,1};
+window[] = {2,-1,-1,-1,-1,915,-1764,-324,156,3,1258};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -124,6 +129,17 @@ class FSM
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
+                                /*%FSM<LINK "canceled">*/
+                                class canceled
+                                {
+                                        itemno = 12;
+                                        priority = 0.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"toupper ([_TaskID] call BIS_fnc_TaskState) isEqualTo ""CANCELED"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                                 /*%FSM<LINK "all_mines_cleare">*/
                                 class all_mines_cleare
                                 {
@@ -174,6 +190,29 @@ class FSM
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 13;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "no_player_near_">*/
+                                class no_player_near_
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allPlayers findIf {_x distance ObjNull < 400} == -1;"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
                         };
                 };
                 /*%FSM</STATE>*/
