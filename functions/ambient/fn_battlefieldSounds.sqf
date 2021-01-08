@@ -19,7 +19,7 @@
 If (!isServer) exitWith {};
 
 params ["_combatZone"];
-_debug = missionNamespace getVariable ["MIS_debugMode",true];
+_debug = missionNamespace getVariable ["MIS_debugMode",false];
 
 _deleteArray = [];
 
