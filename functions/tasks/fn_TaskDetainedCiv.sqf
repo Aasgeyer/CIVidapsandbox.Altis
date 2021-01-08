@@ -25,47 +25,54 @@ Acts_ExecutionVictim_Loop, Acts_ExecutionVictim_Unbow, Acts_ExecutionVictim_Kill
 
 //find position in AO
 _randomPos = [
-    [],
-    ["water"],
+    nil,
+    ["water"] + MIS_restrictedAreas,
     {
-        MIS_idapoutposts findIf {
-            _x distance2D _this < 300
-            && (_x getVariable ["AAS_IDAPOutPostActive",false])
-        } == -1
-        && AllPlayers findIf {_x distance2D _this < 300} == -1
-        && count (_this nearRoads 50) > 0
-        && MIS_restrictedAreas findIf {_this inArea _x} == -1
+        true
+        //MIS_idapoutposts findIf {
+        //    _x distance2D _this < 300
+        //    && (_x getVariable ["AAS_IDAPOutPostActive",false])
+        //} == -1
+        //&& AllPlayers findIf {_x distance2D _this < 300} == -1
+        //&& count (_this nearRoads 50) > 0
+        //&& MIS_restrictedAreas findIf {_this inArea _x} == -1
     }
 ] call BIS_fnc_randomPos;
+
+If (_randomPos isEqualTo [0,0]) exitWith {
+    If _debug then {
+        systemChat "No position on road found. Exiting Detained Civ Script";
+    };
+};
+
+//_randomPos = selectRandom (_randomPos nearRoads 50);
 
 _OutpostsClose = MIS_idapoutposts select {_x distance2D _randomPos < 300};
 {
     _x setVariable ["AAS_IDAPoutpostActive",true,true];
 } forEach _OutpostsClose;
 
-_randomPos = selectRandom (_randomPos nearRoads 50);
-
 _marker = createMarker [format ["marker_civdetained_%1",_randomPos],_randomPos];
 _marker setMarkerTypeLocal "mil_Objective";
 _marker setMarkerText "Detained Civilian";
 _todeletearray pushBack _marker;
-
+/*
 _roadinfo = getroadinfo _randomPos;
 _roadinfo params ["", "_width", "", "", "", "", "_begPos", "_endPos", "_isBridge"];
 _sidepos = _randomPos modelToWorld [_width,0,0];
-
-_regularteam = [_sidepos getpos [4,random 360],independent,(configfile >> "CfgGroups" >> "Indep" >> "IND_F" >> "Infantry" >> "HAF_InfTeam")] call BIS_fnc_spawnGroup;
+*/
+_regularteam = [_randomPos getpos [4,random 360],independent,(configfile >> "CfgGroups" >> "Indep" >> "IND_F" >> "Infantry" >> "HAF_InfTeam")] call BIS_fnc_spawnGroup;
 _todeletearray pushBack _regularteam;
-_civ = (createGroup [civilian,true]) createUnit [selectRandom CivUnitPool, _sidepos, [], 0, "CAN_COLLIDE"];
+_civ = (createGroup [civilian,true]) createUnit [selectRandom CivUnitPool, _randomPos, [], 0, "CAN_COLLIDE"];
 _todeletearray pushBack _civ;
 _executioner = selectRandom (units _regularteam - [leader _regularteam]);
 _executioner disableAI "ALL";
 _executioner enableAI "ANIM";
-_executioner setpos _sidepos;
+_executioner setpos _randomPos;
 _executioner setdir random 360;
 _civ disableAI "ALL";
 _civ enableAI "ANIM";
-_civ setpos _sidepos;
+_civ setpos _randomPos;
 _civ setdir getdir _executioner;
 [_executioner,"Acts_Executioner_StandingLoop"] remoteExec ["switchmove"];
 [_civ,"Acts_ExecutionVictim_Loop"] remoteExec ["switchmove"];
@@ -150,20 +157,22 @@ _TaskID = format ["%1_%2",_parentTask,_curNrTasks];
 _mapgrid = mapGridPosition _randomPos;
 _titleParent = ((_parentTask call BIS_fnc_taskDescription) select 1) select 0;
 _TaskTitle = format ["%1 (%2)",_titleParent,_curNrTasks];
+_taskCancel = format [ "<br/><br/><execute expression='[ %1 ] call AAS_fnc_cancelTask;'>(CANCEL)</execute>", str _taskID ];
 _TaskDescription = format ["
 We got a report of a detained civilian being held captive near grid %1! Go there
  and talk to the team leader. Be quick as they may harm him without our eyes
  present! You have time until %2 (%3).<br/>
  Reward: + %4$ to daily funding.
+ %5
 ",
-    _mapgrid, _daytimestr, _timestr, _fundingStr
+    _mapgrid, _daytimestr, _timestr, _fundingStr, _taskCancel
 ];
 _TaskMarker = _marker;
 [
     true,
     [_TaskID,_parentTask],
     [_TaskDescription,_TaskTitle,_TaskMarker],
-    _sidepos,
+    _randomPos,
     "AUTOASSIGNED",
     0,
     true,
