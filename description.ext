@@ -38,6 +38,8 @@ class CfgFunctions
             class briefing;
             class setMarkerAlpha;
             class teleportBase;
+            class cancelTask;
+            class establishingShot;
         };
         class ambient {
             class flyBy;
