@@ -110,6 +110,14 @@ class CfgFunctions
             class ambientCivs;
             class allAOLocations;
         };
+        class Repair
+        {
+            //class repairInitSystem;
+        };
+        class objects
+        {
+            class realDamage;
+        };
     };
     class BRPVP
     {
