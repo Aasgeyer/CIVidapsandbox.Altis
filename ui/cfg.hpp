@@ -12,3 +12,4 @@
 
 #include "controls.hpp"
 #include "RscDisplayIDAPBrowser.hpp"
+#include "RscDisplayVehicleRepair.hpp"
