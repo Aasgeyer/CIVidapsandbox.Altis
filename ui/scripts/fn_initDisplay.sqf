@@ -44,14 +44,6 @@ if (_mode == "onLoad") then {
 	};
 	//--- Register Display
 	uiNamespace setVariable [_class, _display];
-	//--- Call display function
-	private _fncCode = [
-		missionNamespace getVariable _fnc,
-		compile preprocessFileLineNumbers format["ui\scripts\%1.sqf", _class]
-	] select (getNumber (missionConfigFile >> "allowFunctionsRecompile") > 0);
-	if !(isNil "_fncCode") then {
-		["onLoad", _params, _class] call _fncCode;
-	};
 
 } else {
 	//--- Unload
@@ -59,4 +51,14 @@ if (_mode == "onLoad") then {
 	//--- Unregister display
 	uiNamespace setVariable [_class, nil];
 };
+
+//--- Call display function
+private _fncCode = [
+	missionNamespace getVariable _fnc,
+	compile preprocessFileLineNumbers format["ui\scripts\%1.sqf", _class]
+] select (getNumber (missionConfigFile >> "allowFunctionsRecompile") > 0);
+if !(isNil "_fncCode") then {
+	[_mode, _params, _class] call _fncCode;
+};
+
 nil
