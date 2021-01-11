@@ -44,8 +44,8 @@ _supplyneeded = selectRandom MIS_SlingloadCargo;
 
 //determine time
 _dist2d = _destination distance2D markerpos "marker_idapbase";
-//assuming 100 km/h and some leeway
-_speed = 100/3.6; //transform to m/s
+//assuming 150 km/h and some leeway
+_speed = 150/3.6; //transform to m/s
 _leeway = sqrt(_dist2d)*2+37;
 _etaDelta = _dist2d/_speed + _leeway;
 _loseTime = time + _etaDelta;
@@ -54,7 +54,7 @@ _daytimestr = [daytime+_etaDelta/(60^2), "HH:MM:SS"] call BIS_fnc_timeToString;
 
 //calculate reward
 _worldSizeR = sqrt 2 * (worldSize/2);
-_funding = linearConversion [0,_worldSizeR,_dist2d,1000,10000];
+_funding = linearConversion [0,_worldSizeR,_dist2d,1500,15000];
 _funding = round _funding;
 _fundingStr = _funding call BIS_fnc_numberText;
 
