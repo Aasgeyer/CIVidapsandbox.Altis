@@ -30,3 +30,8 @@
 "
 <executeClose expression='[] spawn AAS_fnc_teleportBase;'>Call Taxi</executeClose> to <marker name='marker_idapbase'>Base</marker>.
 "],taskNull,"",true];
+
+0 = player createDiaryRecord ["technical",["Repair Service",
+"
+<executeClose expression='createDialog ""RscDisplayVehicleRepair"";'>Call Repair Service</executeClose>.
+"],taskNull,"",true];
