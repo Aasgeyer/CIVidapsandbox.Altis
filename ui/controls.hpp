@@ -463,6 +463,7 @@ class TER_RscCombo
 };
 class TER_RscListBox
 {
+	idc = -1;
 	deletable = 0;
 	fade = 0;
 	access = 0;
